@@ -35,7 +35,7 @@
     .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; position: relative; }
 
     /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: var(--bg-main); }
     ::-webkit-scrollbar-thumb { background: #1f293d; border-radius: 4px; }
 
@@ -72,6 +72,7 @@
     .hero h1 span { color: #2575fc; }
     .hero p { color: var(--text-muted); font-size: 1rem; margin-bottom: 30px; max-width: 460px; line-height: 1.6; }
     
+    /* Stats Layout - Force Grid Style Everywhere */
     .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 40px; }
     .stat-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 16px; border-radius: 12px; transition: 0.3s; }
     .stat-card:hover { border-color: rgba(255,255,255,0.08); }
@@ -99,7 +100,7 @@
     .section-title { font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 40px; }
     .section-title span { color: var(--accent-blue); }
 
-    /* Bento Campaigns Grid (3 Columns Exact) */
+    /* Bento Campaigns Grid (3 Columns) */
     .campaigns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 100px; }
     .campaign-card {
       background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
@@ -116,20 +117,20 @@
     .card-icon-top { position: absolute; top: 24px; right: 24px; font-size: 1.1rem; color: var(--text-muted); }
     .chart-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 75px; pointer-events: none; }
 
-    /* Custom Smooth Glowing Borders based on Mockup colors */
+    /* Custom Smooth Glowing Borders */
     .card-blue { border-color: rgba(30, 98, 255, 0.15); box-shadow: inset 0 0 15px rgba(30, 98, 255, 0.03); }
     .card-purple { border-color: rgba(161, 0, 255, 0.15); box-shadow: inset 0 0 15px rgba(161, 0, 255, 0.03); }
     .card-cyan { border-color: rgba(0, 242, 255, 0.15); box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.03); }
     .card-amber { border-color: rgba(255, 170, 0, 0.15); box-shadow: inset 0 0 15px rgba(255, 170, 0, 0.03); }
     .card-green { border-color: rgba(0, 255, 170, 0.15); box-shadow: inset 0 0 15px rgba(0, 255, 170, 0.03); }
 
-    /* Card Image Integration (laptop_mahmoud.jpg & crossed_arms.jpg) */
+    /* Card Image Integration */
     .card-with-img { padding: 0; min-height: 250px; }
     .card-with-img img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; transition: transform 0.5s; }
     .card-with-img:hover img { transform: scale(1.04); }
     .card-overlay-content { position: relative; z-index: 2; width: 100%; height: 100%; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(0deg, rgba(2,3,6,0.95) 20%, rgba(2,3,6,0.4) 100%); min-height: 250px; }
 
-    /* Benchmark Progress Circle Circle (Card 08) */
+    /* Benchmark Progress Circle */
     .benchmark-box { display: flex; align-items: center; justify-content: space-between; gap: 15px; width: 100%; margin-top: auto; }
     .circle-progress { position: relative; width: 75px; height: 75px; flex-shrink: 0; }
     .circle-progress svg { width: 75px; height: 75px; transform: rotate(-90deg); }
@@ -151,7 +152,7 @@
     .skill-node i { font-size: 1.6rem; }
     .skill-node span { font-size: 0.8rem; font-weight: 500; color: #cbd5e1; }
 
-    /* About Me 3-Column Split Layout (With sitting_mahmoud.jpg) */
+    /* About Me 3-Column Split Layout */
     .about-section { display: grid; grid-template-columns: 0.96fr 0.85fr 1.19fr; gap: 40px; align-items: center; margin-bottom: 100px; }
     .about-center-img { position: relative; display: flex; justify-content: center; align-items: center; }
     
@@ -191,7 +192,7 @@
     }
     .btn-whatsapp:hover { background: #1ebd54; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
 
-    /* Floating WhatsApp Sticky Trigger (Bottom-Right corner) */
+    /* Floating WhatsApp Sticky Trigger */
     .whatsapp-sticky {
       position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
       background-color: var(--whatsapp-green); color: white; border-radius: 50%;
@@ -209,21 +210,52 @@
 
     footer { text-align: center; padding: 24px 0; color: #374151; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.02); }
 
-    /* Responsive Grid Engine */
-    @media (max-width: 1100px) {
-      .campaigns-grid { grid-template-columns: repeat(2, 1fr); }
-      .skills-grid { grid-template-columns: repeat(3, 1fr); }
-      .about-section { grid-template-columns: 1fr; gap: 35px; text-align: center; }
-      .timeline-item .desc { text-align: center; }
-    }
-    @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .hero p { margin: 0 auto 30px auto; }
-      .hero-stats { grid-template-columns: repeat(2, 1fr); }
-      .campaigns-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-panel { flex-direction: column; text-align: center; }
-      .panel-meta { justify-content: center; flex-direction: column; gap: 8px; }
+    /* 📱 PHONE REVOLUTION RESPONSIVE ENGINE (PRESERVING MOCKUP GRIDS FOR MOBILE) */
+    @media (max-width: 850px) {
+      /* Hero alignment */
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 40px 0; }
+      .hero p { margin: 0 auto 20px auto; }
+      
+      /* Maintain 4 Columns for Stats on Phone */
+      .hero-stats { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+      .stat-card { padding: 10px 4px; border-radius: 8px; }
+      .stat-card h3 { font-size: 1rem; }
+      .stat-card p { font-size: 0.55rem; }
+
+      /* Horizontal Slider for Campaigns: Keeps Desktop Look on Phone */
+      .campaigns-grid { 
+        display: flex; 
+        overflow-x: auto; 
+        gap: 16px; 
+        padding-bottom: 20px; 
+        margin-bottom: 60px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .campaign-card { 
+        min-width: 290px; 
+        max-width: 290px; 
+        scroll-snap-align: start; 
+      }
+      .card-overlay-content { min-height: 250px; }
+
+      /* Keep Grid layout for Skills on Mobile instead of breaking into rows */
+      .skills-grid { 
+        display: flex;
+        overflow-x: auto;
+        gap: 12px;
+        padding-bottom: 15px;
+        margin-bottom: 60px;
+        scroll-snap-type: x mandatory;
+      }
+      .skill-node { min-width: 110px; scroll-snap-align: start; padding: 16px 8px; }
+
+      /* About Section Layout alignment */
+      .about-section { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+      .timeline-item .desc { text-align: right; }
+      
+      .footer-panel { flex-direction: column; text-align: center; padding: 30px 20px; }
+      .panel-meta { justify-content: center; flex-direction: column; gap: 12px; }
       nav { display: none; }
     }
   </style>
@@ -249,16 +281,16 @@
       <h1>SCALING BRANDS WITH <br><span>DATA & PRECISION.</span></h1>
       <p>I don't just run ads. I build systems that print consistent results, merging deep analytics pipelines with conversion engineering.</p>
       
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
         <button class="btn-pill">View Case Studies <i class="fas fa-arrow-right"></i></button>
         <button class="btn-outline">Get In Touch</button>
       </div>
 
       <div class="hero-stats">
-        <div class="stat-card"><h3>61%</h3><p>Lower Cost Than Competitors</p></div>
-        <div class="stat-card"><h3>125+</h3><p>Conversions Achieved</p></div>
-        <div class="stat-card"><h3>Multiple</h3><p>Markets GCC & International</p></div>
-        <div class="stat-card"><h3>High ROI</h3><p>Data Driven Performance</p></div>
+        <div class="stat-card"><h3>61%</h3><p>Lower Cost</p></div>
+        <div class="stat-card"><h3>125+</h3><p>Conversions</p></div>
+        <div class="stat-card"><h3>Multiple</h3><p>Markets</p></div>
+        <div class="stat-card"><h3>High ROI</h3><p>Data Driven</p></div>
       </div>
     </div>
     <div class="hero-avatar-zone">
@@ -284,7 +316,7 @@
         <i class="fas fa-shopping-cart card-icon-top"></i>
         <div class="card-data">
           <div class="main-num">125</div>
-          <div class="sub-label">Completed Purchase Conversations ($1.36 Avg)</div>
+          <div class="sub-label">Completed Purchases ($1.36 Avg)</div>
         </div>
         <div class="chart-container"><canvas id="chart1"></canvas></div>
       </div>
