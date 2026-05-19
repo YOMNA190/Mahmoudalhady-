@@ -3,18 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mahmoud Elhady | Performance Marketer</title>
+  <title>Mahmoud Elhady | Performance Marketing Engineer</title>
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
     :root {
       --bg-main: #020306;
-      --card-bg: rgba(6, 9, 18, 0.6);
+      --card-bg: rgba(6, 9, 18, 0.65);
       --card-border: rgba(255, 255, 255, 0.03);
       --text-white: #ffffff;
       --text-muted: #71778e;
       --accent-blue: #1e62ff;
+      --neon-cyan: #00f2ff;
+      --neon-purple: #a100ff;
+      --whatsapp-green: #25D366;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,12 +34,17 @@
 
     .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; position: relative; }
 
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-main); }
+    ::-webkit-scrollbar-thumb { background: #1f293d; border-radius: 4px; }
+
     /* Nav Bar */
     header {
       display: flex; justify-content: space-between; align-items: center;
       padding: 24px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.02);
     }
-    .logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
+    .logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 0.5px; }
     .logo span { color: var(--text-muted); font-weight: 400; font-size: 0.85rem; }
     nav { display: flex; gap: 28px; }
     nav a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: 0.3s; }
@@ -52,47 +63,50 @@
     .btn-outline:hover { background: rgba(255,255,255,0.03); }
 
     /* Hero Section */
-    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 80px 0; }
+    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 60px 0; }
     .hero-badge {
       background: rgba(30, 98, 255, 0.06); border: 1px solid rgba(30, 98, 255, 0.15);
       color: #5185ff; padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-block; margin-bottom: 20px;
     }
-    .hero h1 { font-size: clamp(2.5rem, 4.5vw, 3.8rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+    .hero h1 { font-size: clamp(2.3rem, 4.2vw, 3.8rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
     .hero h1 span { color: #2575fc; }
     .hero p { color: var(--text-muted); font-size: 1rem; margin-bottom: 30px; max-width: 460px; line-height: 1.6; }
     
     .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 40px; }
-    .stat-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 16px; border-radius: 12px; }
+    .stat-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 16px; border-radius: 12px; transition: 0.3s; }
+    .stat-card:hover { border-color: rgba(255,255,255,0.08); }
     .stat-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 2px; }
     .stat-card p { font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; }
 
-    /* Hero Avatar Overlay */
+    /* Hero Image + Glow Pipeline */
     .hero-avatar-zone { position: relative; display: flex; justify-content: center; }
     .avatar-glow {
-      position: absolute; width: 100%; height: 100%;
-      background: radial-gradient(circle, rgba(30, 98, 255, 0.2) 0%, transparent 70%);
-      z-index: 1;
+      position: absolute; width: 110%; height: 110%; top: -5%;
+      background: radial-gradient(circle, rgba(30, 98, 255, 0.22) 0%, transparent 65%);
+      z-index: 1; pointer-events: none;
     }
-    .hero-avatar-zone img { width: 100%; max-width: 400px; border-radius: 20px; position: relative; z-index: 2; }
+    .hero-avatar-zone img { width: 100%; max-width: 420px; border-radius: 24px; position: relative; z-index: 2; object-fit: cover; }
 
-    /* Trusted Brands Row */
+    /* Brands Strip */
     .brands-strip {
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
       padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02);
       margin-bottom: 80px; opacity: 0.4; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px;
     }
 
-    /* Section Global Headers */
+    /* Section Taglines */
     .section-tag { color: var(--accent-blue); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; text-align: center; display: block; margin-bottom: 6px; }
     .section-title { font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 40px; }
     .section-title span { color: var(--accent-blue); }
 
-    /* Campaigns Bento Grid (3-Columns Exact as Mockup) */
+    /* Bento Campaigns Grid (3 Columns Exact) */
     .campaigns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 100px; }
     .campaign-card {
       background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
-      padding: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 240px;
+      padding: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 250px;
+      transition: transform 0.3s, border-color 0.3s;
     }
+    .campaign-card:hover { transform: translateY(-4px); }
     .campaign-card h6 { color: var(--text-muted); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
     .campaign-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; line-height: 1.3; max-width: 85%; }
     .campaign-card .card-data { margin-top: auto; z-index: 2; }
@@ -102,62 +116,104 @@
     .card-icon-top { position: absolute; top: 24px; right: 24px; font-size: 1.1rem; color: var(--text-muted); }
     .chart-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 75px; pointer-events: none; }
 
-    /* Specific Glow Borders for Cards */
-    .card-blue { border-color: rgba(30, 98, 255, 0.15); }
-    .card-purple { border-color: rgba(161, 0, 255, 0.15); }
-    .card-cyan { border-color: rgba(0, 242, 255, 0.15); }
-    .card-amber { border-color: rgba(255, 170, 0, 0.15); }
-    .card-green { border-color: rgba(0, 255, 170, 0.15); }
+    /* Custom Smooth Glowing Borders based on Mockup colors */
+    .card-blue { border-color: rgba(30, 98, 255, 0.15); box-shadow: inset 0 0 15px rgba(30, 98, 255, 0.03); }
+    .card-purple { border-color: rgba(161, 0, 255, 0.15); box-shadow: inset 0 0 15px rgba(161, 0, 255, 0.03); }
+    .card-cyan { border-color: rgba(0, 242, 255, 0.15); box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.03); }
+    .card-amber { border-color: rgba(255, 170, 0, 0.15); box-shadow: inset 0 0 15px rgba(255, 170, 0, 0.03); }
+    .card-green { border-color: rgba(0, 255, 170, 0.15); box-shadow: inset 0 0 15px rgba(0, 255, 170, 0.03); }
 
-    /* Special Circle Progress Box (Card 08) */
-    .benchmark-box { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
-    .circle-progress { position: relative; width: 70px; height: 70px; }
-    .circle-progress svg { width: 70px; height: 70px; transform: rotate(-90deg); }
+    /* Card Image Integration (laptop_mahmoud.jpg & crossed_arms.jpg) */
+    .card-with-img { padding: 0; min-height: 250px; }
+    .card-with-img img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; transition: transform 0.5s; }
+    .card-with-img:hover img { transform: scale(1.04); }
+    .card-overlay-content { position: relative; z-index: 2; width: 100%; height: 100%; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(0deg, rgba(2,3,6,0.95) 20%, rgba(2,3,6,0.4) 100%); min-height: 250px; }
+
+    /* Benchmark Progress Circle Circle (Card 08) */
+    .benchmark-box { display: flex; align-items: center; justify-content: space-between; gap: 15px; width: 100%; margin-top: auto; }
+    .circle-progress { position: relative; width: 75px; height: 75px; flex-shrink: 0; }
+    .circle-progress svg { width: 75px; height: 75px; transform: rotate(-90deg); }
     .circle-progress circle { fill: none; stroke-width: 6; }
     .circle-progress .bg-line { stroke: rgba(255,255,255,0.05); }
-    .circle-progress .bar-line { stroke: var(--accent-blue); stroke-dasharray: 220; stroke-dashoffset: 85; stroke-linecap: round; }
+    .circle-progress .bar-line { stroke: var(--accent-blue); stroke-dasharray: 220; stroke-dashoffset: 85; stroke-linecap: round; animation: progressLoad 2s ease-out forwards; }
     .circle-progress .pct-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.95rem; font-weight: 800; }
 
-    /* Expertise / What I Do Best */
+    @keyframes progressLoad { from { stroke-dashoffset: 220; } to { stroke-dashoffset: 85; } }
+
+    /* Expertise Grid */
     .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 100px; }
     .skill-node {
-      background: rgba(10, 14, 26, 0.8); border: 1px solid var(--card-border);
-      border-radius: 12px; padding: 20px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;
+      background: rgba(8, 11, 22, 0.7); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 22px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;
+      transition: all 0.3s;
     }
+    .skill-node:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-3px); background: rgba(12, 17, 34, 0.9); }
     .skill-node i { font-size: 1.6rem; }
     .skill-node span { font-size: 0.8rem; font-weight: 500; color: #cbd5e1; }
 
-    /* About Me 3-Column Split Layout */
-    .about-section { display: grid; grid-template-columns: 0.9fr 0.9fr 1.2fr; gap: 40px; align-items: center; margin-bottom: 100px; }
-    .about-center-img { position: relative; display: flex; justify-content: center; }
-    .about-center-img::before {
-      content: ''; position: absolute; width: 220px; height: 220px; border-radius: 50%;
-      border: 1px dashed rgba(30, 98, 255, 0.2); top: 50%; left: 50%; transform: translate(-50%, -50%);
-    }
-    .about-center-img img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 4px solid #0a0e1a; position: relative; z-index: 2; }
+    /* About Me 3-Column Split Layout (With sitting_mahmoud.jpg) */
+    .about-section { display: grid; grid-template-columns: 0.96fr 0.85fr 1.19fr; gap: 40px; align-items: center; margin-bottom: 100px; }
+    .about-center-img { position: relative; display: flex; justify-content: center; align-items: center; }
     
-    .timeline-list { display: flex; flex-direction: column; gap: 20px; }
-    .timeline-item { display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.85rem; }
-    .timeline-item .year { font-weight: 700; color: var(--accent-blue); }
-    .timeline-item .desc { color: var(--text-muted); text-align: right; }
+    /* Double Rotating Animated Glow Circles */
+    .about-center-img::before {
+      content: ''; position: absolute; width: 230px; height: 230px; border-radius: 50%;
+      border: 1px dashed rgba(30, 98, 255, 0.25); animation: spinCircle 20s linear infinite;
+    }
+    .about-center-img::after {
+      content: ''; position: absolute; width: 200px; height: 200px; border-radius: 50%;
+      border: 1px solid rgba(0, 242, 255, 0.1); box-shadow: 0 0 25px rgba(30, 98, 255, 0.1);
+    }
+    .about-center-img img { width: 175px; height: 175px; object-fit: cover; border-radius: 50%; border: 4px solid #020306; position: relative; z-index: 2; }
+    
+    @keyframes spinCircle { 100% { transform: rotate(360deg); } }
 
-    /* Contact Block */
+    .timeline-list { display: flex; flex-direction: column; gap: 18px; }
+    .timeline-item { display: flex; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.85rem; }
+    .timeline-item .year { font-weight: 700; color: var(--accent-blue); }
+    .timeline-item .desc { color: var(--text-muted); text-align: right; font-weight: 500; }
+
+    /* Contact panel + WhatsApp Embed Button */
     .footer-panel {
       background: rgba(6, 9, 18, 0.4); border: 1px solid var(--card-border); border-radius: 20px;
       padding: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; margin-bottom: 60px;
     }
     .panel-left h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
     .panel-left p { color: var(--text-muted); font-size: 0.9rem; }
-    .panel-meta { display: flex; gap: 24px; margin-top: 16px; font-size: 0.85rem; color: var(--text-muted); }
+    .panel-meta { display: flex; gap: 24px; margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); flex-wrap: wrap; }
     .panel-meta span i { color: var(--accent-blue); margin-right: 6px; }
+
+    /* Premium WhatsApp Direct Button inside layout */
+    .btn-whatsapp {
+      background: var(--whatsapp-green); color: #fff; padding: 12px 26px; border-radius: 50px;
+      text-decoration: none; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25); transition: 0.3s;
+    }
+    .btn-whatsapp:hover { background: #1ebd54; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
+
+    /* Floating WhatsApp Sticky Trigger (Bottom-Right corner) */
+    .whatsapp-sticky {
+      position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+      background-color: var(--whatsapp-green); color: white; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 999; text-decoration: none;
+      transition: 0.3s; animation: pulseWave 2s infinite;
+    }
+    .whatsapp-sticky:hover { transform: scale(1.08); background-color: #1ebd54; }
+    
+    @keyframes pulseWave {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
 
     footer { text-align: center; padding: 24px 0; color: #374151; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.02); }
 
-    /* Responsive adjustments */
-    @media (max-width: 1024px) {
+    /* Responsive Grid Engine */
+    @media (max-width: 1100px) {
       .campaigns-grid { grid-template-columns: repeat(2, 1fr); }
       .skills-grid { grid-template-columns: repeat(3, 1fr); }
-      .about-section { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+      .about-section { grid-template-columns: 1fr; gap: 35px; text-align: center; }
       .timeline-item .desc { text-align: center; }
     }
     @media (max-width: 768px) {
@@ -174,9 +230,13 @@
 </head>
 <body>
 
+<a href="https://wa.me/201009770363" class="whatsapp-sticky" target="_blank" title="Chat with Mahmoud">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
 <div class="container">
   <header>
-    <div class="logo"><i class="fas fa-chart-network" style="color:var(--accent-blue)"></i> MAHMOUD <span>ELHADY</span></div>
+    <div class="logo">MAHMOUD <span>ELHADY</span></div>
     <nav>
       <a href="#">Home</a><a href="#">About</a><a href="#">Case Studies</a><a href="#">Skills</a><a href="#">Results</a><a href="#">Contact</a>
     </nav>
@@ -203,7 +263,7 @@
     </div>
     <div class="hero-avatar-zone">
       <div class="avatar-glow"></div>
-      <img src="hero_portrait.jpg" alt="Mahmoud Elhady">
+      <img src="hero_portrait.jpg" alt="Mahmoud Elhady Performance Engineer">
     </div>
   </section>
 
@@ -294,29 +354,33 @@
         <div class="chart-container"><canvas id="chart6"></canvas></div>
       </div>
 
-      <div class="campaign-card card-purple">
-        <div>
-          <h6>07 . Seasonal</h6>
-          <h4>Ramadan & Seasonal Campaigns</h4>
+      <div class="campaign-card card-with-img card-purple">
+        <img src="laptop_mahmoud.jpg" alt="Mahmoud Working">
+        <div class="card-overlay-content">
+          <div>
+            <h6>07 . Real-time Optimization</h6>
+            <h4>Ramadan & Seasonal Engagement</h4>
+          </div>
+          <div class="card-data">
+            <div class="main-num">4,206</div>
+            <div class="sub-label" style="color: #e2e8f0;">Real Engagements (Cost: 0.088 EGP)</div>
+          </div>
         </div>
-        <i class="fas fa-moon card-icon-top"></i>
-        <div class="card-data">
-          <div class="main-num">4,206</div>
-          <div class="sub-label">Real Engagements (Cost: 0.088 EGP)</div>
-        </div>
-        <div class="chart-container"><canvas id="chart7"></canvas></div>
       </div>
 
-      <div class="campaign-card card-cyan" style="justify-content: center;">
-        <div class="benchmark-box">
+      <div class="campaign-card card-with-img card-cyan">
+        <img src="crossed_arms.jpg" alt="Mahmoud Elhady Media Buyer">
+        <div class="card-overlay-content">
           <div>
             <h6>08 . Benchmark</h6>
-            <h4 style="margin-bottom:4px;">Outperformance Advantage</h4>
-            <p style="color:var(--text-muted); font-size:0.75rem;">Reduced cost of results vs competitors</p>
+            <h4>Outperformance Edge</h4>
           </div>
-          <div class="circle-progress">
-            <svg><circle class="bg-line" cx="35" cy="35" r="30"></circle><circle class="bar-line" cx="35" cy="35" r="30"></circle></svg>
-            <div class="pct-text">61%</div>
+          <div class="benchmark-box">
+            <p style="color:#cbd5e1; font-size:0.75rem; max-width:55%;">Reduced acquisition cost vs competitors.</p>
+            <div class="circle-progress">
+              <svg><circle class="bg-line" cx="37" cy="37" r="32"></circle><circle class="bar-line" cx="37" cy="37" r="32"></circle></svg>
+              <div class="pct-text">61%</div>
+            </div>
           </div>
         </div>
       </div>
@@ -349,16 +413,16 @@
     <div class="about-section">
       <div>
         <h3 style="font-size:1.4rem; font-weight:800; margin-bottom:12px; line-height:1.3;">I Combine Marketing Intelligence With Technical Power.</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.6;">I'm not just a media buyer; I'm a performance engineer building integrated data architecture, deep server-side conversions, and high-yielding landing page systems from the ground up.</p>
+        <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.6;">I am a performance engineer building integrated data architecture, deep server-side tracking, and high-yielding landing page systems from the ground up.</p>
       </div>
       <div class="about-center-img">
-        <img src="sitting_mahmoud.jpg" alt="Mahmoud profile">
+        <img src="sitting_mahmoud.jpg" alt="Mahmoud Elhady Profile">
       </div>
       <div class="timeline-list">
         <div class="timeline-item"><span class="year">2018 - 2022</span><span class="desc">Cairo University Graduate</span></div>
-        <div class="timeline-item"><span class="year">2025</span><span class="desc">Intensive Media Buying Pro Training</span></div>
+        <div class="timeline-item"><span class="year">2025</span><span class="desc">Intensive Media Buying Training</span></div>
         <div class="timeline-item"><span class="year">+5 Years</span><span class="desc">Hands-on Media Buying Operations</span></div>
-        <div class="timeline-item"><span class="year">100+</span><span class="desc">Successful Campaigns Across Industries</span></div>
+        <div class="timeline-item"><span class="year">100+</span><span class="desc">Successful Brand Scalings</span></div>
       </div>
     </div>
   </section>
@@ -373,7 +437,10 @@
         <span><i class="fas fa-map-marker-alt"></i> Mansoura, Egypt</span>
       </div>
     </div>
-    <button class="btn-pill" style="padding:14px 36px">Work With Me <i class="fas fa-arrow-right"></i></button>
+    
+    <a href="https://wa.me/201009770363" class="btn-whatsapp" target="_blank">
+      <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+    </a>
   </section>
 
   <footer>
@@ -382,23 +449,23 @@
 </div>
 
 <script>
-  const createMockChart = (canvasId, lineColor) => {
-    const ctx = document.getElementById(canvasId).getContext('2d');
-    const gradient = ctx.createLinearGradient(0, 0, 0, 75);
-    gradient.addColorStop(0, lineColor + '25');
-    gradient.addColorStop(1, 'transparent');
+  const runWaveform = (id, color) => {
+    const ctx = document.getElementById(id).getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 0, 75);
+    grad.addColorStop(0, color + '25');
+    grad.addColorStop(1, 'transparent');
 
     new Chart(ctx, {
       type: 'line',
       data: {
         labels: [1, 2, 3, 4, 5, 6, 7],
         datasets: [{
-          data: [10, 18, 14, 25, 20, 32, 45].map(v => v + Math.random()*8),
-          borderColor: lineColor,
+          data: [12, 19, 15, 28, 22, 34, 48].map(n => n + Math.random()*6),
+          borderColor: color,
           borderWidth: 2,
           fill: true,
-          backgroundColor: gradient,
-          tension: 0.4,
+          backgroundColor: grad,
+          tension: 0.45,
           pointRadius: 0
         }]
       },
@@ -411,15 +478,13 @@
     });
   };
 
-  // Render 7 custom smooth color-coded waveform charts matching the image
   window.addEventListener('DOMContentLoaded', () => {
-    createMockChart('chart1', '#1e62ff');
-    createMockChart('chart2', '#a100ff');
-    createMockChart('chart3', '#00f2ff');
-    createMockChart('chart4', '#ffaa00');
-    createMockChart('chart5', '#00ffaa');
-    createMockChart('chart6', '#1e62ff');
-    createMockChart('chart7', '#a100ff');
+    runWaveform('chart1', '#1e62ff');
+    runWaveform('chart2', '#a100ff');
+    runWaveform('chart3', '#00f2ff');
+    runWaveform('chart4', '#ffaa00');
+    runWaveform('chart5', '#00ffaa');
+    runWaveform('chart6', '#1e62ff');
   });
 </script>
 </body>
