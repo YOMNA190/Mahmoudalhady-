@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Mahmoud Elhady | GLITCH PERFORMANCE</title>
-  <!-- Fonts -->
+  <title>Mahmoud Elhady | Performance Control Room</title>
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Three.js + Add-ons -->
+  <!-- Three.js Core -->
   <script type="importmap">
     {
       "imports": {
-        "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+        "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
       }
     }
   </script>
@@ -24,9 +23,9 @@
     }
 
     body {
+      background-color: #05070f;
       font-family: 'Inter', sans-serif;
-      background-color: #000000;
-      color: #ffffff;
+      color: #eef2ff;
       overflow-x: hidden;
     }
 
@@ -37,326 +36,301 @@
       width: 100%;
       height: 100%;
       z-index: 0;
-      pointer-events: none;
+      opacity: 0.5;
     }
 
     .ui-content {
       position: relative;
       z-index: 10;
-      pointer-events: auto;
-    }
-
-    /* Glitch text effect */
-    .glitch-text {
-      font-size: clamp(3rem, 10vw, 7rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      position: relative;
-      text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 255, 0.75);
-      animation: glitch 0.3s infinite;
-    }
-    @keyframes glitch {
-      0% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 255, 0.75); }
-      14% { text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 255, 0.75); }
-      15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.05em 0 rgba(0, 255, 255, 0.75); }
-      49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.05em 0 rgba(0, 255, 255, 0.75); }
-      50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 255, 0.75); }
-      99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 255, 0.75); }
-      100% { text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 255, 0.75); }
-    }
-
-    /* Random chaotic glass */
-    .chaos-card {
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(20px) brightness(1.2);
-      border-radius: 60px;
-      border: 2px solid rgba(0, 255, 255, 0.6);
-      transform: rotate(1deg);
-      transition: all 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
-    }
-    .chaos-card:hover {
-      transform: rotate(0deg) scale(1.02);
-      border-color: #ff00cc;
-      box-shadow: 0 0 35px rgba(255, 0, 204, 0.5);
-    }
-
-    /* floating images with distortion */
-    .distort-img {
-      transition: all 0.3s ease;
-      filter: grayscale(0.2) contrast(1.2);
-      clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
-    }
-    .distort-img:hover {
-      filter: grayscale(0) contrast(1.5) hue-rotate(10deg);
-      clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    }
-
-    /* Button insane */
-    .btn-melt {
-      background: linear-gradient(45deg, #ff0066, #00f2ff, #ff00cc);
-      border: none;
-      padding: 16px 40px;
-      border-radius: 0px 40px 0px 40px;
-      font-weight: 800;
-      font-size: 1.1rem;
-      transition: 0.2s;
-      animation: borderPulse 1s infinite;
-    }
-    @keyframes borderPulse {
-      0% { border-radius: 0px 40px 0px 40px; }
-      50% { border-radius: 40px 0px 40px 0px; }
-      100% { border-radius: 0px 40px 0px 40px; }
     }
 
     .container {
-      max-width: 1400px;
+      max-width: 1300px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 30px;
     }
-    @media (max-width: 768px) {
-      .container { padding: 0 20px; }
+
+    /* Glass panels */
+    .glass-panel {
+      background: rgba(12, 16, 32, 0.65);
+      backdrop-filter: blur(14px);
+      border-radius: 36px;
+      border: 1px solid rgba(0, 242, 255, 0.3);
+      transition: all 0.3s;
     }
+    .glass-panel:hover {
+      border-color: #00f2ff;
+      box-shadow: 0 0 25px rgba(0, 242, 255, 0.2);
+    }
+
+    /* Dashboard card style */
+    .dashboard-card {
+      background: rgba(5, 7, 15, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      border-left: 4px solid #00f2ff;
+      padding: 20px;
+    }
+
+    .stat-kpi {
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #00f2ff, #c084fc);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .btn-radar {
+      background: linear-gradient(95deg, #0077ff, #a855f7);
+      border: none;
+      padding: 12px 32px;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-radar-outline {
+      background: transparent;
+      border: 1px solid #00f2ff;
+      padding: 12px 32px;
+      border-radius: 40px;
+      color: #00f2ff;
+    }
+
+    /* campaign metrics row */
+    .metrics-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .metric-chip {
+      background: rgba(0, 242, 255, 0.1);
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+    }
+
     footer {
       text-align: center;
       padding: 40px;
-      border-top: 2px dashed cyan;
+      border-top: 1px solid rgba(0,242,255,0.2);
     }
   </style>
 </head>
 <body>
-
-<div class="ui-content">
-  <!-- HERO: chaotic stacked images + glitch headline -->
-  <div class="container" style="min-height: 100vh; display: flex; align-items: center; position: relative;">
-    <div style="position: absolute; top: 5%; left: 5%; z-index: 20;">
-      <div class="glitch-text">MEDIA BUYER</div>
-      <div class="glitch-text" style="font-size: 2rem; margin-top: -20px;">PERFORMANCE WEAPON</div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; width: 100%; align-items: center; margin-top: 120px;">
-      <div>
-        <div style="background: rgba(255,0,100,0.3); display: inline-block; padding: 6px 20px; border-radius: 20px 0 20px 0;">⚡ CBO TURKEY • GCC • REAL ESTATE</div>
-        <h1 style="font-size: clamp(2rem,6vw,4rem); margin: 20px 0;">Scaling Brands With <span style="color: #00f2ff; text-decoration: underline wavy #ff00cc;">Data & Precision.</span></h1>
-        <p style="font-size: 1.2rem; margin-bottom: 30px;">I build systems that print consistent results. <br> Python • HTML/CSS • Full Tracking</p>
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-          <button class="btn-melt" id="scrollBtn">VIEW CASE STUDIES →</button>
-          <button class="btn-melt" style="background: #222; border: 1px solid cyan;" id="contactBtn">WORK WITH ME</button>
+  <canvas id="bg-canvas"></canvas>
+  <div class="ui-content">
+    <!-- Hero / Dashboard Header -->
+    <div class="container" style="padding-top: 60px;">
+      <div class="glass-panel" style="padding: 30px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+        <div>
+          <div class="metric-chip" style="display: inline-block;">⚡ PERFORMANCE CONTROL ROOM</div>
+          <h1 style="margin-top: 15px;">Mahmoud Elhady<br><span style="font-size: 1.2rem;">Media Buyer & Performance Marketing Engineer</span></h1>
+          <div class="metrics-row">
+            <div class="metric-chip"><i class="fas fa-chart-line"></i> 61% lower cost</div>
+            <div class="metric-chip"><i class="fas fa-users"></i> 125+ conversions</div>
+            <div class="metric-chip"><i class="fas fa-globe"></i> GCC · Turkey · Egypt</div>
+          </div>
+          <div style="display: flex; gap: 15px; margin-top: 20px;">
+            <button class="btn-radar" id="scrollCampaigns">📊 View Campaigns</button>
+            <button class="btn-radar-outline" id="scrollContact">✉️ Contact</button>
+          </div>
         </div>
-        <!-- floating stats with glitch -->
-        <div style="display: flex; gap: 15px; margin-top: 50px; flex-wrap: wrap;">
-          <div class="chaos-card" style="padding: 15px; flex:1; text-align: center;"><span class="stat-num" data-target="61">0</span>%<br>Lower Cost</div>
-          <div class="chaos-card" style="padding: 15px; flex:1; text-align: center;"><span class="stat-num" data-target="125">0</span>+<br>Conversions</div>
-          <div class="chaos-card" style="padding: 15px; flex:1; text-align: center;"><span class="stat-num">GCC+TR</span><br>Multi-Market</div>
+        <!-- mini image gallery (using 4 photos) -->
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; max-width: 280px;">
+          <img src="hero_portrait.jpg" style="width: 80px; height: 80px; object-fit: cover; border-radius: 20px; border: 1px solid cyan;">
+          <img src="laptop_mahmoud.jpg" style="width: 80px; height: 80px; object-fit: cover; border-radius: 20px; border: 1px solid #a855f7;">
+          <img src="sitting_mahmoud.jpg" style="width: 80px; height: 80px; object-fit: cover; border-radius: 20px; border: 1px solid #ff44cc;">
+          <img src="crossed_arms.jpg" style="width: 80px; height: 80px; object-fit: cover; border-radius: 20px; border: 1px solid #00ffaa;">
         </div>
       </div>
-      <!-- RIGHT: insane image collage -->
-      <div style="position: relative; height: 550px; display: flex; justify-content: center; align-items: center;">
-        <img src="hero_portrait.jpg" style="width: 220px; height: 280px; object-fit: cover; border-radius: 30px; position: absolute; top: 0; left: 0; transform: rotate(-8deg); border: 3px solid cyan; z-index: 4;" class="distort-img">
-        <img src="laptop_mahmoud.jpg" style="width: 200px; height: 260px; object-fit: cover; border-radius: 30px; position: absolute; bottom: 10px; right: 0; transform: rotate(12deg); border: 3px solid #ff00cc; z-index: 3;" class="distort-img">
-        <img src="sitting_mahmoud.jpg" style="width: 190px; height: 250px; object-fit: cover; border-radius: 30px; position: absolute; top: 120px; right: 40px; transform: rotate(-3deg); border: 3px solid #00ffaa; z-index: 2;" class="distort-img">
-        <img src="crossed_arms.jpg" style="width: 210px; height: 270px; object-fit: cover; border-radius: 30px; position: absolute; bottom: 20px; left: 40px; transform: rotate(6deg); border: 3px solid #ff6600; z-index: 1;" class="distort-img">
-        <div style="position: absolute; bottom: -30px; left: 20%; background: rgba(0,0,0,0.8); backdrop-filter: blur(12px); padding: 12px 28px; border-radius: 30px; border-left: 4px solid cyan; font-weight: bold;">🐍 Python · CRO · Tracking</div>
+    </div>
+
+    <!-- Skills & Tools Grid (Dashboard style) -->
+    <div class="container" style="margin-top: 50px;">
+      <div class="glass-panel" style="padding: 30px;">
+        <h3 style="font-size: 1.6rem;"><i class="fas fa-microchip"></i> Tech Stack & Skills</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;">
+          <span class="metric-chip">Meta Ads</span> <span class="metric-chip">TikTok Ads</span> <span class="metric-chip">Performance Marketing</span>
+          <span class="metric-chip">Python</span> <span class="metric-chip">HTML/CSS</span> <span class="metric-chip">CapCut</span>
+          <span class="metric-chip">Photoshop</span> <span class="metric-chip">CRO</span> <span class="metric-chip">Funnel Building</span>
+          <span class="metric-chip">Conversion Tracking</span> <span class="metric-chip">Analytics</span> <span class="metric-chip">EasyOrder</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- TRUSTED BRANDS chaotic row -->
-  <div class="container" style="margin: 60px auto; text-align: center;">
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; font-size: 1.2rem; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 80px;">
-      <span><i class="fab fa-meta"></i> Meta</span> <span><i class="fab fa-tiktok"></i> TikTok</span> <span><i class="fab fa-google"></i> Google</span>
-      <span><i class="fas fa-chart-line"></i> EasyOrder</span> <span><i class="fas fa-cut"></i> CapCut</span> <span><i class="fab fa-shopify"></i> Shopify</span>
-    </div>
-  </div>
-
-  <!-- ABOUT section with glitched border -->
-  <div class="container">
-    <div class="chaos-card" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 50px; margin: 40px 0;">
-      <div>
-        <h2 style="font-size: 2.2rem; background: linear-gradient(45deg, cyan, magenta); background-clip: text; color: transparent;">I combine marketing intelligence with technical power.</h2>
-        <p style="margin-top: 20px;">Media buyer + Funnel engineer + Tracking architect. Python, HTML/CSS, server-side tracking, high-converting landing pages, creative production (CapCut/PS). I build complete performance systems.</p>
-      </div>
-      <div>
-        <h3>Full‑stack Performance DNA</h3>
-        <ul style="margin-top: 20px; list-style: none;">
-          <li>✓ Custom analytics (Python/GTM)</li>
-          <li>✓ Landing page builder & CRO</li>
-          <li>✓ Ad creative & video editing</li>
-          <li>✓ Multi-channel scaling (FB/TT/Google)</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- CAMPAIGNS SECTION: insane cards -->
-  <div class="container" id="cases">
-    <h2 style="font-size: 3rem; text-align: center; text-decoration: underline wavy cyan;">⚡ CAMPAIGNS THAT DELIVER ⚡</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 30px; margin: 60px 0;">
-      <div class="chaos-card" style="padding: 28px;"><i class="fas fa-chart-simple" style="font-size: 2rem; color:cyan;"></i><h3>Turkey E‑commerce CBO</h3><p><strong>125 purchase conversations</strong><br>Cost per purchase: <strong>$1.36</strong><br>Smart CBO scaling</p></div>
-      <div class="chaos-card" style="padding: 28px;"><i class="fab fa-facebook"></i><i class="fab fa-tiktok"></i><h3>GCC & Saudi Campaigns</h3><p>Facebook + TikTok · Dropshipping funnels · Targeting since 2020</p></div>
-      <div class="chaos-card" style="padding: 28px;"><i class="fas fa-building"></i><h3>Real Estate Lead Gen</h3><p>Agial Views, Pearl M Cam — high‑quality leads</p></div>
-      <div class="chaos-card" style="padding: 28px;"><i class="fas fa-briefcase"></i><h3>Company Formation (Gulf)</h3><p>Service value <strong>11,990 AED</strong> · Premium B2B leads</p></div>
-      <div class="chaos-card" style="padding: 28px;"><i class="fas fa-spa"></i><h3>Massage & Wellness</h3><p>Lead cost <strong>1.47 EGP</strong> · Ultra efficient</p></div>
-      <div class="chaos-card" style="padding: 28px;"><i class="fas fa-store"></i><h3>Local Business (Butcher)</h3><p>Sheikh Zayed & October — hyper‑local</p></div>
-      <div class="chaos-card" style="padding: 28px;"><i class="fas fa-moon"></i><h3>Ramadan Engagement</h3><p><strong>4,206 real engagements</strong> · 0.088 EGP each</p></div>
-      <div class="chaos-card" style="padding: 28px;"><i class="fas fa-trophy"></i><h3>Outperformance Benchmark</h3><p>Reduced costs by <strong>61%</strong> vs competitors</p></div>
-    </div>
-  </div>
-
-  <!-- Skills chaotic pills -->
-  <div class="container">
-    <h3 style="font-size: 2.2rem;">TECH & PERFORMANCE STACK</h3>
-    <div style="margin: 30px 0;">
-      <span class="chaos-card" style="display: inline-block; padding: 10px 24px; margin: 8px;">Meta Ads</span>
-      <span class="chaos-card" style="display: inline-block; padding: 10px 24px; margin: 8px;">TikTok Ads</span>
-      <span class="chaos-card" style="display: inline-block; padding: 10px 24px; margin: 8px;">Performance Marketing</span>
-      <span class="chaos-card" style="display: inline-block; padding: 10px 24px; margin: 8px;">Python</span>
-      <span class="chaos-card" style="display: inline-block; padding: 10px 24px; margin: 8px;">HTML/CSS</span>
-      <span class="chaos-card" style="display: inline-block; padding: 10px 24px; margin: 8px;">CapCut</span>
-      <span class="chaos-card" style="display: inline-block; padding: 10px 24px; margin: 8px;">CRO</span>
-    </div>
-  </div>
-
-  <!-- Process insane -->
-  <div class="container">
-    <div class="chaos-card" style="padding: 48px; text-align: center;">
-      <h2>⚙️ PROCESS: STRATEGY → TRACKING → CREATIVE → TEST → SCALE</h2>
-      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px;">
-        <div style="background:#000; padding: 12px 24px; border-radius: 20px;">🔍 RESEARCH</div>
-        <div style="background:#000; padding: 12px 24px; border-radius: 20px;">📡 TRACKING</div>
-        <div style="background:#000; padding: 12px 24px; border-radius: 20px;">🎨 CREATIVES</div>
-        <div style="background:#000; padding: 12px 24px; border-radius: 20px;">🧪 TEST</div>
-        <div style="background:#000; padding: 12px 24px; border-radius: 20px;">🚀 SCALE</div>
+    <!-- Campaign Showcase: detailed cards -->
+    <div class="container" id="campaignsSection" style="margin-top: 60px;">
+      <h2 style="font-size: 2.2rem; margin-bottom: 20px;"><i class="fas fa-chart-simple"></i> Live Campaign Performance</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 25px;">
+        <!-- Turkey -->
+        <div class="dashboard-card">
+          <div><i class="fas fa-chart-line" style="color:#00f2ff;"></i> <strong>Turkey E‑commerce CBO</strong></div>
+          <div class="stat-kpi">125 <span style="font-size:1rem;">purchase conv.</span></div>
+          <div>Cost per conv: <strong>$1.36</strong></div>
+          <div class="metric-chip" style="margin-top: 10px;">Smart CBO scaling</div>
+        </div>
+        <!-- GCC -->
+        <div class="dashboard-card">
+          <div><i class="fab fa-facebook"></i> <i class="fab fa-tiktok"></i> <strong>GCC & Saudi Campaigns</strong></div>
+          <div>Facebook + TikTok · Dropshipping funnels</div>
+          <div>Since 2020 · high ROAS</div>
+        </div>
+        <!-- Real Estate -->
+        <div class="dashboard-card">
+          <div><i class="fas fa-building"></i> <strong>Real Estate Lead Gen</strong></div>
+          <div>Agial Views, Pearl M Cam</div>
+          <div>High‑quality qualified leads</div>
+        </div>
+        <!-- Company Formation -->
+        <div class="dashboard-card">
+          <div><i class="fas fa-briefcase"></i> <strong>Company Formation (Gulf)</strong></div>
+          <div>Service value: <strong>11,990 AED</strong></div>
+          <div>Premium B2B leads</div>
+        </div>
+        <!-- Massage & Wellness -->
+        <div class="dashboard-card">
+          <div><i class="fas fa-spa"></i> <strong>Massage & Wellness Campaigns</strong></div>
+          <div>Lead cost: <strong>1.47 EGP</strong></div>
+          <div>Elsafa · Elhamady Cam</div>
+        </div>
+        <!-- Local Butcher -->
+        <div class="dashboard-card">
+          <div><i class="fas fa-store"></i> <strong>Local Business (Butcher)</strong></div>
+          <div>Sheikh Zayed & October</div>
+          <div>Hyper-local precision</div>
+        </div>
+        <!-- Ramadan -->
+        <div class="dashboard-card">
+          <div><i class="fas fa-moon"></i> <strong>Ramadan Engagement</strong></div>
+          <div><span class="stat-kpi" style="font-size:1.5rem;">4,206</span> engagements</div>
+          <div>Cost per engagement: 0.088 EGP</div>
+        </div>
+        <!-- Benchmark -->
+        <div class="dashboard-card">
+          <div><i class="fas fa-trophy"></i> <strong>Competitive Benchmark</strong></div>
+          <div>Reduced costs by <strong>61%</strong> vs market</div>
+          <div>Outperformance certified</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- CONTACT mayhem -->
-  <div class="container" id="contactBlock">
-    <div style="background: radial-gradient(circle at 10% 30%, #0b0e2a, #000); border-radius: 80px; padding: 70px 30px; text-align: center; margin: 60px 0; border: 2px dashed cyan;">
-      <h2 style="font-size: 2.8rem;">LET'S BUILD YOUR NEXT WINNING CAMPAIGN.</h2>
-      <p>If you’re looking for results, not excuses — let’s talk.</p>
-      <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin: 30px 0;">
-        <div><i class="fas fa-phone-alt"></i> +20 1009770363</div>
-        <div><i class="fas fa-envelope"></i> mahmoudalhady2020@gmail.com</div>
-        <div><i class="fas fa-map-marker-alt"></i> Mansoura, Egypt — Worldwide</div>
+    <!-- About / Strategy Section -->
+    <div class="container" style="margin-top: 60px;">
+      <div class="glass-panel" style="padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+        <div>
+          <h3><i class="fas fa-brain"></i> Strategic Intelligence + Technical Power</h3>
+          <p>I don’t just run ads. I build tracking systems (Python, HTML/CSS), high-converting landing pages, ad creatives, and analytics engineering. I turn data into predictable revenue.</p>
+          <div class="metrics-row" style="margin-top: 20px;">
+            <div class="metric-chip">Python Analytics</div>
+            <div class="metric-chip">Server-side tracking</div>
+            <div class="metric-chip">CRO expert</div>
+          </div>
+        </div>
+        <div>
+          <h3><i class="fas fa-chalkboard-user"></i> My Process</h3>
+          <ul style="list-style: none;">
+            <li>📊 1. Market Research & Data Analysis</li>
+            <li>🛠 2. Custom Tracking Setup (GTM/Python)</li>
+            <li>🎨 3. High-Converting Creatives + Landing Pages</li>
+            <li>🧪 4. A/B Testing & Continuous Optimization</li>
+            <li>🚀 5. Scale Winners & Maximize ROAS</li>
+          </ul>
+        </div>
       </div>
-      <button id="copyBtnFinal" class="btn-melt"><i class="far fa-copy"></i> COPY EMAIL</button>
     </div>
-  </div>
-  <footer>
-    <p>© 2025 Mahmoud Elhady — Glitch Performance | Data-driven Mayhem</p>
-  </footer>
-</div>
 
-<!-- Three.js Background: chaotic field -->
-<script type="module">
-  import * as THREE from 'three';
-  import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-  import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-  import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-  
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x010105);
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.set(0, 0, 20);
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  document.body.appendChild(renderer.domElement);
-  
-  const composer = new EffectComposer(renderer);
-  const renderPass = new RenderPass(scene, camera);
-  composer.addPass(renderPass);
-  const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.2, 0.3, 0.85);
-  bloomPass.threshold = 0.1;
-  bloomPass.strength = 0.8;
-  bloomPass.radius = 0.5;
-  composer.addPass(bloomPass);
-  
-  // chaotic particles
-  const particleCount = 3000;
-  const geom = new THREE.BufferGeometry();
-  const positions = new Float32Array(particleCount * 3);
-  for (let i = 0; i < particleCount; i++) {
-    positions[i*3] = (Math.random() - 0.5) * 200;
-    positions[i*3+1] = (Math.random() - 0.5) * 120;
-    positions[i*3+2] = (Math.random() - 0.5) * 100 - 50;
-  }
-  geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const particleMat = new THREE.PointsMaterial({ color: 0xff44aa, size: 0.15, transparent: true, blending: THREE.AdditiveBlending });
-  const particles = new THREE.Points(geom, particleMat);
-  scene.add(particles);
-  
-  // floating distorted sphere
-  const sphereGeo = new THREE.SphereGeometry(1.2, 64, 64);
-  const sphereMat = new THREE.MeshStandardMaterial({ color: 0x00ccff, emissive: 0x004466, roughness: 0.2, metalness: 0.9 });
-  const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-  sphere.position.set(-3, 2, -5);
-  scene.add(sphere);
-  
-  // crazy torus knot
-  const knotGeo = new THREE.TorusKnotGeometry(1.3, 0.28, 180, 24, 3, 4);
-  const knotMat = new THREE.MeshStandardMaterial({ color: 0xff00cc, emissive: 0x330033 });
-  const knot = new THREE.Mesh(knotGeo, knotMat);
-  knot.position.set(3, -1, -7);
-  scene.add(knot);
-  
-  const light = new THREE.PointLight(0xffffff, 1);
-  light.position.set(2, 3, 4);
-  scene.add(light);
-  const light2 = new THREE.PointLight(0xff44aa, 0.8);
-  light2.position.set(-2, 1, 5);
-  scene.add(light2);
-  
-  let time = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    time += 0.01;
-    particles.rotation.y = time * 0.05;
-    particles.rotation.x = Math.sin(time * 0.1) * 0.1;
-    knot.rotation.x = time * 0.6;
-    knot.rotation.y = time * 0.4;
-    sphere.rotation.x = time * 0.3;
-    sphere.rotation.z = time * 0.2;
-    composer.render();
-  }
-  animate();
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    <!-- Contact & Final CTA -->
+    <div class="container" id="contactPanel" style="margin: 70px auto;">
+      <div class="glass-panel" style="padding: 50px; text-align: center; background: radial-gradient(circle at 20% 30%, #0b0e20, #010105);">
+        <h2 style="font-size: 2rem;">Let’s build your next winning campaign.</h2>
+        <p style="margin: 20px auto; max-width: 500px;">If you’re looking for results, not excuses — let’s talk.</p>
+        <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin: 30px 0;">
+          <div><i class="fas fa-phone-alt"></i> +20 1009770363</div>
+          <div><i class="fas fa-envelope"></i> mahmoudalhady2020@gmail.com</div>
+          <div><i class="fas fa-map-marker-alt"></i> Mansoura, Egypt — Worldwide</div>
+        </div>
+        <button id="copyEmailButton" class="btn-radar"><i class="far fa-copy"></i> Copy Email</button>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2025 Mahmoud Elhady — Performance Control Room | Data-Driven Results</p>
+    </footer>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    // setup scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x02020a);
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 15);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    composer.setSize(window.innerWidth, window.innerHeight);
-  });
-</script>
+    renderer.setPixelRatio(window.devicePixelRatio);
 
-<script>
-  // counter
-  const counters = document.querySelectorAll('.stat-num');
-  const startCount = () => {
-    counters.forEach(c => {
-      const target = parseInt(c.getAttribute('data-target'));
-      if(!target) return;
-      let curr = 0;
-      const step = Math.ceil(target / 45);
-      const upd = () => {
-        curr += step;
-        if(curr < target) { c.innerText = curr; requestAnimationFrame(upd); }
-        else c.innerText = target;
-      };
-      upd();
+    // particles ring
+    const particleCount = 1800;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      positions[i*3] = (Math.random() - 0.5) * 120;
+      positions[i*3+1] = (Math.random() - 0.5) * 70;
+      positions[i*3+2] = (Math.random() - 0.5) * 50 - 20;
+    }
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particleMat = new THREE.PointsMaterial({ color: 0x44aaff, size: 0.12, transparent: true, blending: THREE.AdditiveBlending });
+    const particles = new THREE.Points(geometry, particleMat);
+    scene.add(particles);
+
+    const ambientLight = new THREE.AmbientLight(0x111122);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0x00aaff, 0.8);
+    pointLight.position.set(2, 3, 5);
+    scene.add(pointLight);
+
+    let time = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      time += 0.005;
+      particles.rotation.y = time * 0.1;
+      particles.rotation.x = Math.sin(time * 0.2) * 0.1;
+      camera.position.x += (0 - camera.position.x) * 0.04;
+      camera.position.y += (0 - camera.position.y) * 0.04;
+      camera.lookAt(0, 0, 0);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
     });
-  };
-  const obs = new IntersectionObserver((e) => { if(e[0].isIntersecting) startCount(); }, { threshold: 0.3 });
-  if(document.querySelector('.stat-num')) obs.observe(document.querySelector('.stat-num').parentElement);
-  
-  // scroll
-  document.getElementById('scrollBtn')?.addEventListener('click', () => document.getElementById('cases')?.scrollIntoView({ behavior: 'smooth' }));
-  document.getElementById('contactBtn')?.addEventListener('click', () => document.getElementById('contactBlock')?.scrollIntoView({ behavior: 'smooth' }));
-  document.getElementById('copyBtnFinal')?.addEventListener('click', () => {
-    navigator.clipboard.writeText('mahmoudalhady2020@gmail.com');
-    const btn = document.getElementById('copyBtnFinal');
-    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-    setTimeout(() => btn.innerHTML = '<i class="far fa-copy"></i> COPY EMAIL', 2000);
-  });
-</script>
+  </script>
+
+  <script>
+    // Smooth scroll
+    document.getElementById('scrollCampaigns')?.addEventListener('click', () => {
+      document.getElementById('campaignsSection')?.scrollIntoView({ behavior: 'smooth' });
+    });
+    document.getElementById('scrollContact')?.addEventListener('click', () => {
+      document.getElementById('contactPanel')?.scrollIntoView({ behavior: 'smooth' });
+    });
+    // Copy email
+    const copyBtn = document.getElementById('copyEmailButton');
+    copyBtn?.addEventListener('click', () => {
+      navigator.clipboard.writeText('mahmoudalhady2020@gmail.com');
+      copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+      setTimeout(() => { copyBtn.innerHTML = '<i class="far fa-copy"></i> Copy Email'; }, 2000);
+    });
+  </script>
 </body>
 </html>
