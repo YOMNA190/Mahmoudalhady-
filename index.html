@@ -1,599 +1,448 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahmoud Elhady — Performance Marketing Engineer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg: #05070a;
-            --card-bg: #0a0e17;
-            --accent-blue: #2563eb;
-            --accent-cyan: #06b6d4;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: rgba(255, 255, 255, 0.05);
-            --glow-blue: rgba(37, 99, 235, 0.2);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mahmoud Elhady | Cinematic Performance Marketing</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    body {
+      background-color: #010101;
+      font-family: 'Inter', sans-serif;
+      color: #f0f0f8;
+      overflow-x: hidden;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    /* custom cursor (cinematic) */
+    .cursor-glow {
+      width: 12px;
+      height: 12px;
+      background: #00f2ff;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: transform 0.08s linear;
+    }
+    .cursor-ring {
+      width: 48px;
+      height: 48px;
+      border: 1.5px solid rgba(0, 242, 255, 0.6);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      backdrop-filter: blur(4px);
+      transition: transform 0.12s ease, width 0.2s, height 0.2s;
+    }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-family: 'Barlow', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    /* quantum animated background */
+    .quantum-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 30% 20%, #0a0a1a, #000000);
+    }
+    .grid-overlay {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background-image: 
+        linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+      background-size: 55px 55px;
+      animation: drift 30s linear infinite;
+      opacity: 0.4;
+    }
+    @keyframes drift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(55px, 55px); }
+    }
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(5, 7, 10, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-        }
+    /* premium glassmorphism */
+    .glass-ultra {
+      background: rgba(6, 8, 18, 0.65);
+      backdrop-filter: blur(16px);
+      border-radius: 48px;
+      border: 1px solid rgba(0, 242, 255, 0.3);
+      box-shadow: 0 25px 40px -18px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+      transition: all 0.4s cubic-bezier(0.2,0.9,0.4,1.1);
+    }
+    .glass-ultra:hover {
+      border-color: #00f2ff;
+      box-shadow: 0 30px 45px -12px rgba(0,242,255,0.2);
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 24px;
-            letter-spacing: 1px;
-        }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 2;
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 24px; }
+      .cursor-glow, .cursor-ring { display: none; }
+      body { cursor: auto; }
+    }
 
-        .logo i {
-            color: var(--accent-blue);
-            font-size: 28px;
-        }
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .gradient-super {
+      background: linear-gradient(135deg, #FFFFFF, #00f2ff, #c084fc);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
+    /* hero layout */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 0 60px;
+    }
+    .hero-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    @media (max-width: 1000px) {
+      .hero-dual { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+    }
 
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
+    /* floating stats cards */
+    .stats-fleet {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin: 40px 0;
+    }
+    .stat-card-neon {
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 18px 22px;
+      flex: 1;
+      border-left: 3px solid #00f2ff;
+      transition: transform 0.2s;
+    }
+    .stat-number-big {
+      font-size: 2rem;
+      font-weight: 800;
+    }
 
-        .nav-links a:hover {
-            color: var(--text-main);
-        }
+    /* portrait with holographic effects */
+    .portrait-frame {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .portrait-photo {
+      width: 100%;
+      max-width: 440px;
+      border-radius: 42px;
+      box-shadow: 0 30px 40px rgba(0,0,0,0.6), 0 0 0 3px rgba(0,242,255,0.4);
+      transition: transform 0.3s;
+      object-fit: cover;
+      aspect-ratio: 4 / 5;
+    }
+    .hologram-tag {
+      position: absolute;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 60px;
+      padding: 10px 24px;
+      border: 1px solid cyan;
+      bottom: 15px;
+      right: 5px;
+      font-weight: 600;
+    }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            padding: 120px 5% 60px;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
+    /* campaign grid (premium cards) */
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 32px;
+      margin: 60px 0;
+    }
+    .camp-card {
+      background: rgba(8, 10, 20, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 38px;
+      padding: 28px;
+      border: 1px solid rgba(0,242,255,0.2);
+      transition: all 0.35s ease;
+    }
+    .camp-card:hover {
+      transform: translateY(-12px);
+      border-color: #00f2ff;
+      box-shadow: 0 20px 35px -10px rgba(0,242,255,0.3);
+    }
 
-        .hero-content {
-            flex: 1;
-            z-index: 2;
-        }
+    /* skill pills */
+    .skill-pill {
+      display: inline-block;
+      background: rgba(20, 24, 44, 0.8);
+      border-radius: 50px;
+      padding: 8px 28px;
+      margin: 8px;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+      border-bottom: 2px solid #c084fc;
+    }
 
-        .hero-label {
-            color: var(--accent-blue);
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            display: block;
-        }
+    .btn-lux {
+      background: linear-gradient(95deg, #0077ff, #a855f7);
+      border: none;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-outline-lux {
+      background: transparent;
+      border: 1.5px solid #00f2ff;
+      padding: 14px 36px;
+      border-radius: 50px;
+      color: #00f2ff;
+    }
 
-        .hero-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(60px, 10vw, 100px);
-            line-height: 0.9;
-            margin-bottom: 30px;
-        }
-
-        .hero-title span {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-description {
-            color: var(--text-muted);
-            font-size: 18px;
-            max-width: 500px;
-            margin-bottom: 40px;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
-
-        .hero-image img {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 20px;
-            box-shadow: 0 0 50px var(--glow-blue);
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .stat-item h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 36px;
-            color: var(--accent-cyan);
-        }
-
-        .stat-item p {
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Brands Section */
-        .brands {
-            padding: 60px 5%;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .brands-title {
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 40px;
-        }
-
-        .brands-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
-            flex-wrap: wrap;
-            opacity: 0.5;
-            filter: grayscale(1);
-        }
-
-        .brands-grid i {
-            font-size: 30px;
-        }
-
-        /* Results Section */
-        .results {
-            padding: 100px 5%;
-        }
-
-        .section-header {
-            margin-bottom: 60px;
-        }
-
-        .section-label {
-            color: var(--accent-blue);
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 60px;
-            margin-top: 10px;
-        }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .result-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px;
-            transition: 0.3s;
-        }
-
-        .result-card:hover {
-            border-color: var(--accent-blue);
-            transform: translateY(-10px);
-        }
-
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .result-num {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .result-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(37, 99, 235, 0.1);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-blue);
-        }
-
-        .result-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-
-        .result-metrics {
-            margin-bottom: 20px;
-        }
-
-        .metric {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .metric span:first-child {
-            color: var(--text-muted);
-        }
-
-        .result-img {
-            width: 100%;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        /* Expertise Section */
-        .expertise {
-            padding: 100px 5%;
-            background: rgba(255, 255, 255, 0.01);
-        }
-
-        .expertise-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-        }
-
-        .skill-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 30px 20px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .skill-card:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(6, 182, 212, 0.05);
-        }
-
-        .skill-card i {
-            font-size: 32px;
-            color: var(--accent-cyan);
-            margin-bottom: 15px;
-        }
-
-        .skill-card h4 {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* Process Section */
-        .process {
-            padding: 100px 5%;
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .process-step {
-            position: relative;
-            padding-left: 30px;
-        }
-
-        .process-step::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent-blue), transparent);
-        }
-
-        .process-step h4 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .process-step p {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* Footer */
-        footer {
-            padding: 100px 5% 50px;
-            border-top: 1px solid var(--border);
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 50px;
-        }
-
-        .footer-info h2 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .footer-contact {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .contact-item:hover {
-            color: var(--text-main);
-        }
-
-        .contact-item i {
-            width: 40px;
-            height: 40px;
-            background: var(--card-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-blue);
-        }
-
-        .footer-bottom {
-            margin-top: 80px;
-            padding-top: 30px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-muted);
-            font-size: 12px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 100px;
-            }
-            .hero-description {
-                margin: 0 auto 40px;
-            }
-            .hero-stats {
-                justify-content: center;
-            }
-            .nav-links {
-                display: none;
-            }
-        }
-    </style>
+    section {
+      margin: 120px 0;
+    }
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid rgba(0,242,255,0.2);
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <div class="logo">
-            <i class="fa-solid fa-m"></i>
-            MAHMOUD ELHADY
-        </div>
-        <div class="nav-links">
-            <a href="#results">Results</a>
-            <a href="#expertise">Expertise</a>
-            <a href="#process">Process</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <span class="hero-label">Media Buyer & Performance Marketer</span>
-            <h1 class="hero-title">SCALING BRANDS WITH <span>DATA & PRECISION.</span></h1>
-            <p class="hero-description">I don't just run ads. I build systems that print consistent results for e-commerce and lead generation brands.</p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <h3>61%</h3>
-                    <p>Lower Cost</p>
-                </div>
-                <div class="stat-item">
-                    <h3>125+</h3>
-                    <p>Conversions</p>
-                </div>
-                <div class="stat-item">
-                    <h3>High ROI</h3>
-                    <p>Data Driven</p>
-                </div>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img src="assets/hero_portrait.jpg" alt="Mahmoud Elhady">
-        </div>
-    </section>
+<div class="cursor-glow"></div>
+<div class="cursor-ring"></div>
+<div class="quantum-bg">
+  <div class="grid-overlay"></div>
+</div>
 
-    <section class="brands">
-        <h3 class="brands-title">Trusted by brands across multiple industries</h3>
-        <div class="brands-grid">
-            <i class="fa-brands fa-tiktok"></i>
-            <i class="fa-brands fa-meta"></i>
-            <i class="fa-brands fa-google"></i>
-            <i class="fa-brands fa-shopify"></i>
-            <i class="fa-solid fa-bolt"></i>
+<main>
+  <div class="container hero">
+    <div class="hero-dual">
+      <div>
+        <div style="display:inline-block; background:rgba(0,242,255,0.15); border-radius:40px; padding:6px 20px; margin-bottom:28px;">
+          ⚡ PERFORMANCE MARKETING ENGINEER — CBO TURKEY
         </div>
-    </section>
+        <h1>Scaling Brands With <span class="gradient-super">Data & Precision.</span></h1>
+        <p style="font-size:1.3rem; margin:28px 0 20px; color:#cbd5ff;">I don’t just run ads. I build systems that print consistent results.</p>
+        <div class="stats-fleet">
+          <div class="stat-card-neon"><span class="stat-number-big counter" data-target="61">0</span>%<br>Lower Cost Than Competitors</div>
+          <div class="stat-card-neon"><span class="stat-number-big counter" data-target="125">0</span>+<br>Conversions Achieved</div>
+          <div class="stat-card-neon"><span class="stat-number-big">GCC+TR</span><br>Multi-Market</div>
+          <div class="stat-card-neon"><span class="stat-number-big">ROI+</span><br>High ROI Systems</div>
+        </div>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <button class="btn-lux" id="scrollToCaseBtn">📈 View Case Studies</button>
+          <button class="btn-outline-lux" id="scrollToContactBtn">✨ Work With Me</button>
+        </div>
+      </div>
+      <div class="portrait-frame">
+        <!-- IMPORTANT: REPLACE 'portrait-placeholder.jpg' WITH YOUR ACTUAL IMAGE URL -->
+        <img class="portrait-photo" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=1000&fit=crop" alt="Mahmoud Elhady Portrait">
+        <div class="hologram-tag"><i class="fas fa-chart-line"></i> Python · Tracking · CRO</div>
+        <div style="position: absolute; top: 5%; left: -5%; background: rgba(0,0,0,0.6); border-radius: 32px; padding: 8px 18px;">
+          <i class="fas fa-database"></i> Live ROAS +217%
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <section id="results" class="results">
-        <div class="section-header">
-            <span class="section-label">Proven Results</span>
-            <h2 class="section-title">CAMPAIGNS THAT DELIVER RESULTS</h2>
-        </div>
-        <div class="results-grid">
-            <!-- Result 1 -->
-            <div class="result-card">
-                <div class="result-header">
-                    <span class="result-num">01</span>
-                    <div class="result-icon"><i class="fa-solid fa-cart-shopping"></i></div>
-                </div>
-                <h3 class="result-title">TURKEY E-COMMERCE CBO CAMPAIGN</h3>
-                <div class="result-metrics">
-                    <div class="metric"><span>Conversions</span><span>125</span></div>
-                    <div class="metric"><span>Cost per Conv.</span><span>$1.36</span></div>
-                </div>
-                <img src="assets/result_turkey.jpg" alt="Turkey Campaign Result" class="result-img">
-            </div>
-            <!-- Result 2 -->
-            <div class="result-card">
-                <div class="result-header">
-                    <span class="result-num">02</span>
-                    <div class="result-icon"><i class="fa-solid fa-spa"></i></div>
-                </div>
-                <h3 class="result-title">ELSAFA MASSAGE & WELLNESS</h3>
-                <div class="result-metrics">
-                    <div class="metric"><span>Leads</span><span>298</span></div>
-                    <div class="metric"><span>Cost per Lead</span><span>1.47 EGP</span></div>
-                </div>
-                <img src="assets/result_elsafa.jpg" alt="Elsafa Campaign Result" class="result-img">
-            </div>
-            <!-- Result 3 -->
-            <div class="result-card">
-                <div class="result-header">
-                    <span class="result-num">03</span>
-                    <div class="result-icon"><i class="fa-solid fa-moon"></i></div>
-                </div>
-                <h3 class="result-title">RAMADAN & SEASONAL CAMPAIGNS</h3>
-                <div class="result-metrics">
-                    <div class="metric"><span>Engagements</span><span>4,206</span></div>
-                    <div class="metric"><span>Cost per Eng.</span><span>0.088 EGP</span></div>
-                </div>
-                <img src="assets/result_ramadan.jpg" alt="Ramadan Campaign Result" class="result-img">
-            </div>
-        </div>
-    </section>
+  <!-- Trusted Brands Row -->
+  <div class="container" style="text-align:center; margin: 20px 0 40px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 48px; opacity: 0.7;">
+      <span><i class="fab fa-meta"></i> Meta Ads</span>
+      <span><i class="fab fa-tiktok"></i> TikTok Ads</span>
+      <span><i class="fab fa-google"></i> Google Ads</span>
+      <span><i class="fas fa-chart-line"></i> EasyOrder</span>
+      <span><i class="fas fa-cut"></i> CapCut</span>
+      <span><i class="fab fa-shopify"></i> Shopify</span>
+    </div>
+  </div>
 
-    <section id="expertise" class="expertise">
-        <div class="section-header">
-            <span class="section-label">Expertise</span>
-            <h2 class="section-title">WHAT I DO BEST</h2>
-        </div>
-        <div class="expertise-grid">
-            <div class="skill-card"><i class="fa-brands fa-meta"></i><h4>Meta Ads</h4></div>
-            <div class="skill-card"><i class="fa-brands fa-tiktok"></i><h4>TikTok Ads</h4></div>
-            <div class="skill-card"><i class="fa-solid fa-chart-line"></i><h4>Performance Marketing</h4></div>
-            <div class="skill-card"><i class="fa-solid fa-code"></i><h4>Conversion Tracking</h4></div>
-            <div class="skill-card"><i class="fa-solid fa-filter"></i><h4>Funnel Building</h4></div>
-            <div class="skill-card"><i class="fa-brands fa-python"></i><h4>Python</h4></div>
-            <div class="skill-card"><i class="fa-brands fa-html5"></i><h4>HTML/CSS</h4></div>
-            <div class="skill-card"><i class="fa-solid fa-pen-nib"></i><h4>Photoshop</h4></div>
-        </div>
-    </section>
+  <!-- About Section (strategic + tech) -->
+  <div class="container">
+    <div class="glass-ultra" style="padding: 54px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+      <div>
+        <h2 class="gradient-super" style="font-size: 2.3rem;">I combine marketing intelligence with technical power.</h2>
+        <p style="margin-top: 24px; line-height: 1.5;">I'm not just a media buyer — I'm a performance marketer who builds the entire system behind the campaign. From tracking and data engineering to creative production and high-converting landing pages — I build, test, optimize, and scale what actually works.</p>
+      </div>
+      <div>
+        <h3 style="font-size: 1.8rem;">Full‑stack Performance DNA</h3>
+        <ul style="margin-top: 24px; list-style: none;">
+          <li><i class="fas fa-check-circle" style="color:#00f2ff;"></i> Python analytics & server-side tracking</li>
+          <li><i class="fas fa-check-circle" style="color:#00f2ff;"></i> Landing page builder & CRO expert</li>
+          <li><i class="fas fa-check-circle" style="color:#00f2ff;"></i> Creative production: CapCut, Photoshop</li>
+          <li><i class="fas fa-check-circle" style="color:#00f2ff;"></i> Multi-channel scaling (Meta/TikTok/Google)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
-    <section id="process" class="process">
-        <div class="section-header">
-            <span class="section-label">My Process</span>
-            <h2 class="section-title">HOW I DRIVE RESULTS</h2>
-        </div>
-        <div class="process-grid">
-            <div class="process-step">
-                <h4>Strategy</h4>
-                <p>Market research & data analysis to find your winning angle.</p>
-            </div>
-            <div class="process-step">
-                <h4>Tracking</h4>
-                <p>Custom tracking & analytics setup for 100% transparency.</p>
-            </div>
-            <div class="process-step">
-                <h4>Creative</h4>
-                <p>High-converting ad creatives that stop the scroll.</p>
-            </div>
-            <div class="process-step">
-                <h4>Scaling</h4>
-                <p>Scale winners & maximize ROAS with precision.</p>
-            </div>
-        </div>
-    </section>
+  <!-- CASE STUDIES (exact numbers from brief) -->
+  <div class="container" id="caseStudiesSection">
+    <h2 class="gradient-super" style="font-size: 3rem; margin-bottom: 20px;">Campaigns that deliver results</h2>
+    <div class="campaign-grid">
+      <div class="camp-card"><i class="fas fa-chart-simple" style="font-size: 2rem; color:#00f2ff;"></i><h3>Turkey E‑commerce CBO</h3><p><strong>125 completed purchase conversations</strong><br>Cost per purchase conversation: <strong>$1.36</strong><br>Smart CBO scaling strategy</p></div>
+      <div class="camp-card"><i class="fab fa-facebook"></i><i class="fab fa-tiktok"></i><h3>GCC & Saudi Campaigns</h3><p>Facebook + TikTok campaigns · Dropshipping funnels · GCC targeting since 2020</p></div>
+      <div class="camp-card"><i class="fas fa-building"></i><h3>Real Estate Lead Generation</h3><p>Projects: Agial Views, Pearl M Cam · High‑quality qualified leads</p></div>
+      <div class="camp-card"><i class="fas fa-briefcase"></i><h3>Company Formation (Gulf)</h3><p>Service value: <strong>11,990 AED</strong> · High-quality B2B lead generation</p></div>
+      <div class="camp-card"><i class="fas fa-spa"></i><h3>Massage & Wellness Campaigns</h3><p>Lead cost as low as <strong>1.47 EGP</strong> · Hyper-efficient</p></div>
+      <div class="camp-card"><i class="fas fa-store"></i><h3>Local Business Campaigns</h3><p>Butcher campaigns in Sheikh Zayed & October · Hyper-local precision</p></div>
+      <div class="camp-card"><i class="fas fa-moon"></i><h3>Ramadan & Seasonal Campaigns</h3><p><strong>4,206 Real Engagements</strong> · Engagement cost only <strong>0.088 EGP</strong></p></div>
+      <div class="camp-card"><i class="fas fa-trophy"></i><h3>Outperformance Benchmark</h3><p>Reduced cost of results by <strong>61%</strong> compared to competitors in the market</p></div>
+    </div>
+  </div>
 
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-info">
-                <h2>LET'S BUILD YOUR NEXT WINNING CAMPAIGN.</h2>
-                <p>If you're looking for results, not excuses — let's talk.</p>
-            </div>
-            <div class="footer-contact">
-                <a href="tel:+201009770363" class="contact-item"><i class="fa-solid fa-phone"></i> +20 1009770363</a>
-                <a href="mailto:mahmoudalhady2020@gmail.com" class="contact-item"><i class="fa-solid fa-envelope"></i> mahmoudalhady2020@gmail.com</a>
-                <div class="contact-item"><i class="fa-solid fa-location-dot"></i> Mansoura, Egypt / Worldwide</div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Mahmoud Elhady. All Rights Reserved.</p>
-            <p>Performance Marketing Engineer</p>
-        </div>
-    </footer>
+  <!-- Skills + Tools -->
+  <div class="container">
+    <h3 class="gradient-super" style="font-size: 2rem;">Tech & Performance Stack</h3>
+    <div style="margin: 30px 0;">
+      <span class="skill-pill">Meta Ads</span> <span class="skill-pill">TikTok Ads</span> <span class="skill-pill">Performance Marketing</span>
+      <span class="skill-pill">Funnel Building</span> <span class="skill-pill">Conversion Tracking</span> <span class="skill-pill">Python</span>
+      <span class="skill-pill">HTML/CSS</span> <span class="skill-pill">Photoshop</span> <span class="skill-pill">CapCut</span>
+      <span class="skill-pill">Analytics</span> <span class="skill-pill">CRO</span> <span class="skill-pill">Landing Pages</span>
+    </div>
+  </div>
+
+  <!-- Process steps + Contact -->
+  <div class="container">
+    <div class="glass-ultra" style="padding: 52px; text-align: center;">
+      <h2 class="gradient-super">⚙️ My Process: Strategy → Tracking → Creative → Testing → Scaling</h2>
+      <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 40px 0 20px;">
+        <div style="background: #00000066; border-radius: 40px; padding: 12px 28px;">📊 Market Research & Data Analysis</div>
+        <div style="background: #00000066; border-radius: 40px; padding: 12px 28px;">🛠 Custom Tracking Setup</div>
+        <div style="background: #00000066; border-radius: 40px; padding: 12px 28px;">🎨 High-Converting Creatives</div>
+        <div style="background: #00000066; border-radius: 40px; padding: 12px 28px;">🧪 A/B Testing & Optimizations</div>
+        <div style="background: #00000066; border-radius: 40px; padding: 12px 28px;">🚀 Scale Winners & Maximize ROAS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="container" id="contactBlock">
+    <div style="background: radial-gradient(ellipse at 30% 40%, #0b0e20, #020108); border-radius: 60px; padding: 70px 30px; text-align: center; margin: 80px 0;">
+      <h2 class="gradient-super" style="font-size: 2.6rem;">Let’s build your next winning campaign.</h2>
+      <p style="margin: 24px auto; max-width: 600px;">If you’re looking for results, not excuses — let’s talk.</p>
+      <div style="display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; margin: 30px 0;">
+        <div><i class="fas fa-phone-alt"></i> +20 1009770363</div>
+        <div><i class="fas fa-envelope"></i> mahmoudalhady2020@gmail.com</div>
+        <div><i class="fas fa-map-marker-alt"></i> Mansoura, Egypt — Available Worldwide</div>
+      </div>
+      <button id="finalCopyBtn" class="btn-lux" style="background: #00a3ff;"><i class="far fa-copy"></i> Copy Email Address</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Mahmoud Elhady — Precision Performance | Data-driven Systems | Elite ROI</p>
+    <p style="margin-top: 12px; font-size: 0.8rem;"><i class="fas fa-code"></i> Built with Python intelligence & cinematic engineering</p>
+  </footer>
+</main>
+
+<script>
+  // GSAP + counter + smooth scroll
+  gsap.registerPlugin(ScrollTrigger);
+
+  // counter animation
+  const counters = document.querySelectorAll('.counter');
+  const startCounters = () => {
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target'));
+      let current = 0;
+      const step = Math.ceil(target / 45);
+      const update = () => {
+        current += step;
+        if(current < target) {
+          counter.innerText = current;
+          requestAnimationFrame(update);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      update();
+    });
+  };
+  const heroStatsObserver = new IntersectionObserver((entries) => {
+    if(entries[0].isIntersecting) startCounters();
+  }, { threshold: 0.3 });
+  if(document.querySelector('.stats-fleet')) heroStatsObserver.observe(document.querySelector('.stats-fleet'));
+
+  // custom cursor movement
+  const cursorDot = document.querySelector('.cursor-glow');
+  const cursorRing = document.querySelector('.cursor-ring');
+  document.addEventListener('mousemove', (e) => {
+    cursorDot.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
+    cursorRing.style.transform = `translate(${e.clientX - 24}px, ${e.clientY - 24}px)`;
+  });
+  // hover effect on buttons
+  document.querySelectorAll('button, .camp-card, .glass-ultra').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursorRing.style.width = '70px';
+      cursorRing.style.height = '70px';
+      cursorRing.style.borderColor = '#ff00e6';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursorRing.style.width = '48px';
+      cursorRing.style.height = '48px';
+      cursorRing.style.borderColor = 'rgba(0, 242, 255, 0.6)';
+    });
+  });
+
+  // scroll animations
+  gsap.utils.toArray('.camp-card, .glass-ultra, .stat-card-neon, .portrait-frame, .skill-pill').forEach(el => {
+    gsap.from(el, {
+      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out'
+    });
+  });
+
+  // buttons scrolling
+  document.getElementById('scrollToCaseBtn')?.addEventListener('click', () => {
+    document.getElementById('caseStudiesSection')?.scrollIntoView({ behavior: 'smooth' });
+  });
+  document.getElementById('scrollToContactBtn')?.addEventListener('click', () => {
+    document.getElementById('contactBlock')?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // copy email
+  const copyEmailBtn = document.getElementById('finalCopyBtn');
+  copyEmailBtn?.addEventListener('click', () => {
+    navigator.clipboard.writeText('mahmoudalhady2020@gmail.com');
+    copyEmailBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(() => { copyEmailBtn.innerHTML = '<i class="far fa-copy"></i> Copy Email Address'; }, 2000);
+  });
+</script>
 </body>
 </html>
