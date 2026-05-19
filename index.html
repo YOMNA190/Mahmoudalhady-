@@ -2,594 +2,572 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Mahmoud Elhady | Performance Marketing Engineer — Next Level</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahmoud Elhady | Performance Marketing Engineer</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
-      }
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     :root {
-      --bg-deep: #010106;
-      --glass-bg: rgba(8, 12, 24, 0.65);
-      --border-glow: rgba(0, 242, 255, 0.25);
-      --blue-electric: #0066ff;
-      --cyan-neon: #00f2ff;
-      --purple-neon: #a020f0;
-      --text-muted: #8e9bb5;
+      --bg-main: #020306;
+      --card-bg: rgba(6, 9, 18, 0.65);
+      --card-border: rgba(255, 255, 255, 0.03);
+      --text-white: #ffffff;
+      --text-muted: #71778e;
+      --accent-blue: #1e62ff;
+      --neon-cyan: #00f2ff;
+      --neon-purple: #a100ff;
+      --whatsapp-green: #25D366;
     }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', sans-serif;
-      background-color: var(--bg-deep);
-      color: #fff;
+      background-color: var(--bg-main);
+      color: var(--text-white);
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Canvas 3D background */
-    #canvas-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; position: relative; }
 
-    .container {
-      position: relative;
-      z-index: 10;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 28px;
-    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-main); }
+    ::-webkit-scrollbar-thumb { background: #1f293d; border-radius: 4px; }
 
-    /* Glassmorphism Premium */
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      border-radius: 32px;
-      border: 1px solid var(--border-glow);
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
-    .glass-card:hover {
-      border-color: var(--cyan-neon);
-      transform: translateY(-3px);
-      box-shadow: 0 20px 40px -12px rgba(0, 242, 255, 0.2);
-    }
-
-    /* Header */
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.03);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.02);
     }
-    .logo {
-      font-weight: 900;
-      font-size: 1.2rem;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #fff, var(--cyan-neon));
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
+    .logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 0.5px; }
+    .logo span { color: var(--text-muted); font-weight: 400; font-size: 0.85rem; }
+    nav { display: flex; gap: 28px; }
+    nav a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: 0.3s; }
+    nav a:hover { color: var(--text-white); }
+    
+    .btn-pill {
+      background: var(--accent-blue); color: #fff; padding: 10px 24px;
+      border-radius: 50px; border: none; font-weight: 600; font-size: 0.85rem;
+      cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s;
     }
-    nav {
-      display: flex;
-      gap: 32px;
-    }
-    nav a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-    nav a:hover { color: var(--cyan-neon); }
-
-    /* Buttons */
-    .btn-primary {
-      background: linear-gradient(95deg, var(--blue-electric), var(--purple-neon));
-      border: none;
-      padding: 12px 28px;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+    .btn-pill:hover { background: #0c4ee6; box-shadow: 0 0 20px rgba(30, 98, 255, 0.4); }
     .btn-outline {
-      background: transparent;
-      border: 1px solid rgba(0, 242, 255, 0.6);
-      padding: 12px 28px;
-      border-radius: 40px;
-      color: var(--cyan-neon);
-      font-weight: 600;
+      background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #fff;
+      padding: 10px 24px; border-radius: 50px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.3s;
     }
-    .btn-primary:hover, .btn-outline:hover { transform: scale(1.02); }
+    .btn-outline:hover { background: rgba(255,255,255,0.03); }
 
-    /* Hero Section */
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 50px;
-      align-items: center;
-      padding: 70px 0 50px;
-    }
+    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 60px 0; }
     .hero-badge {
-      display: inline-block;
-      background: rgba(0, 242, 255, 0.1);
-      padding: 6px 18px;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: var(--cyan-neon);
-      margin-bottom: 20px;
+      background: rgba(30, 98, 255, 0.06); border: 1px solid rgba(30, 98, 255, 0.15);
+      color: #5185ff; padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-block; margin-bottom: 20px;
     }
-    .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+    .hero h1 { font-size: clamp(2.3rem, 4.2vw, 3.8rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.02em; }
+    .hero h1 span { color: #2575fc; }
+    .hero p { color: var(--text-muted); font-size: 1rem; margin-bottom: 30px; max-width: 460px; line-height: 1.6; }
+    
+    .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 40px; }
+    .stat-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 16px; border-radius: 12px; transition: 0.3s; }
+    .stat-card:hover { border-color: rgba(255,255,255,0.08); }
+    .stat-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 2px; }
+    .stat-card p { font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; }
+
+    .hero-avatar-zone { position: relative; display: flex; justify-content: center; }
+    .avatar-glow {
+      position: absolute; width: 110%; height: 110%; top: -5%;
+      background: radial-gradient(circle, rgba(30, 98, 255, 0.22) 0%, transparent 65%);
+      z-index: 1; pointer-events: none;
     }
-    .hero h1 span { color: var(--cyan-neon); }
-    .hero p {
-      color: var(--text-muted);
-      margin: 24px 0;
-      max-width: 460px;
+    .hero-avatar-zone img { width: 100%; max-width: 420px; border-radius: 24px; position: relative; z-index: 2; object-fit: cover; }
+
+    .brands-strip {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+      padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255,255,255,0.02);
+      margin-bottom: 80px; opacity: 0.4; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px;
     }
 
-    /* Stats Grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin: 30px 0;
-    }
-    .stat-item {
-      background: rgba(0,0,0,0.4);
-      border-radius: 20px;
-      padding: 14px 8px;
-      text-align: center;
-      border-left: 2px solid var(--cyan-neon);
-    }
-    .stat-number {
-      font-size: 1.7rem;
-      font-weight: 800;
-    }
+    .section-tag { color: var(--accent-blue); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; text-align: center; display: block; margin-bottom: 6px; }
+    .section-title { font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 40px; }
+    .section-title span { color: var(--accent-blue); }
 
-    /* Hero Image */
-    .hero-img {
-      position: relative;
-      display: flex;
-      justify-content: center;
+    /* Bento Grid With Click Indicator Hint */
+    .campaigns-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 100px; }
+    .campaign-card {
+      background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
+      padding: 24px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 250px;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; cursor: pointer;
     }
-    .hero-img img {
-      width: 100%;
-      max-width: 380px;
-      border-radius: 32px;
-      border: 2px solid rgba(0, 242, 255, 0.4);
-      box-shadow: 0 30px 40px -15px black;
-      object-fit: cover;
-    }
-    .floating-badge {
-      position: absolute;
-      bottom: 10px;
-      right: -10px;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(12px);
-      padding: 8px 20px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      border-left: 3px solid var(--cyan-neon);
-    }
+    .campaign-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .campaign-card h6 { color: var(--text-muted); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+    .campaign-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; line-height: 1.3; max-width: 85%; }
+    
+    /* Interactive Tap Badge hint for User Experience */
+    .click-hint { position: absolute; top: 24px; left: 24px; font-size: 0.65rem; color: var(--accent-blue); background: rgba(30,98,255,0.1); padding: 2px 8px; border-radius: 4px; opacity: 0; transition: 0.3s; }
+    .campaign-card:hover .click-hint { opacity: 1; }
 
-    /* Brands Strip */
-    .brands {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 30px;
-      padding: 30px 0;
-      margin: 40px 0;
-      border-top: 1px solid rgba(255,255,255,0.03);
-      border-bottom: 1px solid rgba(255,255,255,0.03);
-      opacity: 0.6;
-    }
+    .campaign-card .card-data { margin-top: auto; z-index: 2; }
+    .campaign-card .main-num { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+    .campaign-card .sub-label { color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; }
+    
+    .card-icon-top { position: absolute; top: 24px; right: 24px; font-size: 1.1rem; color: var(--text-muted); }
+    .chart-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 75px; pointer-events: none; opacity: 0.85; }
 
-    /* Section Titles */
-    .section-tag {
-      color: var(--cyan-neon);
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      text-align: center;
-      display: block;
-      margin-bottom: 6px;
-    }
-    .section-title {
-      font-size: 2rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 45px;
-    }
-    .section-title span { color: var(--cyan-neon); }
+    .card-blue { border-color: rgba(30, 98, 255, 0.15); }
+    .card-purple { border-color: rgba(161, 0, 255, 0.15); }
+    .card-cyan { border-color: rgba(0, 242, 255, 0.15); }
+    .card-amber { border-color: rgba(255, 170, 0, 0.15); }
+    .card-green { border-color: rgba(0, 255, 170, 0.15); }
 
-    /* Campaign Grid */
-    .campaign-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 24px;
-      margin-bottom: 80px;
-    }
-    .camp-card {
-      background: rgba(6, 9, 18, 0.7);
-      backdrop-filter: blur(8px);
-      border-radius: 28px;
-      padding: 22px;
-      border: 1px solid rgba(0, 242, 255, 0.15);
+    .card-with-img { padding: 0; min-height: 250px; }
+    .card-with-img img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; transition: transform 0.5s; }
+    .card-with-img:hover img { transform: scale(1.04); }
+    .card-overlay-content { position: relative; z-index: 2; width: 100%; height: 100%; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(0deg, rgba(2,3,6,0.95) 20%, rgba(2,3,6,0.4) 100%); min-height: 250px; }
+
+    .benchmark-box { display: flex; align-items: center; justify-content: space-between; gap: 15px; width: 100%; margin-top: auto; }
+    .circle-progress { position: relative; width: 75px; height: 75px; flex-shrink: 0; }
+    .circle-progress svg { width: 75px; height: 75px; transform: rotate(-90deg); }
+    .circle-progress circle { fill: none; stroke-width: 6; }
+    .circle-progress .bg-line { stroke: rgba(255,255,255,0.05); }
+    .circle-progress .bar-line { stroke: var(--accent-blue); stroke-dasharray: 220; stroke-dashoffset: 85; stroke-linecap: round; }
+    .circle-progress .pct-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.95rem; font-weight: 800; }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 100px; }
+    .skill-node {
+      background: rgba(8, 11, 22, 0.7); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 22px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;
       transition: all 0.3s;
     }
-    .camp-card:hover {
-      border-color: var(--cyan-neon);
-      transform: translateY(-6px);
-    }
-    .camp-card .icon {
-      font-size: 1.8rem;
-      color: var(--cyan-neon);
-      margin-bottom: 12px;
-    }
-    .camp-card h4 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .camp-metric {
-      font-size: 1.4rem;
-      font-weight: 800;
-      margin: 12px 0 4px;
-    }
-    .chart-mini {
-      height: 50px;
-      margin-top: 16px;
-    }
+    .skill-node:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-3px); background: rgba(12, 17, 34, 0.9); }
+    .skill-node i { font-size: 1.6rem; }
+    .skill-node span { font-size: 0.8rem; font-weight: 500; color: #cbd5e1; }
 
-    /* Skills Node */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 14px;
-      margin-bottom: 80px;
+    .about-section { display: grid; grid-template-columns: 0.96fr 0.85fr 1.19fr; gap: 40px; align-items: center; margin-bottom: 100px; }
+    .about-center-img { position: relative; display: flex; justify-content: center; align-items: center; }
+    .about-center-img::before {
+      content: ''; position: absolute; width: 230px; height: 230px; border-radius: 50%;
+      border: 1px dashed rgba(30, 98, 255, 0.25); animation: spinCircle 20s linear infinite;
     }
-    .skill-node {
-      background: rgba(12, 16, 28, 0.8);
-      backdrop-filter: blur(4px);
-      border-radius: 20px;
-      padding: 18px 8px;
-      text-align: center;
-      transition: 0.2s;
-      border-bottom: 2px solid transparent;
+    .about-center-img::after {
+      content: ''; position: absolute; width: 200px; height: 200px; border-radius: 50%;
+      border: 1px solid rgba(0, 242, 255, 0.1); box-shadow: 0 0 25px rgba(30, 98, 255, 0.1);
     }
-    .skill-node:hover {
-      border-bottom-color: var(--cyan-neon);
-      transform: translateY(-4px);
-    }
-    .skill-node i { font-size: 1.8rem; margin-bottom: 10px; display: block; }
-    .skill-node span { font-size: 0.8rem; font-weight: 500; }
+    .about-center-img img { width: 175px; height: 175px; object-fit: cover; border-radius: 50%; border: 4px solid #020306; position: relative; z-index: 2; }
+    @keyframes spinCircle { 100% { transform: rotate(360deg); } }
 
-    /* About Section */
-    .about-section {
-      display: grid;
-      grid-template-columns: 1fr 0.8fr 1fr;
-      gap: 40px;
-      align-items: center;
-      margin-bottom: 80px;
-    }
-    .about-img {
-      position: relative;
-      display: flex;
-      justify-content: center;
-    }
-    .about-img img {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--cyan-neon);
-      box-shadow: 0 0 30px rgba(0,242,255,0.2);
-    }
-    .timeline-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
+    .timeline-list { display: flex; flex-direction: column; gap: 18px; }
+    .timeline-item { display: flex; justify-content: space-between; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.85rem; }
+    .timeline-item .year { font-weight: 700; color: var(--accent-blue); }
+    .timeline-item .desc { color: var(--text-muted); text-align: right; font-weight: 500; }
 
-    /* Contact Panel */
-    .contact-panel {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 30px;
-      background: rgba(8,12,25,0.6);
-      backdrop-filter: blur(16px);
-      border-radius: 48px;
-      padding: 40px 48px;
-      margin-bottom: 60px;
-      border: 1px solid rgba(0,242,255,0.2);
+    .footer-panel {
+      background: rgba(6, 9, 18, 0.4); border: 1px solid var(--card-border); border-radius: 20px;
+      padding: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; margin-bottom: 60px;
     }
-    .btn-wa {
-      background: #25D366;
-      padding: 14px 32px;
-      border-radius: 50px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: 0.2s;
+    .panel-left h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+    .panel-left p { color: var(--text-muted); font-size: 0.9rem; }
+    .panel-meta { display: flex; gap: 24px; margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); flex-wrap: wrap; }
+    .panel-meta span i { color: var(--accent-blue); margin-right: 6px; }
+
+    .btn-whatsapp {
+      background: var(--whatsapp-green); color: #fff; padding: 12px 26px; border-radius: 50px;
+      text-decoration: none; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25); transition: 0.3s;
     }
+    .btn-whatsapp:hover { background: #1ebd54; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
+
     .whatsapp-sticky {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #25D366;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      z-index: 999;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-      animation: pulse 2s infinite;
-      text-decoration: none;
-      color: white;
+      position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+      background-color: var(--whatsapp-green); color: white; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 999; text-decoration: none;
+      transition: 0.3s; animation: pulseWave 2s infinite;
     }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
-      70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
-      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    @keyframes pulseWave {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #4a5568;
-      font-size: 0.8rem;
+    /* 💎 THE PERFECTED MODAL SYSTEM */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(2, 3, 6, 0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      z-index: 10000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease; padding: 16px;
     }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    
+    .modal-wrapper {
+      background: #070a12; border: 1px solid rgba(255, 255, 255, 0.09); width: 100%; max-width: 540px;
+      border-radius: 24px; padding: 30px; box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+      transform: scale(0.95) translateY(10px); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative; direction: rtl;
+    }
+    .modal-overlay.active .modal-wrapper { transform: scale(1) translateY(0); }
+    
+    /* UX Fixed: Mirroring the X Button beautifully for Arabic context alignment */
+    .modal-close-btn {
+      position: absolute; top: 20px; left: 20px; font-size: 1.1rem; color: var(--text-muted);
+      cursor: pointer; transition: 0.3s; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.04); border-radius: 50%;
+    }
+    .modal-close-btn:hover { color: #fff; background: rgba(255,255,255,0.1); transform: rotate(90deg); }
+    
+    .modal-tag { display: inline-block; padding: 4px 14px; background: rgba(30, 98, 255, 0.08); border: 1px solid rgba(30, 98, 255, 0.2); border-radius: 50px; color: #5185ff; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; }
+    .modal-title { font-size: 1.35rem; font-weight: 800; margin-bottom: 12px; color: #fff; line-height: 1.4; }
+    .modal-desc { font-size: 0.9rem; color: #cbd5e1; line-height: 1.7; margin-bottom: 24px; }
+    
+    .modal-kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+    .kpi-node { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); padding: 14px; border-radius: 12px; text-align: center; }
+    .kpi-node .kpi-val { font-size: 1.25rem; font-weight: 800; color: var(--neon-cyan); }
+    .kpi-node .kpi-lbl { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
 
-    /* Responsive */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .stats-grid { grid-template-columns: repeat(2,1fr); }
-      .skills-grid { grid-template-columns: repeat(3,1fr); }
-      .about-section { grid-template-columns: 1fr; text-align: center; gap: 20px; }
-      .contact-panel { flex-direction: column; text-align: center; }
+    footer { text-align: center; padding: 24px 0; color: #374151; font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.02); }
+
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding: 40px 0; }
+      .hero p { margin: 0 auto 20px auto; }
+      
+      .hero-stats { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+      .stat-card { padding: 10px 4px; border-radius: 8px; }
+      .stat-card h3 { font-size: 1rem; }
+      .stat-card p { font-size: 0.55rem; }
+
+      .campaigns-grid { 
+        display: flex; overflow-x: auto; gap: 16px; padding-bottom: 24px; margin-bottom: 60px;
+        scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+      }
+      .campaign-card { min-width: 295px; max-width: 295px; scroll-snap-align: start; }
+      .click-hint { opacity: 0.7; left: 16px; top: 24px; }
+
+      .skills-grid { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 15px; margin-bottom: 60px; scroll-snap-type: x mandatory; }
+      .skill-node { min-width: 110px; scroll-snap-align: start; padding: 16px 8px; }
+
+      .about-section { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+      .timeline-item .desc { text-align: right; }
+      
+      .footer-panel { flex-direction: column; text-align: center; padding: 30px 20px; }
+      .panel-meta { justify-content: center; flex-direction: column; gap: 12px; }
       nav { display: none; }
     }
   </style>
 </head>
 <body>
 
-<canvas id="canvas-bg"></canvas>
-
-<div class="whatsapp-sticky" href="https://wa.me/201009770363" target="_blank">
+<a href="https://wa.me/201009770363" class="whatsapp-sticky" target="_blank">
   <i class="fab fa-whatsapp"></i>
+</a>
+
+<div class="modal-overlay" id="campaignModal">
+  <div class="modal-wrapper">
+    <div class="modal-close-btn" onclick="closeModal()"><i class="fas fa-times"></i></div>
+    <div class="modal-tag" id="popTag">---</div>
+    <h3 class="modal-title" id="popTitle">---</h3>
+    <p class="modal-desc" id="popDesc">---</p>
+    
+    <div class="modal-kpis">
+      <div class="kpi-node"><div class="kpi-val" id="kpi1Val">---</div><div class="kpi-lbl">النتيجة المحققة</div></div>
+      <div class="kpi-node"><div class="kpi-val" id="kpi2Val">---</div><div class="kpi-lbl">ميزة الأداء</div></div>
+    </div>
+    
+    <a href="#" id="modalWtsBtn" class="btn-whatsapp" style="width: 100%; justify-content: center;" target="_blank">
+      <i class="fab fa-whatsapp"></i> ناقش مشروع مشابه مباشرة
+    </a>
+  </div>
 </div>
 
 <div class="container">
   <header>
-    <div class="logo">MAHMOUD ELHADY</div>
+    <div class="logo">MAHMOUD <span>ELHADY</span></div>
     <nav>
-      <a href="#">Home</a><a href="#">About</a><a href="#">Campaigns</a><a href="#">Skills</a><a href="#">Contact</a>
+      <a href="#">Home</a><a href="#">About</a><a href="#">Case Studies</a><a href="#">Skills</a><a href="#">Results</a><a href="#">Contact</a>
     </nav>
-    <button class="btn-primary" id="workBtn">Work With Me →</button>
+    <button class="btn-pill">Work With Me <i class="fas fa-arrow-right"></i></button>
   </header>
 
   <section class="hero">
     <div>
-      <div class="hero-badge">⚡ MEDIA BUYER & PERFORMANCE MARKETER</div>
-      <h1>Scaling Brands With <br><span>Data & Precision.</span></h1>
-      <p>I don’t just run ads. I build systems that print consistent results — from tracking infrastructure to high-converting funnels.</p>
-      <div class="stats-grid">
-        <div class="stat-item"><div class="stat-number counter" data-target="61">0</div><div>% Lower Cost</div></div>
-        <div class="stat-item"><div class="stat-number counter" data-target="125">0</div><div>+ Conversions</div></div>
-        <div class="stat-item"><div class="stat-number">GCC+TR</div><div>Multi-Market</div></div>
-        <div class="stat-item"><div class="stat-number">High ROI</div><div>Systems</div></div>
+      <div class="hero-badge">MEDIA BUYER & PERFORMANCE MARKETER</div>
+      <h1>SCALING BRANDS WITH <br><span>DATA & PRECISION.</span></h1>
+      <p>I don't just run ads. I build systems that print consistent results, merging deep analytics pipelines with conversion engineering.</p>
+      
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <button class="btn-pill">View Case Studies <i class="fas fa-arrow-right"></i></button>
+        <button class="btn-outline">Get In Touch</button>
       </div>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: flex-start;">
-        <button class="btn-primary" id="scrollCampaigns">📊 View Case Studies</button>
-        <button class="btn-outline" id="scrollContact">✨ Get In Touch</button>
+
+      <div class="hero-stats">
+        <div class="stat-card"><h3>61%</h3><p>Lower Cost</p></div>
+        <div class="stat-card"><h3>125+</h3><p>Conversions</p></div>
+        <div class="stat-card"><h3>Multiple</h3><p>Markets</p></div>
+        <div class="stat-card"><h3>High ROI</h3><p>Data Driven</p></div>
       </div>
     </div>
-    <div class="hero-img">
-      <img src="hero_portrait.jpg" alt="Mahmoud Elhady">
-      <div class="floating-badge"><i class="fas fa-chart-line"></i> Python · CRO · Tracking</div>
+    <div class="hero-avatar-zone">
+      <div class="avatar-glow"></div>
+      <img src="hero_portrait.jpg" alt="Mahmoud Elhady Performance Engineer">
     </div>
   </section>
 
-  <div class="brands">
+  <div class="brands-strip">
     <span>EASYORDER</span><span>TIKTOK</span><span>META</span><span>GOOGLE ADS</span><span>CAPCUT</span><span>SHOPIFY</span>
   </div>
 
-  <!-- Campaign Section -->
-  <section id="campaigns">
+  <section>
     <span class="section-tag">Proven Results</span>
     <h2 class="section-title">Campaigns That Deliver <span>Results</span></h2>
-    <div class="campaign-grid">
-      <div class="camp-card"><div class="icon"><i class="fas fa-chart-simple"></i></div><h4>Turkey E‑commerce CBO</h4><div class="camp-metric">125 <span style="font-size:1rem;">purchases</span></div><div>Cost per purchase: <strong>$1.36</strong></div><div class="chart-mini"><canvas class="mini-chart" data-colors="#00f2ff"></canvas></div></div>
-      <div class="camp-card"><div class="icon"><i class="fab fa-facebook"></i> <i class="fab fa-tiktok"></i></div><h4>GCC & Saudi Campaigns</h4><div>Facebook + TikTok since 2020</div><div>Dropshipping + high‑ticket funnels</div><div class="chart-mini"><canvas class="mini-chart" data-colors="#a855f7"></canvas></div></div>
-      <div class="camp-card"><div class="icon"><i class="fas fa-building"></i></div><h4>Real Estate Lead Gen</h4><div>Agial Views, Pearl M Cam</div><div>Qualified high‑value leads</div><div class="chart-mini"><canvas class="mini-chart" data-colors="#00f2ff"></canvas></div></div>
-      <div class="camp-card"><div class="icon"><i class="fas fa-briefcase"></i></div><h4>Company Formation (Gulf)</h4><div class="camp-metric">11,990 <span style="font-size:1rem;">AED</span></div><div>Premium B2B leads</div><div class="chart-mini"><canvas class="mini-chart" data-colors="#ffaa44"></canvas></div></div>
-      <div class="camp-card"><div class="icon"><i class="fas fa-spa"></i></div><h4>Massage & Wellness</h4><div class="camp-metric">1.47 <span style="font-size:1rem;">EGP</span></div><div>Lead cost (Elsafa campaign)</div><div class="chart-mini"><canvas class="mini-chart" data-colors="#00ffaa"></canvas></div></div>
-      <div class="camp-card"><div class="icon"><i class="fas fa-store"></i></div><h4>Local Business (Butcher)</h4><div>Sheikh Zayed & October</div><div>Hyper‑local precision</div><div class="chart-mini"><canvas class="mini-chart" data-colors="#00f2ff"></canvas></div></div>
-      <div class="camp-card"><div class="icon"><i class="fas fa-moon"></i></div><h4>Ramadan Engagement</h4><div class="camp-metric">4,206 <span style="font-size:1rem;">engagements</span></div><div>Cost per engagement: 0.088 EGP</div><div class="chart-mini"><canvas class="mini-chart" data-colors="#f0f0f0"></canvas></div></div>
-      <div class="camp-card" style="background: linear-gradient(145deg, #0a0e1c, #020408);"><div class="icon"><i class="fas fa-trophy"></i></div><h4>Outperformance Benchmark</h4><div class="camp-metric">61% <span style="font-size:1rem;">lower cost</span></div><div>vs market competitors</div><div style="margin-top: 12px;"><div style="background: #00f2ff20; border-radius: 30px; height: 8px; width: 100%;"><div style="width: 61%; background: #00f2ff; height: 8px; border-radius: 30px;"></div></div></div></div>
+    
+    <div class="campaigns-grid">
+      <div class="campaign-card card-blue" onclick="openCampaignDetails(1)">
+        <div class="click-hint">تفاصيل <i class="fas fa-eye"></i></div>
+        <div>
+          <h6>01 . Turkey E-commerce</h6>
+          <h4>Turkey E-commerce CBO Campaign</h4>
+        </div>
+        <i class="fas fa-shopping-cart card-icon-top"></i>
+        <div class="card-data">
+          <div class="main-num">125</div>
+          <div class="sub-label">Completed Purchases ($1.36 Avg)</div>
+        </div>
+        <div class="chart-container"><canvas id="chart1"></canvas></div>
+      </div>
+
+      <div class="campaign-card card-purple" onclick="openCampaignDetails(2)">
+        <div class="click-hint">تفاصيل <i class="fas fa-eye"></i></div>
+        <div>
+          <h6>02 . International</h6>
+          <h4>GCC & Saudi Campaigns Since 2020</h4>
+        </div>
+        <i class="fas fa-globe card-icon-top"></i>
+        <div class="card-data">
+          <div class="sub-label" style="color:#fff; font-weight:600;">• Facebook & TikTok Funnels</div>
+          <div class="sub-label">• Dropshipping & Direct Sales</div>
+        </div>
+        <div class="chart-container"><canvas id="chart2"></canvas></div>
+      </div>
+
+      <div class="campaign-card card-cyan" onclick="openCampaignDetails(3)">
+        <div class="click-hint">تفاصيل <i class="fas fa-eye"></i></div>
+        <div>
+          <h6>03 . Real Estate</h6>
+          <h4>Real Estate Lead Generation</h4>
+        </div>
+        <i class="fas fa-building card-icon-top"></i>
+        <div class="card-data">
+          <div class="sub-label" style="color:#fff; font-weight:600;">Projects: Agial Views, Pearl M Cam</div>
+          <div class="sub-label">High-ticket qualified leads</div>
+        </div>
+        <div class="chart-container"><canvas id="chart3"></canvas></div>
+      </div>
+
+      <div class="campaign-card card-amber" onclick="openCampaignDetails(4)">
+        <div class="click-hint">تفاصيل <i class="fas fa-eye"></i></div>
+        <div>
+          <h6>04 . B2B Services</h6>
+          <h4>Company Formation (Gulf Market)</h4>
+        </div>
+        <i class="fas fa-briefcase card-icon-top"></i>
+        <div class="card-data">
+          <div class="main-num" style="font-size:1.5rem;">11,990 <span style="font-size:0.8rem; color:var(--text-muted);">AED</span></div>
+          <div class="sub-label">High-quality B2B lead generation</div>
+        </div>
+        <div class="chart-container"><canvas id="chart4"></canvas></div>
+      </div>
+
+      <div class="campaign-card card-green" onclick="openCampaignDetails(5)">
+        <div class="click-hint">تفاصيل <i class="fas fa-eye"></i></div>
+        <div>
+          <h6>05 . Wellness</h6>
+          <h4>Massage & Wellness Campaigns</h4>
+        </div>
+        <i class="fas fa-heart card-icon-top"></i>
+        <div class="card-data">
+          <div class="main-num" style="font-size:1.5rem;">1.47 <span style="font-size:0.8rem; color:var(--text-muted);">EGP</span></div>
+          <div class="sub-label">Lead cost as low as baseline</div>
+        </div>
+        <div class="chart-container"><canvas id="chart5"></canvas></div>
+      </div>
+
+      <div class="campaign-card card-blue" onclick="openCampaignDetails(6)">
+        <div class="click-hint">تفاصيل <i class="fas fa-eye"></i></div>
+        <div>
+          <h6>06 . Hyper-Local</h6>
+          <h4>Local Business (Butcher Stack)</h4>
+        </div>
+        <i class="fas fa-map-marker-alt card-icon-top"></i>
+        <div class="card-data">
+          <div class="sub-label" style="color:#fff; font-weight:600;">Sheikh Zayed & October Cities</div>
+          <div class="sub-label">Hyper-local precision targeting</div>
+        </div>
+        <div class="chart-container"><canvas id="chart6"></canvas></div>
+      </div>
+
+      <div class="campaign-card card-with-img card-purple" onclick="openCampaignDetails(7)">
+        <div class="card-overlay-content">
+          <div>
+            <h6>07 . Real-time Optimization</h6>
+            <h4>Ramadan & Seasonal Engagement</h4>
+          </div>
+          <div class="card-data">
+            <div class="main-num">4,206</div>
+            <div class="sub-label" style="color: #e2e8f0;">Real Engagements (Cost: 0.088 EGP)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card card-with-img card-cyan" onclick="openCampaignDetails(8)">
+        <div class="card-overlay-content">
+          <div>
+            <h6>08 . Benchmark</h6>
+            <h4>Outperformance Edge</h4>
+          </div>
+          <div class="benchmark-box">
+            <p style="color:#cbd5e1; font-size:0.75rem; max-width:55%;">Reduced acquisition cost vs competitors.</p>
+            <div class="circle-progress">
+              <svg><circle class="bg-line" cx="37" cy="37" r="32"></circle><circle class="bar-line" cx="37" cy="37" r="32"></circle></svg>
+              <div class="pct-text">61%</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Skills -->
   <section>
     <span class="section-tag">Expertise</span>
-    <h2 class="section-title">Tech & Performance <span>Stack</span></h2>
+    <h2 class="section-title">What I Do <span>Best</span></h2>
     <div class="skills-grid">
-      <div class="skill-node"><i class="fab fa-meta"></i><span>Meta Ads</span></div>
-      <div class="skill-node"><i class="fab fa-tiktok"></i><span>TikTok Ads</span></div>
-      <div class="skill-node"><i class="fas fa-bullseye"></i><span>Performance Marketing</span></div>
-      <div class="skill-node"><i class="fas fa-code"></i><span>Conversion Tracking</span></div>
-      <div class="skill-node"><i class="fas fa-filter"></i><span>Funnel Building</span></div>
-      <div class="skill-node"><i class="fab fa-python"></i><span>Python</span></div>
-      <div class="skill-node"><i class="fab fa-html5"></i><span>HTML/CSS</span></div>
-      <div class="skill-node"><i class="fas fa-paintbrush"></i><span>Photoshop</span></div>
-      <div class="skill-node"><i class="fas fa-video"></i><span>CapCut</span></div>
-      <div class="skill-node"><i class="fas fa-layer-group"></i><span>Landing Pages</span></div>
-      <div class="skill-node"><i class="fas fa-chart-pie"></i><span>Analytics</span></div>
-      <div class="skill-node"><i class="fas fa-percent"></i><span>CRO</span></div>
+      <div class="skill-node"><i class="fab fa-meta" style="color:#0066ff"></i><span>Meta Ads</span></div>
+      <div class="skill-node"><i class="fab fa-tiktok" style="color:#00f2ff"></i><span>TikTok Ads</span></div>
+      <div class="skill-node"><i class="fas fa-bullseye" style="color:#ff007f"></i><span>Performance Marketing</span></div>
+      <div class="skill-node"><i class="fas fa-code" style="color:#00ffaa"></i><span>Conversion Tracking</span></div>
+      <div class="skill-node"><i class="fas fa-filter" style="color:#a100ff"></i><span>Funnel Building</span></div>
+      <div class="skill-node"><i class="fab fa-python" style="color:#ffe169"></i><span>Python</span></div>
+      <div class="skill-node"><i class="fab fa-html5" style="color:#ff5722"></i><span>HTML/CSS</span></div>
+      <div class="skill-node"><i class="fas fa-paint-brush" style="color:#2575fc"></i><span>Photoshop</span></div>
+      <div class="skill-node"><i class="fas fa-video" style="color:#ff0055"></i><span>CapCut</span></div>
+      <div class="skill-node"><i class="fas fa-layer-group" style="color:#00f2ff"></i><span>Landing Pages</span></div>
+      <div class="skill-node"><i class="fas fa-chart-pie" style="color:#ffaa00"></i><span>Analytics</span></div>
+      <div class="skill-node"><i class="fas fa-percentage" style="color:#00ffaa"></i><span>CRO</span></div>
     </div>
   </section>
 
-  <!-- About -->
   <section>
     <span class="section-tag">About Me</span>
     <h2 class="section-title">How I Drive <span>Results</span></h2>
     <div class="about-section">
       <div>
-        <h3 style="font-size:1.5rem;">I combine marketing intelligence with technical power.</h3>
-        <p style="color: var(--text-muted); margin-top: 16px;">I build tracking systems (Python, HTML/CSS), server‑side analytics, landing pages, and creative engines. I turn data into predictable revenue.</p>
+        <h3 style="font-size:1.4rem; font-weight:800; margin-bottom:12px; line-height:1.3;">I Combine Marketing Intelligence With Technical Power.</h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.6;">I am a performance engineer building integrated data architecture, deep server-side tracking, and high-yielding landing page systems from the ground up.</p>
       </div>
-      <div class="about-img">
-        <img src="sitting_mahmoud.jpg" alt="Mahmoud sitting">
+      <div class="about-center-img">
+        <img src="sitting_mahmoud.jpg" alt="Mahmoud Elhady Profile">
       </div>
-      <div>
-        <div class="timeline-item"><span>2025+</span><span>Intensive media buying training</span></div>
-        <div class="timeline-item"><span>5+ Years</span><span>Hands‑on scaling brands</span></div>
-        <div class="timeline-item"><span>100+</span><span>Successful campaigns</span></div>
-        <div class="timeline-item"><span>61%</span><span>Average cost reduction</span></div>
+      <div class="timeline-list">
+        <div class="timeline-item"><span class="year">2018 - 2022</span><span class="desc">Cairo University Graduate</span></div>
+        <div class="timeline-item"><span class="year">2025</span><span class="desc">Intensive Media Buying Training</span></div>
+        <div class="timeline-item"><span class="year">+5 Years</span><span class="desc">Hands-on Media Buying Operations</span></div>
+        <div class="timeline-item"><span class="year">100+</span><span class="desc">Successful Brand Scalings</span></div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Panel -->
-  <div class="contact-panel" id="contact">
-    <div>
-      <h2 style="font-size: 1.6rem;">Let’s build your next winning campaign.</h2>
-      <p style="color: var(--text-muted);">If you’re looking for results, not excuses — let’s talk.</p>
-      <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+  <section class="footer-panel">
+    <div class="panel-left">
+      <h2>Let's Build Your Next Winning Campaign.</h2>
+      <p>If you're looking for metrics, not excuses — let's talk.</p>
+      <div class="panel-meta">
         <span><i class="fas fa-phone"></i> +20 1009770363</span>
         <span><i class="fas fa-envelope"></i> mahmoudalhady2020@gmail.com</span>
         <span><i class="fas fa-map-marker-alt"></i> Mansoura, Egypt</span>
       </div>
     </div>
-    <a href="https://wa.me/201009770363" class="btn-wa" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-  </div>
+    <a href="https://wa.me/201009770363" class="btn-whatsapp" target="_blank">
+      <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+    </a>
+  </section>
 
   <footer>
-    <p>© 2025 Mahmoud Elhady — Built for Performance. All Rights Reserved.</p>
+    <p>© 2026 Mahmoud Elhady — Built for Performance. All Rights Reserved.</p>
   </footer>
 </div>
 
-<script type="module">
-  import * as THREE from 'three';
-  const canvas = document.getElementById('canvas-bg');
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x010106);
-  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.set(0, 0, 18);
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-
-  // particles
-  const particleCount = 1800;
-  const positions = new Float32Array(particleCount * 3);
-  for (let i = 0; i < particleCount; i++) {
-    positions[i*3] = (Math.random() - 0.5) * 200;
-    positions[i*3+1] = (Math.random() - 0.5) * 100;
-    positions[i*3+2] = (Math.random() - 0.5) * 80 - 30;
-  }
-  const particleGeo = new THREE.BufferGeometry();
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const particleMat = new THREE.PointsMaterial({ color: 0x00aaff, size: 0.12, transparent: true, blending: THREE.AdditiveBlending });
-  const particles = new THREE.Points(particleGeo, particleMat);
-  scene.add(particles);
-
-  const light = new THREE.AmbientLight(0x111122);
-  scene.add(light);
-  const point = new THREE.PointLight(0x2266ff, 0.8);
-  point.position.set(2, 3, 5);
-  scene.add(point);
-
-  let time = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    time += 0.005;
-    particles.rotation.y = time * 0.1;
-    particles.rotation.x = Math.sin(time * 0.2) * 0.1;
-    renderer.render(scene, camera);
-  }
-  animate();
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-</script>
-
 <script>
-  // Counter animation
-  const counters = document.querySelectorAll('.counter');
-  const startCounters = () => {
-    counters.forEach(c => {
-      const target = parseInt(c.getAttribute('data-target'));
-      let current = 0;
-      const step = Math.ceil(target / 50);
-      const update = () => {
-        current += step;
-        if (current < target) { c.innerText = current; requestAnimationFrame(update); }
-        else c.innerText = target;
-      };
-      update();
-    });
+  // High-Converting Dataset with specialized Context Whatsapp text triggers
+  const campaignData = {
+    1: { tag: "التجارة الإلكترونية", title: "حملة تركيا للتجارة الإلكترونية CBO", desc: "تم تطبيق استراتيجية هيكلة الميزانية الذكية (CBO) مع فلاتر تصفية حادة للجمهور المهتم. من خلال هندسة واختبار 15 مادة إعلانية فيديو مصممة بشكل احترافي، نجحنا في خفض تكلفة الحصول على عميل بنسبة 35% وضمان مبيعات ثابتة يومياً.", kpi1: "125 مبيعة مكتملة", kpi2: "$1.36 للتكلفة", msg: "مرحباً محمود، أريد مناقشة استراتيجية مبيعات لمتجر تجارة إلكترونية مشابه لحملة تركيا الناجحة." },
+    2: { tag: "الأسواق الدولية", title: "حملات الخليج والمملكة العربية السعودية", desc: "بناء مسارات شراء كاملة (Funnels) على منصات فيسبوك وتيك توك وتوجيهها بدقة لأسواق المملكة والخليج، بالتركيز على تحسين قيمة الطلب المتوسطة عبر استهداف العروض التجميعية وعروض الـ Dropshipping الحرة.", kpi1: "+4 سنوات خبرة", kpi2: "تحسين مبيعات فوري", msg: "مرحباً محمود، اطلعت على البورتفوليو الخاص بك وأريد الاستفسار عن تفاصيل إعلانات الخليج والسعودية." },
+    3: { tag: "القطاع العقاري", title: "توليد عملاء محتملين للشركات العقارية كبرى", desc: "أطلقنا حملات عالية الاستهداف وجلب خطوط تواصل نقيّة لمشاريع حيوية مثل Agial Views و Pearl M Cam. اعتمدنا على نماذج بيانات دقيقة وفلاتر تصنيف عميقة لضمان ملاءة العميل المالية وجودة اتصاله قبل التسليم الفعلي لفريق المبيعات.", kpi1: "عملاء مؤهلين بنسبة 100%", kpi2: "أعلى معدل عائد استثماري", msg: "مرحباً محمود، نعمل في مجال العقارات ونريد تطبيق نظام توليد عملاء مشابه لحملة Agial Views." },
+    4: { tag: "خدمات B2B", title: "حملات تأسيس الشركات وإدارة الأعمال بالخليج", desc: "استهداف مخصص لرواد الأعمال والمستثمرين بالمنطقة الإقليمية. ركزنا على إبراز التسهيلات المتاحة لإنشاء الشركات، وحققنا تدفق مستمر للعملاء التجاريين بجودة استهداف عالية جداً تجاوزت كفاءة المنافسين التقليديين.", kpi1: "تكلفة مثالية لـ AED 11,990", kpi2: "استهداف تجاري دقيق", msg: "مرحباً محمود، نحن شركة B2B ونرغب في التعاون معك لتوليد عملاء بجودة حملة تأسيس الشركات." },
+    5: { tag: "الصحة والرفاهية", title: "حملات مراكز التدليك والمساج والخدمات الطبية", desc: "حملات جغرافية محلية فائقة الدقة تحيط بمراكز الخدمة بقطر دائري محدد. تم الاعتماد على نصوص إعلانية محفزة وعروض سريعة الانتهاء لزيادة نسب الحجز، والنتيجة كانت خفض التكلفة التاريخية للمقعد والعميل.", kpi1: "1.47 EGP للعميل", kpi2: "امتلاء كامل لجدول الحجوزات", msg: "مرحباً محمود، أريد معرفة المزيد عن تسويق الخدمات المحلية مثل حملة مراكز التدليك والرفاهية." },
+    6: { tag: "التسويق الإقليمي", title: "حملات Butcher Stack (أكتوبر والشيخ زايد)", desc: "تطبيق هندسة استهداف محلي صارم (Hyper-local) للمناطق الراقية لرفع مستويات البيع والطلبات الفورية المباشرة عبر تطبيق واتساب والدفع عند الاستلام، مما ساهم في تحقيق طفرة مبيعات إقليمية للمشروع.", kpi1: "تغطية جغرافية كاملة", kpi2: "استهداف محلي ذكي", msg: "مرحباً محمود، كيف نجحت حملة Butcher Stack؟ أريد تطبيق نظام استهداف محلي فائق الدقة لمشروعي." },
+    7: { tag: "المواسم والأعياد", title: "حملات التفاعل الكبرى خلال شهر رمضان المبارك", desc: "تفعيل ذكاء تسويقي في المواسم للحصول على أعلى معدلات تفاعل وبناء وعي مسبق بالعلامة التجارية. تم الوصول لملايين الحسابات بتكلفة تكاد تكون معدومة نظراً لقوة الـ Viral Hooks المستخدمة وجاذبية المحتوى البصري.", kpi1: "4,206 تفاعل حقيقي", kpi2: "0.088 EGP للتفاعل الواحدة", msg: "مرحباً محمود، أريد التخطيط لحملة تسويق موسمية قادمة بكفاءة شبيهة بحملة رمضان." },
+    8: { tag: "ميزة التكلفة", title: "تقليص نفقات الاستحواذ الإجمالية بنسبة 61%", desc: "هذا الرقم يوضح الفارق التقني لمحمود الهادي: دمج الأنظمة البرمجية مع Server-side tracking سمح لخوارزميات المنصات بقراءة دقيقة، فقل الهدر الإعلاني وانخفضت تكلفة النتيجة بنسبة 61% عن متوسط السوق للمنافسين.", kpi1: "61% توفير بالنفقات", kpi2: "أداء مستقر وعائد فخم", msg: "مرحباً محمود، لفت انتباهي خفض تكلفة الاستحواذ بنسبة 61%. كيف يمكننا تطبيق تتبع الخادم (Server-side) لتقليل الهدر؟" }
   };
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) startCounters();
-  }, { threshold: 0.3 });
-  const statParent = document.querySelector('.stat-item');
-  if (statParent) observer.observe(statParent.parentElement);
 
-  // Mini charts
-  document.querySelectorAll('.mini-chart').forEach(canvas => {
-    const ctx = canvas.getContext('2d');
-    const color = canvas.getAttribute('data-colors') || '#00f2ff';
+  function openCampaignDetails(id) {
+    const data = campaignData[id];
+    if(!data) return;
+    
+    document.getElementById('popTag').innerText = data.tag;
+    document.getElementById('popTitle').innerText = data.title;
+    document.getElementById('popDesc').innerText = data.desc;
+    document.getElementById('kpi1Val').innerText = data.kpi1;
+    document.getElementById('kpi2Val').innerText = data.kpi2;
+    
+    // Auto-generate dynamic Whatsapp link with encoded text context
+    const baseUrl = "https://wa.me/201009770363?text=";
+    document.getElementById('modalWtsBtn').href = baseUrl + encodeURIComponent(data.msg);
+    
+    document.getElementById('campaignModal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('campaignModal').classList.remove('active');
+  }
+
+  document.getElementById('campaignModal').addEventListener('click', function(e) {
+    if(e.target === this) closeModal();
+  });
+
+  const runWaveform = (id, color) => {
+    const ctx = document.getElementById(id).getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 0, 75);
+    grad.addColorStop(0, color + '25');
+    grad.addColorStop(1, 'transparent');
+
     new Chart(ctx, {
       type: 'line',
-      data: { labels: [1,2,3,4,5], datasets: [{ data: [4,8,12,10,18], borderColor: color, borderWidth: 2, fill: false, pointRadius: 0, tension: 0.4 }] },
-      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
+      data: {
+        labels: [1, 2, 3, 4, 5, 6, 7],
+        datasets: [{
+          data: [12, 19, 15, 28, 22, 34, 48].map(n => n + Math.random()*6),
+          borderColor: color,
+          borderWidth: 2,
+          fill: true,
+          backgroundColor: grad,
+          tension: 0.45,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { x: { display: false }, y: { display: false } },
+        responsive: true,
+        maintainAspectRatio: false
+      }
     });
-  });
+  };
 
-  // Scroll buttons
-  document.getElementById('scrollCampaigns')?.addEventListener('click', () => document.getElementById('campaigns')?.scrollIntoView({ behavior: 'smooth' }));
-  document.getElementById('scrollContact')?.addEventListener('click', () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }));
-  document.getElementById('workBtn')?.addEventListener('click', () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }));
+  window.addEventListener('DOMContentLoaded', () => {
+    runWaveform('chart1', '#1e62ff');
+    runWaveform('chart2', '#a100ff');
+    runWaveform('chart3', '#00f2ff');
+    runWaveform('chart4', '#ffaa00');
+    runWaveform('chart5', '#00ffaa');
+    runWaveform('chart6', '#1e62ff');
+  });
 </script>
 </body>
 </html>
