@@ -2,527 +2,225 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Mahmoud Elhady | Performance Nexus — Media Buyer Engineer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
-      }
-    }
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mahmoud Elhady — Performance Media Buyer</title>
+  <meta name="description" content="Media buyer & tracking engineer. I reduce ad costs by 61% for e-commerce, real estate, and local businesses. Meta, TikTok, Python funnels.">
+  <!-- Tailwind + Inter font -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: #010005;
-      font-family: 'Inter', sans-serif;
-      color: #fff;
-      overflow-x: hidden;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    /* UI Overlay */
-    .ui {
-      position: relative;
-      z-index: 10;
-      pointer-events: auto;
-    }
-
-    .container {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 30px;
-    }
-
-    /* Glitch heading */
-    .glitch {
-      font-size: clamp(2.2rem, 6vw, 4.2rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      position: relative;
-      text-shadow: 0.05em 0 0 rgba(255,0,0,0.4), -0.05em -0.025em 0 rgba(0,255,255,0.4);
-      animation: glitchShake 0.3s infinite;
-    }
-    @keyframes glitchShake {
-      0% { transform: translate(0); }
-      20% { transform: translate(-1px, 1px); }
-      40% { transform: translate(1px, -1px); }
-      60% { transform: translate(-1px, 0); }
-      80% { transform: translate(1px, 1px); }
-      100% { transform: translate(0); }
-    }
-
-    /* Holographic Glass */
-    .holo-card {
-      background: rgba(6, 12, 25, 0.55);
-      backdrop-filter: blur(12px);
-      border-radius: 32px;
-      border: 1px solid rgba(0, 242, 255, 0.4);
-      transition: all 0.3s;
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-    }
-    .holo-card:hover {
-      border-color: #00f2ff;
-      transform: translateY(-5px);
-      box-shadow: 0 20px 35px -8px rgba(0,242,255,0.3);
-    }
-
-    /* Hero Section */
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 40px;
-      align-items: center;
-      min-height: 100vh;
-      padding: 80px 0;
-    }
-    .hero-badge {
-      background: rgba(0,242,255,0.15);
-      display: inline-block;
-      padding: 5px 18px;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 800;
-      line-height: 1.2;
-    }
-    .hero h1 span {
-      background: linear-gradient(135deg, #00f2ff, #a855f7);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    /* Floating stats */
-    .stat-fleet {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin: 35px 0;
-    }
-    .stat-node {
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
-      padding: 12px 20px;
-      border-radius: 28px;
-      border-left: 3px solid #00f2ff;
-      flex: 1;
-      min-width: 110px;
-      text-align: center;
-    }
-    .stat-digit {
-      font-size: 1.9rem;
-      font-weight: 800;
-    }
-
-    /* Button styles */
-    .btn-holo {
-      background: linear-gradient(95deg, #0066ff, #a855f7);
-      border: none;
-      padding: 12px 32px;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-      margin-right: 12px;
-    }
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid #00f2ff;
-      padding: 12px 32px;
-      border-radius: 40px;
-      color: #00f2ff;
-    }
-
-    /* Radial image gallery */
-    .radial-images {
-      position: relative;
-      height: 420px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .orbit-img {
-      position: absolute;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid cyan;
-      box-shadow: 0 0 20px rgba(0,242,255,0.5);
-      transition: all 0.3s;
-      animation: floatAround 6s infinite alternate;
-    }
-    .img1 { top: 0; left: 10%; transform: rotate(5deg); }
-    .img2 { bottom: 10%; right: 5%; transform: rotate(-8deg); width: 130px; height: 130px; }
-    .img3 { top: 35%; right: 25%; transform: rotate(12deg); width: 120px; height: 120px; }
-    .img4 { bottom: 20%; left: 15%; transform: rotate(-3deg); width: 135px; height: 135px; }
-    .center-badge {
-      position: absolute;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(8px);
-      padding: 10px 20px;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      border-left: 2px solid cyan;
-    }
-    @keyframes floatAround {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-12px); }
-    }
-
-    /* Campaign Console */
-    .camp-console {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 25px;
-      margin: 60px 0;
-    }
-    .camp-item {
-      background: rgba(10, 15, 28, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 28px;
-      padding: 24px;
-      border: 1px solid rgba(0,242,255,0.2);
-      transition: 0.3s;
-    }
-    .camp-item:hover {
-      border-color: #00f2ff;
-      transform: translateY(-6px);
-    }
-    .camp-metric {
-      font-size: 1.7rem;
-      font-weight: 800;
-      margin: 10px 0;
-    }
-
-    /* Skills grid hex style */
-    .skills-hex {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 15px;
-      margin: 50px 0;
-    }
-    .hex {
-      background: rgba(15, 20, 35, 0.8);
-      backdrop-filter: blur(4px);
-      text-align: center;
-      padding: 20px 8px;
-      border-radius: 24px;
-      transition: 0.2s;
-      border-bottom: 2px solid #a855f7;
-    }
-    .hex i { font-size: 1.8rem; margin-bottom: 8px; display: block; }
-
-    /* About timeline */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 0.8fr 1fr;
-      gap: 40px;
-      align-items: center;
-      margin: 70px 0;
-    }
-    .timeline-node {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px dashed rgba(0,242,255,0.3);
-      padding: 14px 0;
-    }
-
-    /* Contact panel */
-    .contact-deck {
-      background: radial-gradient(ellipse at 30% 40%, #0b0e20, #010105);
-      border-radius: 56px;
-      padding: 50px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      margin: 60px 0;
-      border: 1px solid rgba(0,242,255,0.3);
-    }
-    .btn-wa {
-      background: #25D366;
-      padding: 14px 32px;
-      border-radius: 50px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-    }
-    .whatsapp-sticky {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #25D366;
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      z-index: 1000;
-      box-shadow: 0 0 20px #25D366;
-      animation: pulse 1.5s infinite;
-      text-decoration: none;
-      color: white;
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
-      70% { box-shadow: 0 0 0 12px rgba(37,211,102,0); }
-      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
-    }
-    footer {
-      text-align: center;
-      padding: 30px;
-      font-size: 0.8rem;
-      color: #5a6e8a;
-    }
-
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .radial-images { height: 380px; }
-      .skills-hex { grid-template-columns: repeat(3,1fr); }
-      .about-grid { grid-template-columns: 1fr; text-align: center; }
-      .contact-deck { flex-direction: column; text-align: center; gap: 25px; }
-      .orbit-img { width: 100px; height: 100px; }
-      .img1, .img2, .img3, .img4 { position: relative; display: inline-block; margin: 10px; }
-      .radial-images { display: flex; flex-wrap: wrap; justify-content: center; height: auto; gap: 15px; }
-      .center-badge { position: relative; margin-top: 20px; transform: none; left: auto; }
-    }
+    * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    body { background-color: #fafafa; scroll-behavior: smooth; }
+    .hover-lift:hover { transform: translateY(-4px); transition: all 0.2s ease; }
+    .stat-card { transition: all 0.2s ease; }
+    .gradient-text { background: linear-gradient(135deg, #1E293B 0%, #3B82F6 100%); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .container-custom { max-width: 1280px; margin-left: auto; margin-right: auto; }
   </style>
 </head>
-<body>
+<body class="antialiased">
 
-<canvas id="bg-canvas"></canvas>
-
-<a href="https://wa.me/201009770363" class="whatsapp-sticky" target="_blank"><i class="fab fa-whatsapp"></i></a>
-
-<div class="ui">
-  <div class="container">
-    <!-- Hero Section -->
-    <div class="hero">
-      <div>
-        <div class="hero-badge">⚡ MEDIA BUYER · PERFORMANCE ENGINEER</div>
-        <h1>Scaling Brands With <br><span>Data & Precision.</span></h1>
-        <p style="color: #9aa5c1; margin: 20px 0;">I don’t just run ads. I build systems that print consistent results — from tracking infrastructure to high‑converting funnels.</p>
-        <div class="stat-fleet">
-          <div class="stat-node"><div class="stat-digit counter" data-target="61">0</div><div>% Lower Cost</div></div>
-          <div class="stat-node"><div class="stat-digit counter" data-target="125">0</div><div>+ Conversions</div></div>
-          <div class="stat-node"><div class="stat-digit">GCC+TR</div><div>Multi-Market</div></div>
-        </div>
-        <div>
-          <button class="btn-holo" id="scrollToCampaigns">📊 Campaign Matrix</button>
-          <button class="btn-ghost" id="scrollToContact">✨ Connect</button>
-        </div>
+  <!-- Navigation (minimal, sticky) -->
+  <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <div class="container-custom px-6 py-4 flex justify-between items-center">
+      <span class="font-bold text-xl tracking-tight text-slate-800">Mahmoud <span class="text-blue-600">Elhady</span></span>
+      <div class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
+        <a href="#results" class="hover:text-blue-600 transition">Results</a>
+        <a href="#cases" class="hover:text-blue-600 transition">Case Studies</a>
+        <a href="#skills" class="hover:text-blue-600 transition">Skills</a>
+        <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
       </div>
-      <div class="radial-images">
-        <img src="hero_portrait.jpg" class="orbit-img img1" alt="Mahmoud main">
-        <img src="laptop_mahmoud.jpg" class="orbit-img img2" alt="Working">
-        <img src="sitting_mahmoud.jpg" class="orbit-img img3" alt="Strategy">
-        <img src="crossed_arms.jpg" class="orbit-img img4" alt="Confident">
-        <div class="center-badge"><i class="fas fa-chart-line"></i> Python · CRO · Server Tracking</div>
-      </div>
+      <a href="#contact" class="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-slate-800 transition shadow-sm">Free audit →</a>
     </div>
+  </nav>
 
-    <!-- Trusted Strip -->
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 35px; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 60px;">
-      <span style="font-weight: 600;"><i class="fab fa-meta"></i> Meta Ads</span>
-      <span><i class="fab fa-tiktok"></i> TikTok Ads</span>
-      <span><i class="fab fa-google"></i> Google Ads</span>
-      <span><i class="fas fa-chart-line"></i> EasyOrder</span>
-      <span><i class="fas fa-cut"></i> CapCut</span>
-      <span><i class="fab fa-python"></i> Python</span>
-    </div>
-
-    <!-- Campaign Console -->
-    <div id="campaigns">
-      <div style="text-align: center; margin-bottom: 30px;">
-        <span style="color: #00f2ff;">⚡ PROVEN RESULTS</span>
-        <h2 style="font-size: 2rem;">Campaigns That Deliver <span style="color:#00f2ff;">Results</span></h2>
-      </div>
-      <div class="camp-console">
-        <div class="camp-item"><i class="fas fa-chart-simple" style="font-size: 1.8rem; color:#00f2ff;"></i><h3>Turkey E‑commerce CBO</h3><div class="camp-metric">125 <span style="font-size:1rem;">purchases</span></div><div>Cost per purchase: <strong>$1.36</strong></div></div>
-        <div class="camp-item"><i class="fab fa-facebook"></i> <i class="fab fa-tiktok"></i><h3>GCC & Saudi Campaigns</h3><div>Facebook + TikTok · Since 2020</div><div>Dropshipping & High‑ticket funnels</div></div>
-        <div class="camp-item"><i class="fas fa-building"></i><h3>Real Estate Lead Gen</h3><div>Agial Views, Pearl M Cam</div><div>Qualified high‑value leads</div></div>
-        <div class="camp-item"><i class="fas fa-briefcase"></i><h3>Company Formation (Gulf)</h3><div class="camp-metric">11,990 <span style="font-size:1rem;">AED</span></div><div>Premium B2B leads</div></div>
-        <div class="camp-item"><i class="fas fa-spa"></i><h3>Massage & Wellness</h3><div class="camp-metric">1.47 <span style="font-size:1rem;">EGP</span></div><div>Lead cost (Elsafa campaign)</div></div>
-        <div class="camp-item"><i class="fas fa-store"></i><h3>Local Business (Butcher)</h3><div>Sheikh Zayed & October</div><div>Hyper‑local precision</div></div>
-        <div class="camp-item"><i class="fas fa-moon"></i><h3>Ramadan Engagement</h3><div class="camp-metric">4,206 <span style="font-size:1rem;">engagements</span></div><div>Cost per engagement: <strong>0.088 EGP</strong></div></div>
-        <div class="camp-item" style="background: linear-gradient(145deg, #0a0e1c, #020408);"><i class="fas fa-trophy"></i><h3>Outperformance Benchmark</h3><div class="camp-metric">61% <span style="font-size:1rem;">lower cost</span></div><div>vs market competitors</div><div style="margin-top: 12px;"><div style="background: #00f2ff20; border-radius: 30px; height: 6px;"><div style="width: 61%; background: #00f2ff; height: 6px; border-radius: 30px;"></div></div></div></div>
-      </div>
-    </div>
-
-    <!-- Skills Hex -->
-    <div style="text-align: center; margin: 60px 0 20px;">
-      <span style="color:#a855f7;">EXPERTISE MATRIX</span>
-      <h2 style="font-size: 2rem;">Tech & Performance <span style="color:#a855f7;">Stack</span></h2>
-    </div>
-    <div class="skills-hex">
-      <div class="hex"><i class="fab fa-meta"></i><span>Meta Ads</span></div>
-      <div class="hex"><i class="fab fa-tiktok"></i><span>TikTok Ads</span></div>
-      <div class="hex"><i class="fas fa-bullseye"></i><span>Perf Marketing</span></div>
-      <div class="hex"><i class="fas fa-code"></i><span>Conversion Tracking</span></div>
-      <div class="hex"><i class="fas fa-filter"></i><span>Funnel Building</span></div>
-      <div class="hex"><i class="fab fa-python"></i><span>Python</span></div>
-      <div class="hex"><i class="fab fa-html5"></i><span>HTML/CSS</span></div>
-      <div class="hex"><i class="fas fa-paintbrush"></i><span>Photoshop</span></div>
-      <div class="hex"><i class="fas fa-video"></i><span>CapCut</span></div>
-      <div class="hex"><i class="fas fa-layer-group"></i><span>Landing Pages</span></div>
-      <div class="hex"><i class="fas fa-chart-pie"></i><span>Analytics</span></div>
-      <div class="hex"><i class="fas fa-percent"></i><span>CRO</span></div>
-    </div>
-
-    <!-- About + Process -->
-    <div class="about-grid">
-      <div>
-        <h3 style="font-size: 1.6rem;">I combine marketing intelligence with technical power.</h3>
-        <p style="color:#9aa5c1; margin-top: 15px;">I build tracking systems (Python, HTML/CSS), server‑side analytics, landing pages, and creative engines. I turn data into predictable revenue.</p>
-      </div>
-      <div style="display: flex; justify-content: center;">
-        <img src="sitting_mahmoud.jpg" style="width: 160px; height: 160px; border-radius: 50%; border: 2px solid cyan; box-shadow: 0 0 25px rgba(0,242,255,0.4); object-fit: cover;">
-      </div>
-      <div>
-        <div class="timeline-node"><span>2025+</span><span>Intensive media buying training</span></div>
-        <div class="timeline-node"><span>5+ Years</span><span>Hands‑on scaling brands</span></div>
-        <div class="timeline-node"><span>100+</span><span>Successful campaigns</span></div>
-        <div class="timeline-node"><span>61%</span><span>Average cost reduction</span></div>
-      </div>
-    </div>
-
-    <!-- Contact Deck -->
-    <div class="contact-deck" id="contact">
-      <div>
-        <h2 style="font-size: 1.8rem;">Let’s build your next winning campaign.</h2>
-        <p style="color: #9aa5c1;">If you’re looking for results, not excuses — let’s talk.</p>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-          <span><i class="fas fa-phone-alt"></i> +20 1009770363</span>
-          <span><i class="fas fa-envelope"></i> mahmoudalhady2020@gmail.com</span>
-          <span><i class="fas fa-map-marker-alt"></i> Mansoura, Egypt</span>
+  <main>
+    <!-- Hero Section (emotional + conversion) -->
+    <section class="pt-20 pb-16 px-6">
+      <div class="container-custom">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+          <div class="flex-1 space-y-6">
+            <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-sm font-medium">
+              <span class="w-2 h-2 bg-blue-500 rounded-full"></span> Performance marketer & tracking engineer
+            </div>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
+              I reduce ad costs by <span class="gradient-text">61%</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl leading-relaxed">
+              Media buying + funnel strategy + custom tracking (Python/HTML/CSS).  
+              I don’t just spend budgets — I build profitable acquisition systems.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-4">
+              <a href="#contact" class="bg-slate-900 text-white px-8 py-3 rounded-full text-base font-semibold hover:bg-slate-800 transition shadow-md">Start a campaign →</a>
+              <a href="#cases" class="border border-gray-300 bg-white text-slate-700 px-8 py-3 rounded-full text-base font-medium hover:border-slate-400 transition">See case studies</a>
+            </div>
+            <div class="flex items-center gap-6 pt-6 text-sm text-gray-500">
+              <div class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full"></span> Meta & TikTok Pro</div>
+              <div class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full"></span> Custom tracking (CAPI)</div>
+              <div class="flex items-center gap-2"><span class="w-2 h-2 bg-green-500 rounded-full"></span> Funnel builder</div>
+            </div>
+          </div>
+          <div class="flex-1 flex justify-center">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-200">
+              <img src="/assets/hero_portrait.jpg" alt="Mahmoud Elhady portrait" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x400?text=Hero+Portrait'">
+            </div>
+          </div>
         </div>
       </div>
-      <a href="https://wa.me/201009770363" class="btn-wa" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Direct</a>
-    </div>
+    </section>
 
-    <footer>
-      <p>© 2025 Mahmoud Elhady — Performance Nexus | Engineering Results</p>
+    <!-- Key metrics strip (social proof) -->
+    <section class="bg-white border-y border-gray-100 py-8">
+      <div class="container-custom px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div><span class="text-3xl md:text-4xl font-bold text-slate-900">61%</span><p class="text-gray-500 text-sm">lower costs vs avg</p></div>
+          <div><span class="text-3xl md:text-4xl font-bold text-slate-900">$1.36</span><p class="text-gray-500 text-sm">CPA (Turkey e‑com)</p></div>
+          <div><span class="text-3xl md:text-4xl font-bold text-slate-900">0.088EGP</span><p class="text-gray-500 text-sm">cost per engagement</p></div>
+          <div><span class="text-3xl md:text-4xl font-bold text-slate-900">11,990 AED</span><p class="text-gray-500 text-sm">B2B consulting value</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services (what makes him unique) -->
+    <section class="py-20 px-6" id="results">
+      <div class="container-custom">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Beyond media buying</h2>
+          <p class="text-gray-500 mt-4 text-lg">Full-stack performance marketing — from pixels to profits.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover-lift">
+            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-5">📊</div>
+            <h3 class="text-xl font-semibold">Performance campaigns</h3>
+            <p class="text-gray-500 mt-2">Meta/TikTok CBO, scaling, retargeting, high-ticket lead gen (real estate, B2B).</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover-lift">
+            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-5">⚙️</div>
+            <h3 class="text-xl font-semibold">Tracking & data engineering</h3>
+            <p class="text-gray-500 mt-2">Python, Conversion API, custom HTML/CSS landing pages, server-side tracking.</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover-lift">
+            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mb-5">🎨</div>
+            <h3 class="text-xl font-semibold">Creative & funnel production</h3>
+            <p class="text-gray-500 mt-2">Video edits (CapCut), ad creatives, landing page design, EasyOrder development.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case studies (core proof) -->
+    <section class="py-12 px-6 bg-white" id="cases">
+      <div class="container-custom">
+        <div class="mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Real results, real industries</h2>
+          <p class="text-gray-500 text-lg mt-2">E‑com, real estate, local business, B2B, wellness.</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Case 1 -->
+          <div class="group rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition bg-white border border-gray-100">
+            <div class="h-48 overflow-hidden bg-gray-100">
+              <img src="/assets/laptop_mahmoud.jpg" alt="Turkey campaign" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400?text=Turkey+Ecom'">
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded">E‑commerce</span>
+                <span class="text-sm font-mono text-gray-500">CBO scaling</span>
+              </div>
+              <h3 class="text-xl font-bold mt-3">Turkey smart campaign</h3>
+              <p class="text-gray-600 mt-2 text-sm">125 purchase conversations at <strong class="text-slate-900">$1.36 CPA</strong>. Direct-response, profitable scaling.</p>
+            </div>
+          </div>
+          <!-- Case 2 -->
+          <div class="group rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition bg-white border border-gray-100">
+            <div class="h-48 overflow-hidden bg-gray-100">
+              <img src="/assets/sitting_mahmoud.jpg" alt="Real estate leads" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400?text=Real+Estate'">
+            </div>
+            <div class="p-6">
+              <span class="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded">High‑ticket leads</span>
+              <h3 class="text-xl font-bold mt-3">Agial Views & Pearl M Cam</h3>
+              <p class="text-gray-600 mt-2 text-sm">Qualified real estate inquiries, geotargeted campaigns, conversion landing systems.</p>
+            </div>
+          </div>
+          <!-- Case 3 -->
+          <div class="group rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition bg-white border border-gray-100">
+            <div class="h-48 overflow-hidden bg-gray-100">
+              <img src="/assets/crossed_arms.jpg" alt="Ramadan campaign" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400?text=Ramadan+Engagement'">
+            </div>
+            <div class="p-6">
+              <span class="text-xs font-semibold bg-blue-100 text-blue-700 px-2 py-1 rounded">Seasonal viral</span>
+              <h3 class="text-xl font-bold mt-3">4,206 engagements</h3>
+              <p class="text-gray-600 mt-2 text-sm">0.088 EGP per engagement, Ramadan video campaigns — cost efficiency at scale.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 text-center">
+          <a href="#contact" class="inline-flex items-center gap-2 text-blue-600 font-medium hover:gap-3 transition-all">Discuss your industry →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills + tools (trust + SEO) -->
+    <section class="py-20 px-6 bg-gray-50" id="skills">
+      <div class="container-custom">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold">Toolchain & technical depth</h2>
+          <p class="text-gray-500 mt-2">From ad managers to custom code — all under one roof.</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">Meta Ads</span>
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">TikTok Ads</span>
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">Python</span>
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">HTML/CSS</span>
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">Conversion API</span>
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">Google Analytics</span>
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">Photoshop</span>
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">CapCut</span>
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">EasyOrder</span>
+          <span class="bg-white px-5 py-2 rounded-full text-sm font-medium shadow-sm">CRO & funnels</span>
+        </div>
+        <div class="mt-12 grid md:grid-cols-2 gap-8 text-center md:text-left">
+          <div class="bg-white p-6 rounded-2xl">
+            <h3 class="font-bold text-lg">📍 Markets mastered</h3>
+            <p class="text-gray-500 mt-2">Egypt, Saudi Arabia, UAE, GCC, Turkey — local nuance + global scaling.</p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl">
+            <h3 class="font-bold text-lg">⚡ Competitive edge</h3>
+            <p class="text-gray-500 mt-2">61% lower costs vs industry average. Tracking systems that don’t break under iOS14+.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & CTA (direct conversion) -->
+    <section class="py-20 px-6" id="contact">
+      <div class="container-custom max-w-3xl text-center bg-slate-900 rounded-3xl p-10 md:p-16 text-white shadow-2xl">
+        <h2 class="text-3xl md:text-4xl font-bold">Ready to scale profitably?</h2>
+        <p class="text-gray-300 text-lg mt-4 max-w-xl mx-auto">Let’s audit your current ad account & build a custom acquisition engine.</p>
+        <div class="mt-8 space-y-4">
+          <a href="mailto:mahmoudalhady2020@gmail.com" class="inline-block bg-white text-slate-900 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition shadow-lg">mahmoudalhady2020@gmail.com</a>
+          <div class="flex justify-center gap-4 text-gray-300 text-sm">
+            <span>📞 +20 1009770363</span>
+            <span>📍 Mansoura, Egypt (remote global)</span>
+          </div>
+          <p class="text-gray-400 text-xs mt-6">Response within 24h. WhatsApp available.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 py-8 text-center text-gray-400 text-sm">
+      Mahmoud Elhady — Performance Marketing & Tracking Engineering
     </footer>
-  </div>
-</div>
+  </main>
 
-<script type="module">
-  import * as THREE from 'three';
-  const canvas = document.getElementById('bg-canvas');
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x010105);
-  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.set(0, 0, 16);
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-
-  // Particle network
-  const particleCount = 2000;
-  const posArray = new Float32Array(particleCount * 3);
-  for (let i = 0; i < particleCount; i++) {
-    posArray[i*3] = (Math.random() - 0.5) * 180;
-    posArray[i*3+1] = (Math.random() - 0.5) * 100;
-    posArray[i*3+2] = (Math.random() - 0.5) * 80 - 30;
-  }
-  const particleGeo = new THREE.BufferGeometry();
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-  const particleMat = new THREE.PointsMaterial({ color: 0x00aaff, size: 0.12, transparent: true, blending: THREE.AdditiveBlending });
-  const particles = new THREE.Points(particleGeo, particleMat);
-  scene.add(particles);
-
-  // Floating torus knot
-  const knotGeo = new THREE.TorusKnotGeometry(1.2, 0.3, 200, 32, 3, 4);
-  const knotMat = new THREE.MeshStandardMaterial({ color: 0x00ccff, emissive: 0x004466, roughness: 0.3 });
-  const knot = new THREE.Mesh(knotGeo, knotMat);
-  knot.position.set(2.5, -1.5, -6);
-  scene.add(knot);
-  
-  const light = new THREE.AmbientLight(0x111122);
-  scene.add(light);
-  const pl = new THREE.PointLight(0x2266ff, 0.9);
-  pl.position.set(2, 3, 5);
-  scene.add(pl);
-  
-  let time = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    time += 0.008;
-    particles.rotation.y = time * 0.05;
-    particles.rotation.x = Math.sin(time * 0.1) * 0.05;
-    knot.rotation.x = time * 0.4;
-    knot.rotation.y = time * 0.3;
-    renderer.render(scene, camera);
-  }
-  animate();
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-</script>
-
-<script>
-  // Counter animation
-  const counters = document.querySelectorAll('.counter');
-  const startCounters = () => {
-    counters.forEach(c => {
-      const target = parseInt(c.getAttribute('data-target'));
-      let current = 0;
-      const step = Math.ceil(target / 50);
-      const update = () => {
-        current += step;
-        if (current < target) { c.innerText = current; requestAnimationFrame(update); }
-        else c.innerText = target;
-      };
-      update();
+  <!-- tiny scroll animation (no heavy JS) -->
+  <script>
+    // smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
     });
-  };
-  const obs = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) startCounters();
-  }, { threshold: 0.3 });
-  const statParent = document.querySelector('.stat-node');
-  if (statParent) obs.observe(statParent.parentElement);
-
-  // Scroll buttons
-  document.getElementById('scrollToCampaigns')?.addEventListener('click', () => {
-    document.getElementById('campaigns')?.scrollIntoView({ behavior: 'smooth' });
-  });
-  document.getElementById('scrollToContact')?.addEventListener('click', () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-  });
-</script>
+  </script>
 </body>
 </html>
