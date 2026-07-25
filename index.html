@@ -26,7 +26,6 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* custom scrollbar */
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -38,7 +37,6 @@
             border-radius: 2px;
         }
 
-        /* magnetic cursor */
         #magnetic-cursor {
             position: fixed;
             pointer-events: none;
@@ -79,7 +77,6 @@
             opacity: 1;
         }
 
-        /* hero overlay text */
         .hero-text {
             position: absolute;
             top: 0;
@@ -147,7 +144,6 @@
             }
         }
 
-        /* spacer for scroll */
         .scroll-spacer {
             height: 200vh;
             position: relative;
@@ -155,7 +151,6 @@
             pointer-events: none;
         }
 
-        /* loading overlay */
         #loader {
             position: fixed;
             inset: 0;
@@ -194,7 +189,6 @@
             }
         }
 
-        /* responsive adjustments */
         @media (max-width: 768px) {
             .hero-text h1 {
                 font-size: clamp(2.5rem, 10vw, 4rem);
@@ -250,17 +244,17 @@
     <script type="importmap">
         {
             "imports": {
-                "react": "https://esm.sh/react@18.2.0",
-                "react-dom": "https://esm.sh/react-dom@18.2.0",
-                "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
-                "three": "https://esm.sh/three@0.160.0",
-                "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.19",
-                "@react-three/drei": "https://esm.sh/@react-three/drei@9.88.24",
-                "@react-three/postprocessing": "https://esm.sh/@react-three/postprocessing@2.16.2",
-                "gsap": "https://esm.sh/gsap@3.12.5",
-                "gsap/ScrollTrigger": "https://esm.sh/gsap@3.12.5/ScrollTrigger",
-                "three-stdlib": "https://esm.sh/three-stdlib@2.28.6",
-                "leva": "https://esm.sh/leva@0.9.35"
+                "react": "https://cdn.jsdelivr.net/npm/react@18.2.0/+esm",
+                "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@18.2.0/+esm",
+                "react/jsx-runtime": "https://cdn.jsdelivr.net/npm/react@18.2.0/jsx-runtime/+esm",
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "@react-three/fiber": "https://cdn.jsdelivr.net/npm/@react-three/fiber@8.15.19/+esm",
+                "@react-three/drei": "https://cdn.jsdelivr.net/npm/@react-three/drei@9.88.24/+esm",
+                "@react-three/postprocessing": "https://cdn.jsdelivr.net/npm/@react-three/postprocessing@2.16.2/+esm",
+                "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm",
+                "gsap/ScrollTrigger": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger/+esm",
+                "three-stdlib": "https://cdn.jsdelivr.net/npm/three-stdlib@2.28.6/+esm",
+                "leva": "https://cdn.jsdelivr.net/npm/leva@0.9.35/+esm"
             }
         }
     </script>
