@@ -1,166 +1,59 @@
-/* App-specific styles */
+/* Familia warm resort direction */
+html { scroll-behavior: smooth; }
+::selection { background: rgba(230,154,56,.35); color: #173d3b; }
 
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
+/* Keep the page from feeling like one uninterrupted dark slab. */
+main, section { position: relative; }
+section:nth-of-type(even) { background: rgba(184,203,181,.16); }
+section:nth-of-type(even)::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .45;
+  background-image: radial-gradient(circle at 12% 20%, rgba(230,154,56,.14) 0 2px, transparent 3px), radial-gradient(circle at 88% 75%, rgba(216,102,72,.10) 0 3px, transparent 4px);
+  background-size: 90px 90px, 130px 130px;
 }
 
-/* Custom selection color */
-::selection {
-  background: rgba(242, 179, 61, 0.3);
-  color: #F7F7F5;
-}
+nav .glass-card { background: rgba(23,61,59,.86); border-color: rgba(255,248,237,.18); box-shadow: 0 14px 35px rgba(23,61,59,.2); }
+nav .glass-card button, nav .glass-card a { color: #fff8ed; }
+nav .glass-card button:hover { color: #ffd37a; }
 
-/* Image hover effects */
-.image-hover-zoom {
-  overflow: hidden;
-}
+/* Hero gets a sunset wash instead of a flat overlay. */
+#home::after { content:''; position:absolute; inset:0; pointer-events:none; background: linear-gradient(115deg, rgba(23,61,59,.92) 0%, rgba(23,61,59,.48) 48%, rgba(216,102,72,.22) 100%); mix-blend-mode:multiply; }
+#home > div:nth-child(2) { z-index: 2; }
+#home h1 { text-shadow: 0 12px 38px rgba(23,61,59,.35); letter-spacing: -.055em; }
+#home .glass-card { background: rgba(255,248,237,.14); border-color: rgba(255,248,237,.3); color: #fff8ed; }
 
-.image-hover-zoom img {
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* Soft floating blobs add depth while staying lightweight. */
+#about::after, #services::after, #menu::after, #gallery::after { content:''; position:absolute; width:240px; height:240px; border-radius:50%; pointer-events:none; filter:blur(2px); opacity:.55; }
+#about::after { right:-110px; top:12%; background:radial-gradient(circle, rgba(230,154,56,.20), transparent 68%); }
+#services::after { left:-120px; bottom:4%; background:radial-gradient(circle, rgba(216,102,72,.17), transparent 68%); }
+#menu::after { right:-100px; bottom:10%; background:radial-gradient(circle, rgba(23,61,59,.12), transparent 68%); }
+#gallery::after { left:-100px; top:10%; background:radial-gradient(circle, rgba(230,154,56,.16), transparent 68%); }
 
-.image-hover-zoom:hover img {
-  transform: scale(1.1);
-}
+/* Cards feel tactile and responsive, not static. */
+.group.glass-card, section .glass-card { transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .45s ease; }
+.group.glass-card:hover, section .glass-card:hover { transform: translateY(-8px) rotate(-.35deg); box-shadow: 0 28px 60px rgba(23,61,59,.16); border-color: rgba(230,154,56,.55); }
+.group.glass-card:nth-child(2n):hover { transform: translateY(-8px) rotate(.35deg); }
 
-/* Glass morphism enhancements */
-.glass-enhanced {
-  background: linear-gradient(
-    135deg,
-    rgba(11, 15, 23, 0.8) 0%,
-    rgba(11, 15, 23, 0.6) 100%
-  );
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-}
+/* Make section labels look like little editorial stickers. */
+section > div > div > span:first-child { display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .85rem; border-radius:999px; background:rgba(230,154,56,.13); color:#b76d1b; }
+section > div > div > span:first-child::before { content:'✦'; font-size:.7rem; }
 
-/* Button ripple effect */
-.btn-ripple {
-  position: relative;
-  overflow: hidden;
-}
+/* Reveal content with a more organic entrance. */
+.animate-on-scroll { opacity: 0; transform: translateY(34px) scale(.985); }
 
-.btn-ripple::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
+/* Menu rows become warm paper slips on hover. */
+#menu .group:hover { background: rgba(230,154,56,.10); transform: translateX(-5px); }
+#menu .glass-card { background: rgba(255,255,255,.58); }
 
-.btn-ripple:active::after {
-  width: 300px;
-  height: 300px;
-}
+/* Gallery rhythm. */
+#gallery .image-tile { box-shadow: 0 16px 42px rgba(23,61,59,.15); }
+#gallery .image-tile:nth-child(3n) { border-radius: 1.2rem 2.6rem 1.2rem 2.6rem; }
+#gallery .image-tile:nth-child(3n+1) { border-radius: 2.6rem 1.2rem 2.6rem 1.2rem; }
 
-/* Loading shimmer */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* Card hover lift */
-.card-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-/* Text reveal animation */
-@keyframes text-reveal {
-  0% {
-    clip-path: inset(0 100% 0 0);
-  }
-  100% {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-.text-reveal {
-  animation: text-reveal 0.8s ease-out forwards;
-}
-
-/* Parallax container */
-.parallax-container {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-
-/* Stagger animation delays */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
-
-/* Mobile optimizations */
 @media (max-width: 768px) {
-  .headline-display {
-    font-size: clamp(2.5rem, 12vw, 4rem);
-  }
-  
-  .image-tile {
-    border-radius: 20px;
-  }
-  
-  .glass-card {
-    backdrop-filter: blur(10px);
-  }
-  
-  /* Bigger tap targets on touch screens */
-  button, a {
-    -webkit-tap-highlight-color: transparent;
-  }
+  #home::after { background: linear-gradient(180deg, rgba(23,61,59,.75), rgba(23,61,59,.55) 55%, rgba(23,61,59,.85)); }
+  section > div > div > span:first-child { font-size:.7rem; }
 }
 
-/* Small phones (under 420px) */
-@media (max-width: 380px) {
-  .btn-primary,
-  .btn-secondary {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Print styles */
-@media print {
-  .no-print {
-    display: none !important;
-  }
+  .animate-on-scroll { opacity:1; transform:none; }
 }
