@@ -1,59 +1,74 @@
-/* Familia warm resort direction */
-html { scroll-behavior: smooth; }
-::selection { background: rgba(230,154,56,.35); color: #173d3b; }
+/* Bold editorial resort system — intentionally not glassmorphism */
+html { scroll-behavior:smooth; }
+::selection { background:var(--gold); color:var(--ink); }
 
-/* Keep the page from feeling like one uninterrupted dark slab. */
-main, section { position: relative; }
-section:nth-of-type(even) { background: rgba(184,203,181,.16); }
-section:nth-of-type(even)::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .45;
-  background-image: radial-gradient(circle at 12% 20%, rgba(230,154,56,.14) 0 2px, transparent 3px), radial-gradient(circle at 88% 75%, rgba(216,102,72,.10) 0 3px, transparent 4px);
-  background-size: 90px 90px, 130px 130px;
+section { position:relative; }
+section:nth-of-type(even) { background:var(--ink); color:var(--light-text); }
+section:nth-of-type(even) .text-graytext { color:var(--gray-text); }
+section:nth-of-type(even) .text-gold { color:var(--gold); }
+section:nth-of-type(even)::before { content:'FAMILIA'; position:absolute; right:-5rem; top:15%; color:rgba(255,249,236,.035); font-family:'Alexandria',sans-serif; font-size:clamp(7rem,18vw,18rem); font-weight:900; letter-spacing:-.08em; pointer-events:none; transform:rotate(90deg); }
+
+nav { padding-top:1rem!important; }
+nav .glass-card { background:var(--ink); color:var(--light-text); border:2px solid var(--light-text); box-shadow:6px 6px 0 var(--coral); }
+nav .glass-card button, nav .glass-card a { color:var(--light-text); }
+nav .glass-card button:hover { color:var(--gold); }
+nav .glass-card .btn-primary { color:var(--ink); }
+
+#home { background:var(--ink); }
+#home::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(110deg,rgba(18,63,63,.9) 0%,rgba(18,63,63,.32) 58%,rgba(233,105,75,.35) 100%); }
+#home h1 { font-size:clamp(4.8rem,14vw,12rem); line-height:.82; letter-spacing:-.09em; text-shadow:7px 7px 0 rgba(18,63,63,.75); }
+#home p { letter-spacing:.02em; }
+#home .glass-card { background:var(--coral); color:var(--light-text); border:2px solid var(--light-text); box-shadow:5px 5px 0 var(--gold); }
+
+section > div > div > span:first-child { display:inline-flex; align-items:center; gap:.45rem; padding:.35rem .65rem; background:var(--gold); color:var(--ink); border:2px solid var(--ink); font-size:.7rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+section:nth-of-type(even) > div > div > span:first-child { border-color:var(--gold); }
+section h2 { letter-spacing:-.055em; }
+
+.group.glass-card, section .glass-card { border-radius:0!important; transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,background .35s ease; }
+.group.glass-card:hover, section .glass-card:hover { transform:translate(-5px,-7px) rotate(-1deg); box-shadow:14px 14px 0 var(--coral); }
+.group.glass-card:nth-child(2n):hover { transform:translate(-5px,-7px) rotate(1deg); box-shadow:14px 14px 0 var(--gold); }
+
+/* Service cards become colorful posters. */
+#services .group.glass-card:nth-child(1) { background:var(--gold); }
+#services .group.glass-card:nth-child(2) { background:var(--coral); color:var(--light-text); }
+#services .group.glass-card:nth-child(3) { background:var(--lime); }
+#services .group.glass-card:nth-child(4) { background:#f2a7c6; }
+#services .group.glass-card:nth-child(5) { background:#80c7c5; }
+#services .group.glass-card:nth-child(6) { background:#f3d8b2; }
+#services .group.glass-card p { color:inherit!important; opacity:.8; }
+#services .group.glass-card .text-gold { color:var(--ink); }
+#services .group.glass-card img { filter:saturate(.8) contrast(1.08); }
+#services .group.glass-card > div:first-child { border-bottom:2px solid var(--ink); }
+
+#menu .glass-card { background:var(--light-bg); }
+#menu .group:hover { background:var(--gold)!important; color:var(--ink); transform:translateX(-7px); }
+#menu button { border-radius:0!important; border:2px solid var(--ink); }
+#menu button.bg-gold { box-shadow:4px 4px 0 var(--ink); }
+
+#gallery .image-tile:nth-child(3n) { border-radius:0 3rem 0 3rem; }
+#gallery .image-tile:nth-child(3n+1) { border-radius:3rem 0 3rem 0; }
+
+/* Testimonials are quotation posters. */
+section .glass-card[dir='rtl'] { position:relative; }
+section .glass-card[dir='rtl']::before { content:'“'; position:absolute; left:1rem; top:-1.25rem; font-family:Georgia,serif; font-size:7rem; line-height:1; color:var(--coral); }
+
+#contact { background:var(--gold)!important; color:var(--ink)!important; }
+#contact .glass-card-light { background:var(--ink); border-color:var(--ink); box-shadow:10px 10px 0 var(--coral); }
+#contact .btn-secondary { color:var(--ink); border-color:var(--ink); }
+#contact .btn-secondary:hover { background:var(--ink); color:var(--light-text); }
+
+footer { background:var(--ink)!important; border-top:8px solid var(--coral)!important; }
+footer .text-gold { color:var(--gold); }
+footer a { border:1px solid rgba(255,249,236,.55); border-radius:0!important; }
+
+/* Drawer follows the same bold language. */
+.fixed.z-50 > .relative { background:var(--cream)!important; color:var(--ink); border-left:8px solid var(--coral); }
+.fixed.z-50 > .relative .glass-card { box-shadow:4px 4px 0 var(--ink); }
+
+.animate-on-scroll { opacity:0; transform:translateY(28px); }
+@media (max-width:768px) {
+  #home h1 { font-size:clamp(4.4rem,22vw,7rem); }
+  section:nth-of-type(even)::before { display:none; }
+  .group.glass-card:hover, section .glass-card:hover { transform:translate(-2px,-3px) rotate(-.5deg); box-shadow:7px 7px 0 var(--coral); }
 }
-
-nav .glass-card { background: rgba(23,61,59,.86); border-color: rgba(255,248,237,.18); box-shadow: 0 14px 35px rgba(23,61,59,.2); }
-nav .glass-card button, nav .glass-card a { color: #fff8ed; }
-nav .glass-card button:hover { color: #ffd37a; }
-
-/* Hero gets a sunset wash instead of a flat overlay. */
-#home::after { content:''; position:absolute; inset:0; pointer-events:none; background: linear-gradient(115deg, rgba(23,61,59,.92) 0%, rgba(23,61,59,.48) 48%, rgba(216,102,72,.22) 100%); mix-blend-mode:multiply; }
-#home > div:nth-child(2) { z-index: 2; }
-#home h1 { text-shadow: 0 12px 38px rgba(23,61,59,.35); letter-spacing: -.055em; }
-#home .glass-card { background: rgba(255,248,237,.14); border-color: rgba(255,248,237,.3); color: #fff8ed; }
-
-/* Soft floating blobs add depth while staying lightweight. */
-#about::after, #services::after, #menu::after, #gallery::after { content:''; position:absolute; width:240px; height:240px; border-radius:50%; pointer-events:none; filter:blur(2px); opacity:.55; }
-#about::after { right:-110px; top:12%; background:radial-gradient(circle, rgba(230,154,56,.20), transparent 68%); }
-#services::after { left:-120px; bottom:4%; background:radial-gradient(circle, rgba(216,102,72,.17), transparent 68%); }
-#menu::after { right:-100px; bottom:10%; background:radial-gradient(circle, rgba(23,61,59,.12), transparent 68%); }
-#gallery::after { left:-100px; top:10%; background:radial-gradient(circle, rgba(230,154,56,.16), transparent 68%); }
-
-/* Cards feel tactile and responsive, not static. */
-.group.glass-card, section .glass-card { transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, border-color .45s ease; }
-.group.glass-card:hover, section .glass-card:hover { transform: translateY(-8px) rotate(-.35deg); box-shadow: 0 28px 60px rgba(23,61,59,.16); border-color: rgba(230,154,56,.55); }
-.group.glass-card:nth-child(2n):hover { transform: translateY(-8px) rotate(.35deg); }
-
-/* Make section labels look like little editorial stickers. */
-section > div > div > span:first-child { display:inline-flex; align-items:center; gap:.5rem; padding:.45rem .85rem; border-radius:999px; background:rgba(230,154,56,.13); color:#b76d1b; }
-section > div > div > span:first-child::before { content:'✦'; font-size:.7rem; }
-
-/* Reveal content with a more organic entrance. */
-.animate-on-scroll { opacity: 0; transform: translateY(34px) scale(.985); }
-
-/* Menu rows become warm paper slips on hover. */
-#menu .group:hover { background: rgba(230,154,56,.10); transform: translateX(-5px); }
-#menu .glass-card { background: rgba(255,255,255,.58); }
-
-/* Gallery rhythm. */
-#gallery .image-tile { box-shadow: 0 16px 42px rgba(23,61,59,.15); }
-#gallery .image-tile:nth-child(3n) { border-radius: 1.2rem 2.6rem 1.2rem 2.6rem; }
-#gallery .image-tile:nth-child(3n+1) { border-radius: 2.6rem 1.2rem 2.6rem 1.2rem; }
-
-@media (max-width: 768px) {
-  #home::after { background: linear-gradient(180deg, rgba(23,61,59,.75), rgba(23,61,59,.55) 55%, rgba(23,61,59,.85)); }
-  section > div > div > span:first-child { font-size:.7rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-on-scroll { opacity:1; transform:none; }
-}
+@media (prefers-reduced-motion:reduce) { .animate-on-scroll { opacity:1; transform:none; } }
