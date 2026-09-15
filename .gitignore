@@ -1,0 +1,25 @@
+
+# Professional repository defaults
+# Dependencies
+node_modules/
+.pnpm-store/
+# Build output
+dist/
+build/
+.next/
+out/
+# Environment and secrets
+.env
+.env.*
+!.env.example
+# Deployment tooling
+.vercel/
+.netlify/
+# Logs and coverage
+*.log
+coverage/
+# Local/editor files
+.DS_Store
+.vscode/
+.idea/
+*.swp
