@@ -1,110 +1,45 @@
-/* Dark luxury restaurant direction, tuned for dense mobile layouts */
-html{scroll-behavior:smooth} ::selection{background:var(--gold);color:#090909}
-section{position:relative;background:#090909!important;color:var(--paper)}
-section:nth-of-type(even){background:#0c0c0c!important}
-section:nth-of-type(even)::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(199,164,91,.035),transparent 35%,rgba(199,164,91,.025))}
-nav{padding-top:.75rem!important} nav .glass-card{background:rgba(8,8,8,.92);border-color:rgba(199,164,91,.5);border-radius:0!important;box-shadow:0 8px 30px rgba(0,0,0,.55)} nav .glass-card button,nav .glass-card a{color:var(--paper)} nav .glass-card button:hover{color:var(--gold-bright)}
-#home{background:#050505!important} #home::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.48) 45%,rgba(0,0,0,.2) 100%)}
-#home h1{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,11vw,9rem);line-height:.8;letter-spacing:-.045em;text-shadow:0 5px 28px #000} #home .glass-card{background:rgba(12,12,12,.64);border-color:rgba(199,164,91,.35);border-radius:999px}
-section>div>div>span:first-child{display:block;color:var(--gold);font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500} section>div>div>span:first-child::before{content:none} section h2{font-family:'Cormorant Garamond',serif;letter-spacing:.01em;font-weight:500}
-.group.glass-card,section .glass-card{border-radius:3px!important;transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease}.group.glass-card:hover,section .glass-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 16px 36px rgba(0,0,0,.55)}
-#services .group.glass-card{background:#0d0d0d;color:var(--paper)} #services .group.glass-card>div:first-child{border-bottom:1px solid rgba(199,164,91,.22)} #services .group.glass-card p{color:var(--muted-paper)!important} #services .group.glass-card .text-gold{color:var(--gold)}
-#menu .glass-card{background:#0d0d0d} #menu button{border-radius:0!important} #menu button.bg-gold{box-shadow:0 3px 0 #8f6d2d} #menu .group:hover{background:rgba(199,164,91,.1)!important;transform:translateX(-4px)}
-#gallery .image-tile{border-radius:2px!important;border-color:rgba(199,164,91,.35);box-shadow:none} #gallery .image-tile:nth-child(3n),#gallery .image-tile:nth-child(3n+1){border-radius:2px!important}
-section .glass-card[dir=rtl]::before{content:'“';position:absolute;left:1rem;top:-1rem;font-family:Georgia,serif;font-size:6rem;color:rgba(199,164,91,.3)}
-#contact{background:#0c0c0c!important;color:var(--paper)!important} #contact .glass-card-light{background:#111;border-color:rgba(199,164,91,.3);box-shadow:none} #contact .btn-secondary{color:var(--paper)} #contact .btn-secondary:hover{color:#090909}
-footer{background:#050505!important;border-top:1px solid rgba(199,164,91,.35)!important} footer .text-gold{color:var(--gold)} footer a{border:1px solid rgba(199,164,91,.4);border-radius:50%!important}
-.fixed.z-50>.relative{background:#0b0b0b!important;color:var(--paper);border-left:1px solid rgba(199,164,91,.5)} .fixed.z-50>.relative .glass-card{box-shadow:none}
-.animate-on-scroll{opacity:0;transform:translateY(22px)}
+/* Competition direction: editorial food brand, expressive and original */
+html{scroll-behavior:smooth}::selection{background:var(--yellow);color:var(--ink)}
+body{background:var(--cream)}
+section{position:relative;background:var(--cream)!important;color:var(--ink);overflow:hidden}
+section:nth-of-type(even){background:var(--ink)!important;color:var(--paper)}
+section:nth-of-type(even) .text-graytext{color:#c9c1b4} section:nth-of-type(even) .text-gold{color:var(--yellow)}
+section:nth-of-type(even)::before{content:'FAMILIA';position:absolute;right:-5rem;top:16%;color:rgba(255,250,240,.045);font-family:'Archivo Black',sans-serif;font-size:clamp(8rem,20vw,20rem);letter-spacing:-.1em;transform:rotate(90deg);pointer-events:none}
+nav{padding-top:1rem!important}nav .glass-card{background:var(--ink);color:var(--paper);border:2px solid var(--yellow);box-shadow:6px 6px 0 var(--tomato);border-radius:999px!important}nav .glass-card button,nav .glass-card a{color:var(--paper)}nav .glass-card button:hover{color:var(--yellow)}nav .glass-card .btn-primary{color:var(--ink)}
 
-/* Mobile reference: dense, premium cards; three per row where the content supports it. */
+/* Split editorial hero */
+#home{background:var(--ink)!important;color:var(--paper);min-height:92svh!important;justify-content:flex-start!important;align-items:stretch!important}
+#home::before{content:'';position:absolute;right:0;top:0;bottom:0;width:57%;background:linear-gradient(90deg,var(--ink) 0%,rgba(23,20,18,.24) 24%,rgba(23,20,18,.08)),url('/food_right.jpg') center/cover;clip-path:polygon(12% 0,100% 0,100% 100%,0 100%);opacity:.96}
+#home::after{content:'01 / 03';position:absolute;left:5%;bottom:9%;z-index:3;color:var(--yellow);font-family:'Space Grotesk',sans-serif;font-size:.75rem;letter-spacing:.2em}
+#home>div:nth-child(2){z-index:4;text-align:left!important;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:92svh;max-width:55%;padding-left:7%!important}
+#home>div:nth-child(2) .glass-card{background:var(--yellow);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--tomato);color:var(--ink);border-radius:999px}
+#home h1{font-size:clamp(4rem,10vw,9.2rem);line-height:.82;letter-spacing:-.085em;text-shadow:5px 5px 0 rgba(233,75,53,.45)}
+#home h1 span{display:block;color:var(--yellow)}#home p{max-width:25rem}#home .btn-primary{margin-top:.5rem}
+section>div>div>span:first-child{display:inline-flex;align-items:center;gap:.55rem;color:var(--tomato);font-family:'Space Grotesk',sans-serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700}section>div>div>span:first-child::before{content:'✳';font-size:1rem;color:var(--yellow)}section:nth-of-type(even)>div>div>span:first-child{color:var(--yellow)}
+section h2{font-size:clamp(2.5rem,6vw,5.5rem);line-height:.9}
+
+/* Poster-like service cards */
+.group.glass-card,section .glass-card{border-radius:1.1rem!important;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,border-color .35s ease}
+.group.glass-card:hover,section .glass-card:hover{transform:translate(-4px,-7px) rotate(-1deg);box-shadow:12px 13px 0 var(--tomato);border-color:var(--ink)}
+.group.glass-card:nth-child(2n):hover{transform:translate(-4px,-7px) rotate(1deg);box-shadow:12px 13px 0 var(--yellow)}
+#services .group.glass-card:nth-child(1){background:var(--yellow)}#services .group.glass-card:nth-child(2){background:var(--tomato);color:var(--paper)}#services .group.glass-card:nth-child(3){background:var(--lavender)}#services .group.glass-card:nth-child(4){background:var(--mint)}#services .group.glass-card:nth-child(5){background:var(--orange)}#services .group.glass-card:nth-child(6){background:#f3c6a9}
+#services .group.glass-card p{color:inherit!important;opacity:.78}#services .group.glass-card .text-gold{color:var(--ink)}#services .group.glass-card>div:first-child{border-bottom:2px solid var(--ink)}
+
+/* Menu becomes a proper visual catalog */
+#menu .glass-card{background:var(--paper)}#menu button{border-radius:999px!important;border:2px solid var(--ink)}#menu button.bg-gold{box-shadow:4px 4px 0 var(--tomato)}#menu .group:hover{background:var(--yellow)!important;color:var(--ink);transform:translateX(-5px)}.menu-card{border-radius:1rem!important;border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink);background:var(--paper)}.menu-card:hover{border-color:var(--ink);box-shadow:8px 8px 0 var(--tomato)}.menu-card-title,.menu-card-price{color:var(--ink)}.menu-card-number{color:var(--tomato)}.menu-card-tag{color:#6b6258}.menu-add-button{color:var(--ink);border-color:var(--ink);border-radius:999px}.menu-add-button:hover{color:var(--ink);background:var(--yellow);border-color:var(--ink)}
+
+#gallery .image-tile{border-radius:1rem!important;border:2px solid var(--ink);box-shadow:6px 6px 0 var(--yellow)}#gallery .image-tile:nth-child(3n),#gallery .image-tile:nth-child(3n+1){border-radius:1rem!important}
+section .glass-card[dir=rtl]::before{content:'“';position:absolute;left:1rem;top:-1.2rem;font-family:Georgia,serif;font-size:7rem;color:var(--tomato)}
+#contact{background:var(--yellow)!important;color:var(--ink)!important}#contact .glass-card-light{background:var(--paper);border:2px solid var(--ink);box-shadow:7px 7px 0 var(--tomato)}#contact .btn-secondary{color:var(--ink);border-color:var(--ink)}#contact .btn-secondary:hover{color:var(--paper);background:var(--ink)}
+footer{background:var(--ink)!important;border-top:8px solid var(--tomato)!important}footer .text-gold{color:var(--yellow)}footer a{border:1px solid var(--yellow);border-radius:50%!important}
+.fixed.z-50>.relative{background:var(--cream)!important;color:var(--ink);border-left:8px solid var(--tomato)}.fixed.z-50>.relative .glass-card{box-shadow:4px 4px 0 var(--ink)}
+.animate-on-scroll{opacity:0;transform:translateY(28px)}
+
 @media(max-width:767px){
-  #home h1{font-size:clamp(4rem,20vw,7rem)}
-  #services .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
-  #services .group.glass-card{min-width:0}
-  #services .group.glass-card>div:first-child{aspect-ratio:1/1.08}
-  #services .group.glass-card>div:first-child>div{width:1.8rem;height:1.8rem;top:.35rem;right:.35rem}
-  #services .group.glass-card>div:first-child>div svg{width:.8rem;height:.8rem}
-  #services .group.glass-card>div:last-child{padding:.55rem .45rem .7rem}
-  #services .group.glass-card h3{font-size:.72rem;line-height:1.1}
-  #services .group.glass-card span{display:block;font-size:.55rem;line-height:1.2;margin-top:.2rem}
-  #services .group.glass-card p{font-size:.58rem;line-height:1.35;margin-top:.35rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  #menu .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.2rem .35rem}
-  #menu .glass-card{padding:.75rem}
-  #menu .group{padding:.55rem .2rem!important}
-  #menu .group h4{font-size:.7rem}
-  #menu .group span{font-size:.65rem}
-  #gallery .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.35rem}
-  #gallery .image-tile{aspect-ratio:1!important;grid-column:span 1!important;grid-row:span 1!important}
-  #gallery .image-tile:first-child{grid-column:span 2!important;grid-row:span 2!important}
-  #gallery .image-tile:nth-child(6){grid-column:span 2!important}
+  #home{min-height:100svh!important}#home::before{width:100%;height:57%;top:0;bottom:auto;clip-path:polygon(0 10%,100% 0,100% 100%,0 86%);opacity:.62}#home::after{left:7%;bottom:5%}#home>div:nth-child(2){max-width:100%;min-height:100svh;justify-content:flex-end;padding:0 1.25rem 7rem!important;text-align:left!important}#home h1{font-size:clamp(4.2rem,20vw,7rem)}#home p{max-width:19rem}
+  #services .grid,#menu .menu-grid,#gallery .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
+  #services .group.glass-card>div:last-child{padding:.55rem .45rem .7rem}#services .group.glass-card h3{font-size:.72rem;line-height:1.1}#services .group.glass-card span{font-size:.55rem}#services .group.glass-card p{font-size:.58rem;line-height:1.35}
+  #menu .menu-card-image{aspect-ratio:1/1.05}#menu .menu-card-body{padding:.48rem .42rem .5rem}#menu .menu-card-title{font-size:.7rem}#menu .menu-card-price{font-size:.62rem}#menu .menu-card-tag{display:none}#menu .menu-add-button{padding:.22rem .3rem;font-size:.53rem}
+  #gallery .image-tile{aspect-ratio:1!important;grid-column:span 1!important;grid-row:span 1!important}#gallery .image-tile:first-child{grid-column:span 2!important;grid-row:span 2!important}
 }
 @media(prefers-reduced-motion:reduce){.animate-on-scroll{opacity:1;transform:none}}
-
-/* Menu cards: a visual food catalog instead of a plain list */
-.menu-grid { scrollbar-gutter: stable; }
-.menu-card { min-width:0; overflow:hidden; background:#111; border:1px solid rgba(199,164,91,.28); border-radius:3px; transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease; }
-.menu-card:hover { transform:translateY(-4px); border-color:var(--gold); box-shadow:0 12px 30px rgba(0,0,0,.5); }
-.menu-card-image { position:relative; aspect-ratio:16/9; overflow:hidden; background:#1a1a1a; }
-.menu-card-image::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.72)); pointer-events:none; }
-.menu-card-image img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease,filter .6s ease; }
-.menu-card:hover .menu-card-image img { transform:scale(1.08); filter:saturate(1.12); }
-.menu-card-number { position:absolute; left:.65rem; bottom:.45rem; z-index:1; color:var(--gold-bright); font-family:'Cormorant Garamond',serif; font-size:1.1rem; letter-spacing:.08em; }
-.menu-card-body { padding:.75rem .8rem .8rem; }
-.menu-card-title { color:var(--paper); font-family:'Cormorant Garamond',serif; font-size:1.18rem; line-height:1.05; font-weight:600; }
-.menu-card-price { color:var(--gold-bright); font-family:'DM Sans',sans-serif; font-size:.9rem; font-weight:700; white-space:nowrap; }
-.menu-card-price small { color:var(--muted-paper); font-size:.58rem; font-weight:400; }
-.menu-card-tag { color:var(--muted-paper); font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; }
-.menu-add-button { display:inline-flex; align-items:center; gap:.25rem; padding:.3rem .55rem; color:var(--gold-bright); background:transparent; border:1px solid rgba(199,164,91,.6); border-radius:2px; font-family:'DM Sans',sans-serif; font-size:.65rem; transition:all .25s ease; }
-.menu-add-button:hover { color:#090909; background:var(--gold); border-color:var(--gold); }
-.menu-add-button:active { transform:scale(.94); }
-
-@media(max-width:767px){
-  #menu .menu-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:.45rem; max-height:620px; }
-  #menu .menu-card-image { aspect-ratio:1/1.05; }
-  #menu .menu-card-body { padding:.48rem .42rem .5rem; }
-  #menu .menu-card-title { font-size:.7rem; line-height:1.05; }
-  #menu .menu-card-price { font-size:.62rem; }
-  #menu .menu-card-price small { font-size:.45rem; }
-  #menu .menu-card-tag { display:none; }
-  #menu .menu-add-button { padding:.22rem .3rem; font-size:.53rem; }
-  #menu .menu-add-button svg { width:.65rem; height:.65rem; }
-  #menu .menu-card-number { left:.35rem; bottom:.2rem; font-size:.85rem; }
-}
-/* Ambient background effects — premium, slow, and intentionally understated */
-body { background: var(--black); }
-body::before, body::after { content:''; position:fixed; z-index:-1; width:48vw; height:48vw; border-radius:50%; pointer-events:none; filter:blur(80px); }
-body::before { left:-22vw; top:18vh; background:radial-gradient(circle, rgba(38,56,43,.62), transparent 68%); animation:ambient-drift 18s ease-in-out infinite; }
-body::after { right:-25vw; top:58vh; background:radial-gradient(circle, rgba(84,44,46,.35), transparent 66%); animation:ambient-drift-reverse 23s ease-in-out infinite; }
-
-section { overflow:hidden; }
-section::after { content:''; position:absolute; z-index:0; inset:0; pointer-events:none; opacity:.5; background-image:linear-gradient(115deg, transparent 0 35%, rgba(207,169,104,.035) 48%, transparent 65%), radial-gradient(circle at 80% 15%, rgba(184,121,82,.08), transparent 28%); }
-section > * { position:relative; z-index:1; }
-section:nth-of-type(even)::after { opacity:.7; background-image:radial-gradient(circle at 12% 35%, rgba(38,56,43,.7), transparent 32%), linear-gradient(145deg, transparent 35%, rgba(207,169,104,.03), transparent 68%); }
-
-/* Hero: copper light leak behind the restaurant photography */
-#home { background:linear-gradient(115deg, #070a08 0%, #0e1711 54%, #170f0e 100%)!important; }
-#home::before { content:''; position:absolute; z-index:1; width:48vw; height:70vh; right:4%; top:12%; pointer-events:none; background:radial-gradient(ellipse, rgba(184,121,82,.22), transparent 68%); filter:blur(35px); animation:ambient-drift-reverse 15s ease-in-out infinite; }
-#home::after { background:linear-gradient(90deg, rgba(4,7,5,.92) 0%, rgba(4,7,5,.48) 44%, rgba(84,44,46,.2) 100%); }
-#home .text-gold { color:var(--gold-bright); }
-
-/* Copper rules and olive hover states unify the page. */
-section > div > div > span:first-child { color:var(--gold-bright); }
-section > div > div > span:first-child::after { content:''; display:inline-block; width:24px; height:1px; margin-left:8px; background:var(--copper); vertical-align:middle; }
-.menu-card:hover { border-color:var(--gold-bright); background:linear-gradient(145deg,#101811,#0d0e0d); }
-.menu-card-number, .menu-card-price, .menu-add-button { color:var(--gold-bright); }
-.menu-add-button { border-color:rgba(207,169,104,.7); }
-.menu-add-button:hover { color:#10130f; background:var(--gold-bright); border-color:var(--gold-bright); }
-
-#services .group.glass-card:hover { border-color:var(--copper); box-shadow:0 16px 36px rgba(84,44,46,.22); }
-#gallery .image-tile:hover { border-color:var(--gold-bright); }
-#contact { background:linear-gradient(120deg,#111b14,#0b0e0c)!important; }
-#contact .glass-card-light { background:linear-gradient(145deg,#16231a,#101411); border-color:rgba(184,121,82,.42); }
-footer { background:linear-gradient(120deg,#070a08,#111910)!important; }
-
-@media(max-width:767px) {
-  body::before, body::after { width:80vw; height:80vw; filter:blur(55px); }
-  #home::before { width:80vw; height:55vh; right:-20%; top:18%; }
-  section::after { opacity:.35; }
-}
-@media(prefers-reduced-motion:reduce) { body::before,body::after,#home::before { animation:none; } }
