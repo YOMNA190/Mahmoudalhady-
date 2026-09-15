@@ -18,6 +18,12 @@ const WHATSAPP_NUMBER = '201010757609';
 const GOOGLE_MAPS_URL = 'https://maps.app.goo.gl/Htg6hPvF83fNFaFs8';
 const FACEBOOK_URL = 'https://www.facebook.com/share/1T2UpMS8bP/';
 
+const MENU_IMAGES = {
+  drinks: ['/cafe_left.jpg', '/cafe_right.jpg', '/experience_left.jpg'],
+  food: ['/food_left.jpg', '/food_right.jpg', '/allinone_left.jpg', '/allinone_right.jpg'],
+  desserts: ['/closing_left.jpg', '/closing_right.jpg', '/cafe_right.jpg'],
+} as const;
+
 function App() {
   return (
     <CartProvider>
@@ -368,28 +374,34 @@ function AppContent() {
           
           {/* Menu Items */}
           <div className="glass-card rounded-3xl sm:rounded-4xl p-4 sm:p-6 md:p-8 animate-on-scroll" dir="rtl">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-2 sm:gap-y-4 max-h-[500px] sm:max-h-[600px] overflow-y-auto custom-scrollbar pl-1 sm:pl-4">
-              {getItemsByCategory(menuCategory).map((item) => (
-                <div 
-                  key={item.id}
-                  className="flex items-center justify-between p-3 sm:p-4 rounded-2xl hover:bg-white/5 transition-colors group"
-                >
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-semibold text-light group-hover:text-gold transition-colors truncate">
-                      {item.nameAr}
-                    </h4>
+            <div className="menu-grid grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-h-[560px] sm:max-h-[650px] overflow-y-auto custom-scrollbar pr-1">
+              {getItemsByCategory(menuCategory).map((item, index) => (
+                <article key={item.id} className="menu-card group">
+                  <div className="menu-card-image">
+                    <img
+                      src={MENU_IMAGES[menuCategory][index % MENU_IMAGES[menuCategory].length]}
+                      alt={item.nameAr}
+                    />
+                    <span className="menu-card-number">{String(index + 1).padStart(2, '0')}</span>
                   </div>
-                  <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-                    <span className="text-gold font-bold text-sm sm:text-base">{item.price} ج.م</span>
-                    <button
-                      onClick={() => addItem(item)}
-                      className="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center hover:bg-gold hover:text-dark active:scale-90 transition-all"
-                      aria-label={`ضيف ${item.nameAr}`}
-                    >
-                      <Plus className="w-4 h-4" />
-                    </button>
+                  <div className="menu-card-body">
+                    <div className="flex items-start justify-between gap-2">
+                      <h4 className="menu-card-title" dir="rtl">{item.nameAr}</h4>
+                      <span className="menu-card-price">{item.price} <small>ج.م</small></span>
+                    </div>
+                    <div className="flex items-center justify-between gap-2 mt-3">
+                      <span className="menu-card-tag">{menuCategory === 'drinks' ? 'مشروبات' : menuCategory === 'food' ? 'من المطبخ' : 'حلو بعد الأكل'}</span>
+                      <button
+                        onClick={() => addItem(item)}
+                        className="menu-add-button"
+                        aria-label={`ضيف ${item.nameAr}`}
+                      >
+                        <Plus className="w-4 h-4" />
+                        <span>ضيف</span>
+                      </button>
+                    </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>

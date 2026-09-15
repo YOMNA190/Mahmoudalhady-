@@ -40,3 +40,34 @@ footer{background:#050505!important;border-top:1px solid rgba(199,164,91,.35)!im
   #gallery .image-tile:nth-child(6){grid-column:span 2!important}
 }
 @media(prefers-reduced-motion:reduce){.animate-on-scroll{opacity:1;transform:none}}
+
+/* Menu cards: a visual food catalog instead of a plain list */
+.menu-grid { scrollbar-gutter: stable; }
+.menu-card { min-width:0; overflow:hidden; background:#111; border:1px solid rgba(199,164,91,.28); border-radius:3px; transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease; }
+.menu-card:hover { transform:translateY(-4px); border-color:var(--gold); box-shadow:0 12px 30px rgba(0,0,0,.5); }
+.menu-card-image { position:relative; aspect-ratio:16/9; overflow:hidden; background:#1a1a1a; }
+.menu-card-image::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.72)); pointer-events:none; }
+.menu-card-image img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease,filter .6s ease; }
+.menu-card:hover .menu-card-image img { transform:scale(1.08); filter:saturate(1.12); }
+.menu-card-number { position:absolute; left:.65rem; bottom:.45rem; z-index:1; color:var(--gold-bright); font-family:'Cormorant Garamond',serif; font-size:1.1rem; letter-spacing:.08em; }
+.menu-card-body { padding:.75rem .8rem .8rem; }
+.menu-card-title { color:var(--paper); font-family:'Cormorant Garamond',serif; font-size:1.18rem; line-height:1.05; font-weight:600; }
+.menu-card-price { color:var(--gold-bright); font-family:'DM Sans',sans-serif; font-size:.9rem; font-weight:700; white-space:nowrap; }
+.menu-card-price small { color:var(--muted-paper); font-size:.58rem; font-weight:400; }
+.menu-card-tag { color:var(--muted-paper); font-size:.62rem; letter-spacing:.06em; text-transform:uppercase; }
+.menu-add-button { display:inline-flex; align-items:center; gap:.25rem; padding:.3rem .55rem; color:var(--gold-bright); background:transparent; border:1px solid rgba(199,164,91,.6); border-radius:2px; font-family:'DM Sans',sans-serif; font-size:.65rem; transition:all .25s ease; }
+.menu-add-button:hover { color:#090909; background:var(--gold); border-color:var(--gold); }
+.menu-add-button:active { transform:scale(.94); }
+
+@media(max-width:767px){
+  #menu .menu-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:.45rem; max-height:620px; }
+  #menu .menu-card-image { aspect-ratio:1/1.05; }
+  #menu .menu-card-body { padding:.48rem .42rem .5rem; }
+  #menu .menu-card-title { font-size:.7rem; line-height:1.05; }
+  #menu .menu-card-price { font-size:.62rem; }
+  #menu .menu-card-price small { font-size:.45rem; }
+  #menu .menu-card-tag { display:none; }
+  #menu .menu-add-button { padding:.22rem .3rem; font-size:.53rem; }
+  #menu .menu-add-button svg { width:.65rem; height:.65rem; }
+  #menu .menu-card-number { left:.35rem; bottom:.2rem; font-size:.85rem; }
+}
