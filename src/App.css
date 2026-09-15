@@ -1,74 +1,42 @@
-/* Bold editorial resort system — intentionally not glassmorphism */
-html { scroll-behavior:smooth; }
-::selection { background:var(--gold); color:var(--ink); }
+/* Dark luxury restaurant direction, tuned for dense mobile layouts */
+html{scroll-behavior:smooth} ::selection{background:var(--gold);color:#090909}
+section{position:relative;background:#090909!important;color:var(--paper)}
+section:nth-of-type(even){background:#0c0c0c!important}
+section:nth-of-type(even)::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(199,164,91,.035),transparent 35%,rgba(199,164,91,.025))}
+nav{padding-top:.75rem!important} nav .glass-card{background:rgba(8,8,8,.92);border-color:rgba(199,164,91,.5);border-radius:0!important;box-shadow:0 8px 30px rgba(0,0,0,.55)} nav .glass-card button,nav .glass-card a{color:var(--paper)} nav .glass-card button:hover{color:var(--gold-bright)}
+#home{background:#050505!important} #home::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.48) 45%,rgba(0,0,0,.2) 100%)}
+#home h1{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,11vw,9rem);line-height:.8;letter-spacing:-.045em;text-shadow:0 5px 28px #000} #home .glass-card{background:rgba(12,12,12,.64);border-color:rgba(199,164,91,.35);border-radius:999px}
+section>div>div>span:first-child{display:block;color:var(--gold);font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500} section>div>div>span:first-child::before{content:none} section h2{font-family:'Cormorant Garamond',serif;letter-spacing:.01em;font-weight:500}
+.group.glass-card,section .glass-card{border-radius:3px!important;transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease}.group.glass-card:hover,section .glass-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 16px 36px rgba(0,0,0,.55)}
+#services .group.glass-card{background:#0d0d0d;color:var(--paper)} #services .group.glass-card>div:first-child{border-bottom:1px solid rgba(199,164,91,.22)} #services .group.glass-card p{color:var(--muted-paper)!important} #services .group.glass-card .text-gold{color:var(--gold)}
+#menu .glass-card{background:#0d0d0d} #menu button{border-radius:0!important} #menu button.bg-gold{box-shadow:0 3px 0 #8f6d2d} #menu .group:hover{background:rgba(199,164,91,.1)!important;transform:translateX(-4px)}
+#gallery .image-tile{border-radius:2px!important;border-color:rgba(199,164,91,.35);box-shadow:none} #gallery .image-tile:nth-child(3n),#gallery .image-tile:nth-child(3n+1){border-radius:2px!important}
+section .glass-card[dir=rtl]::before{content:'“';position:absolute;left:1rem;top:-1rem;font-family:Georgia,serif;font-size:6rem;color:rgba(199,164,91,.3)}
+#contact{background:#0c0c0c!important;color:var(--paper)!important} #contact .glass-card-light{background:#111;border-color:rgba(199,164,91,.3);box-shadow:none} #contact .btn-secondary{color:var(--paper)} #contact .btn-secondary:hover{color:#090909}
+footer{background:#050505!important;border-top:1px solid rgba(199,164,91,.35)!important} footer .text-gold{color:var(--gold)} footer a{border:1px solid rgba(199,164,91,.4);border-radius:50%!important}
+.fixed.z-50>.relative{background:#0b0b0b!important;color:var(--paper);border-left:1px solid rgba(199,164,91,.5)} .fixed.z-50>.relative .glass-card{box-shadow:none}
+.animate-on-scroll{opacity:0;transform:translateY(22px)}
 
-section { position:relative; }
-section:nth-of-type(even) { background:var(--ink); color:var(--light-text); }
-section:nth-of-type(even) .text-graytext { color:var(--gray-text); }
-section:nth-of-type(even) .text-gold { color:var(--gold); }
-section:nth-of-type(even)::before { content:'FAMILIA'; position:absolute; right:-5rem; top:15%; color:rgba(255,249,236,.035); font-family:'Alexandria',sans-serif; font-size:clamp(7rem,18vw,18rem); font-weight:900; letter-spacing:-.08em; pointer-events:none; transform:rotate(90deg); }
-
-nav { padding-top:1rem!important; }
-nav .glass-card { background:var(--ink); color:var(--light-text); border:2px solid var(--light-text); box-shadow:6px 6px 0 var(--coral); }
-nav .glass-card button, nav .glass-card a { color:var(--light-text); }
-nav .glass-card button:hover { color:var(--gold); }
-nav .glass-card .btn-primary { color:var(--ink); }
-
-#home { background:var(--ink); }
-#home::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(110deg,rgba(18,63,63,.9) 0%,rgba(18,63,63,.32) 58%,rgba(233,105,75,.35) 100%); }
-#home h1 { font-size:clamp(4.8rem,14vw,12rem); line-height:.82; letter-spacing:-.09em; text-shadow:7px 7px 0 rgba(18,63,63,.75); }
-#home p { letter-spacing:.02em; }
-#home .glass-card { background:var(--coral); color:var(--light-text); border:2px solid var(--light-text); box-shadow:5px 5px 0 var(--gold); }
-
-section > div > div > span:first-child { display:inline-flex; align-items:center; gap:.45rem; padding:.35rem .65rem; background:var(--gold); color:var(--ink); border:2px solid var(--ink); font-size:.7rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
-section:nth-of-type(even) > div > div > span:first-child { border-color:var(--gold); }
-section h2 { letter-spacing:-.055em; }
-
-.group.glass-card, section .glass-card { border-radius:0!important; transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease,background .35s ease; }
-.group.glass-card:hover, section .glass-card:hover { transform:translate(-5px,-7px) rotate(-1deg); box-shadow:14px 14px 0 var(--coral); }
-.group.glass-card:nth-child(2n):hover { transform:translate(-5px,-7px) rotate(1deg); box-shadow:14px 14px 0 var(--gold); }
-
-/* Service cards become colorful posters. */
-#services .group.glass-card:nth-child(1) { background:var(--gold); }
-#services .group.glass-card:nth-child(2) { background:var(--coral); color:var(--light-text); }
-#services .group.glass-card:nth-child(3) { background:var(--lime); }
-#services .group.glass-card:nth-child(4) { background:#f2a7c6; }
-#services .group.glass-card:nth-child(5) { background:#80c7c5; }
-#services .group.glass-card:nth-child(6) { background:#f3d8b2; }
-#services .group.glass-card p { color:inherit!important; opacity:.8; }
-#services .group.glass-card .text-gold { color:var(--ink); }
-#services .group.glass-card img { filter:saturate(.8) contrast(1.08); }
-#services .group.glass-card > div:first-child { border-bottom:2px solid var(--ink); }
-
-#menu .glass-card { background:var(--light-bg); }
-#menu .group:hover { background:var(--gold)!important; color:var(--ink); transform:translateX(-7px); }
-#menu button { border-radius:0!important; border:2px solid var(--ink); }
-#menu button.bg-gold { box-shadow:4px 4px 0 var(--ink); }
-
-#gallery .image-tile:nth-child(3n) { border-radius:0 3rem 0 3rem; }
-#gallery .image-tile:nth-child(3n+1) { border-radius:3rem 0 3rem 0; }
-
-/* Testimonials are quotation posters. */
-section .glass-card[dir='rtl'] { position:relative; }
-section .glass-card[dir='rtl']::before { content:'“'; position:absolute; left:1rem; top:-1.25rem; font-family:Georgia,serif; font-size:7rem; line-height:1; color:var(--coral); }
-
-#contact { background:var(--gold)!important; color:var(--ink)!important; }
-#contact .glass-card-light { background:var(--ink); border-color:var(--ink); box-shadow:10px 10px 0 var(--coral); }
-#contact .btn-secondary { color:var(--ink); border-color:var(--ink); }
-#contact .btn-secondary:hover { background:var(--ink); color:var(--light-text); }
-
-footer { background:var(--ink)!important; border-top:8px solid var(--coral)!important; }
-footer .text-gold { color:var(--gold); }
-footer a { border:1px solid rgba(255,249,236,.55); border-radius:0!important; }
-
-/* Drawer follows the same bold language. */
-.fixed.z-50 > .relative { background:var(--cream)!important; color:var(--ink); border-left:8px solid var(--coral); }
-.fixed.z-50 > .relative .glass-card { box-shadow:4px 4px 0 var(--ink); }
-
-.animate-on-scroll { opacity:0; transform:translateY(28px); }
-@media (max-width:768px) {
-  #home h1 { font-size:clamp(4.4rem,22vw,7rem); }
-  section:nth-of-type(even)::before { display:none; }
-  .group.glass-card:hover, section .glass-card:hover { transform:translate(-2px,-3px) rotate(-.5deg); box-shadow:7px 7px 0 var(--coral); }
+/* Mobile reference: dense, premium cards; three per row where the content supports it. */
+@media(max-width:767px){
+  #home h1{font-size:clamp(4rem,20vw,7rem)}
+  #services .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
+  #services .group.glass-card{min-width:0}
+  #services .group.glass-card>div:first-child{aspect-ratio:1/1.08}
+  #services .group.glass-card>div:first-child>div{width:1.8rem;height:1.8rem;top:.35rem;right:.35rem}
+  #services .group.glass-card>div:first-child>div svg{width:.8rem;height:.8rem}
+  #services .group.glass-card>div:last-child{padding:.55rem .45rem .7rem}
+  #services .group.glass-card h3{font-size:.72rem;line-height:1.1}
+  #services .group.glass-card span{display:block;font-size:.55rem;line-height:1.2;margin-top:.2rem}
+  #services .group.glass-card p{font-size:.58rem;line-height:1.35;margin-top:.35rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  #menu .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.2rem .35rem}
+  #menu .glass-card{padding:.75rem}
+  #menu .group{padding:.55rem .2rem!important}
+  #menu .group h4{font-size:.7rem}
+  #menu .group span{font-size:.65rem}
+  #gallery .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.35rem}
+  #gallery .image-tile{aspect-ratio:1!important;grid-column:span 1!important;grid-row:span 1!important}
+  #gallery .image-tile:first-child{grid-column:span 2!important;grid-row:span 2!important}
+  #gallery .image-tile:nth-child(6){grid-column:span 2!important}
 }
-@media (prefers-reduced-motion:reduce) { .animate-on-scroll { opacity:1; transform:none; } }
+@media(prefers-reduced-motion:reduce){.animate-on-scroll{opacity:1;transform:none}}
