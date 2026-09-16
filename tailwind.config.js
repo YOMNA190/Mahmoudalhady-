@@ -18,11 +18,14 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        gold: "#F2B33D",
-        dark: "#0B0F17",
-        light: "#F7F7F5",
-        graytext: "#B8C0CC",
-        lightbg: "#F4F1EC",
+        ember: "#E8542E",
+        sun: "#F4B740",
+        ink: "#0B0F0D",
+        deepteal: "#0F2A28",
+        midteal: "#1E4A44",
+        light: "#FBF6EC",
+        graytext: "#A9C2BC",
+        sand: "#FBF6EC",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -53,8 +56,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Cairo', 'Inter', 'sans-serif'],
-        display: ['Cairo', 'Montserrat', 'sans-serif'],
+        sans: ['Cairo', 'Archivo', 'sans-serif'],
+        display: ['Archivo Black', 'Cairo', 'sans-serif'],
       },
       borderRadius: {
         '4xl': '28px',
@@ -67,8 +70,8 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        'gold': '0 10px 40px rgba(242, 179, 61, 0.3)',
-        'dark': '0 24px 70px rgba(0, 0, 0, 0.35)',
+        'ember': '0 10px 40px rgba(232, 84, 46, 0.35)',
+        'deep': '0 24px 70px rgba(0, 0, 0, 0.4)',
       },
       keyframes: {
         "accordion-down": {
